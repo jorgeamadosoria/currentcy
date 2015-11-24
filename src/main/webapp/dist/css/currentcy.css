@@ -1,0 +1,14 @@
+#code {
+	height:100px;
+	width:100px
+}
+
+.tiny {
+	font-size: 10px;
+}
+
+
+
+.clickable {
+    cursor: pointer;
+}    
