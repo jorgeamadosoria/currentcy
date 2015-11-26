@@ -21,6 +21,10 @@ class PersistenceConfig {
 
     @Value("${OPENSHIFT_MYSQL_DB_URL}")
     private String url;
+    @Value("${OPENSHIFT_MYSQL_DB_HOST}")
+    private String host;
+    @Value("${OPENSHIFT_MYSQL_DB_PORT}")
+    private String port;
     @Value("${OPENSHIFT_MYSQL_DB_USERNAME}")
     private String username;
     @Value("${OPENSHIFT_MYSQL_DB_PASSWORD}")
@@ -30,8 +34,9 @@ class PersistenceConfig {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver");
+        String url = "jdbc:mysql://"+host+":"+port+"/currentcy";
         config.setJdbcUrl(url);
-        config.setUsername(username);
+        config.setUsername(username);	
         config.setPassword(password);
 
         config.addDataSourceProperty("cachePrepStmts", "true");
