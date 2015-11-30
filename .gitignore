@@ -1,1 +1,7 @@
 /target/
+/README.md
+/.git/
+/.openshift/
+/.settings/
+/.project
+/.git/
