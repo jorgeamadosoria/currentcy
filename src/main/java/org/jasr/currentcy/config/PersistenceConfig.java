@@ -19,8 +19,6 @@ import com.zaxxer.hikari.HikariDataSource;
 @PropertySource("classpath:sql.properties")
 class PersistenceConfig {
 
-    @Value("${OPENSHIFT_MYSQL_DB_URL}")
-    private String url;
     @Value("${OPENSHIFT_MYSQL_DB_HOST}")
     private String host;
     @Value("${OPENSHIFT_MYSQL_DB_PORT}")
