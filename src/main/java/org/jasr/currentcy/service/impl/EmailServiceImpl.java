@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.dao.EmailDAO;
-import org.jasr.currentcy.domain.Trend;
 import org.jasr.currentcy.service.EmailService;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -26,6 +25,7 @@ public class EmailServiceImpl implements EmailService {
         do {
             emails = emailDAO.getEmailBatchForNotification();
             sendEmail(emails);
+            System.out.println("batch of email notifications " + emails.size());
         }
         while (CollectionUtils.isEmpty(emails));
     }
@@ -36,7 +36,7 @@ public class EmailServiceImpl implements EmailService {
 
     private void sendEmail(List<String> emails) {
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("Currentcy Service");
+        msg.setFrom("Currentcy");
         msg.setBcc(emails.toArray(new String[0]));
         msg.setSubject("Exchange Update");
         msg.setText(getEmailBody());

@@ -10,26 +10,16 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration
 class EmailConfig {
 
-    @Value("${MAIL_HOST}")
-    private String host;
-    @Value("${MAIL_PORT}")
-    private String port;
     @Value("${MAIL_USERNAME}")
     private String username;
     @Value("${MAIL_PASSWORD}")
     private String password;
-    @Value("${MAIL_SMTP_AUTH}")
-    private String auth;
-    @Value("${MAIL_SMTP_STARTTLS_ENABLE}")
-    private String tls;
-    @Value("${MAIL_DEBUG}")
-    private String debug;
     
 	@Bean
 	public JavaMailSenderImpl mailSender() {
 	    JavaMailSenderImpl bean = new JavaMailSenderImpl();
-	    bean.setHost(host);
-	    bean.setPort(Integer.valueOf(port));
+	    bean.setHost("smtp.gmail.com");
+	    bean.setPort(587);
 	    bean.setUsername(username);
 	    bean.setPassword(password);
 	    Properties javaMailProperties = new Properties();

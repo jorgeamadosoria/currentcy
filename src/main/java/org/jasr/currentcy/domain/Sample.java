@@ -128,6 +128,41 @@ public class Sample {
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(buyValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + ((code == null) ? 0 : code.hashCode());
+        temp = Double.doubleToLongBits(sellValue);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Sample other = (Sample) obj;
+        if (Double.doubleToLongBits(buyValue) != Double.doubleToLongBits(other.buyValue))
+            return false;
+        if (code == null) {
+            if (other.code != null)
+                return false;
+        }
+        else if (!code.equals(other.code))
+            return false;
+        if (Double.doubleToLongBits(sellValue) != Double.doubleToLongBits(other.sellValue))
+            return false;
+        return true;
+    }
     
     
 
