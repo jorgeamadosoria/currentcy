@@ -22,6 +22,7 @@
 		<guava.version>19.0-rc2</guava.version>
 		<jsoup.version>1.7.2</jsoup.version>
 		<mysql.version>5.1.37</mysql.version>
+		<mail.version>1.4.7</mail.version>
 	</properties>
 
 
@@ -50,7 +51,11 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
-
+<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${mail.version}</version>
+		</dependency>
 		<!-- Unit Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -73,6 +78,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+				<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>

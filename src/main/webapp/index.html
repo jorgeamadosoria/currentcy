@@ -13,6 +13,7 @@
 
 <!-- Bootstrap Core CSS -->
 <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="dist/css/bootstrap-social.css" rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="dist/css/sb-admin-2.css" rel="stylesheet">
@@ -50,11 +51,18 @@
 		<!-- /.navbar-header -->
 
 		<ul class="nav navbar-top-links navbar-right">
+			<li><a class="btn btn-social-icon btn-facebook"> <i
+					class="fa fa-facebook"></i>
+			</a></li>
+			<li><a class="btn btn-social-icon btn-github"
+				href="https://github.com/jorgeamadosoria/currentcy"> <i
+					class="fa fa-github"></i></a></li>
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
 					class="fa fa-info-circle fa-fw"></i> About <i
 					class="fa fa-caret-down"></i>
 			</a>
+			<li>
 				<ul class="dropdown-menu dropdown-messages">
 					<li><a href="#">
 							<div>
@@ -80,81 +88,102 @@
 									accepted.</span>
 							</div></a></li>
 					<li class="divider"></li>
-				</ul> <!-- /.dropdown-messages --></li>
+				</ul> <!-- /.dropdown-messages -->
+			</li>
 		</ul>
+
 	</nav>
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-money fa-fw"></i> Current Rates <span
-								class="pull-right badge clickable"><i
-								class="glyphicon glyphicon-chevron-up"></i></span>
-						</div>
-						<div class="panel-body">
-							<div class="row" id="snapshot-container"></div>
-						</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-money fa-fw"></i> Current Rates <span
+							class="pull-right badge clickable"><i
+							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
+					<div class="panel-body">
+						<div class="row" id="snapshot-container"></div>
+					</div>
+				</div>
 			</div>
 			<div class="col-lg-6">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-calculator fa-fw"></i> Calculator <span
-								class="pull-right badge clickable"><i
-								class="glyphicon glyphicon-chevron-up"></i></span>
-						</div>
-						<!-- /.panel-heading -->
-						<div class="panel-body">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-calculator fa-fw"></i> Calculator <span
+							class="pull-right badge clickable"><i
+							class="glyphicon glyphicon-chevron-up"></i></span>
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
 
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="form-group">
-										<input id="amount" placeholder="Amount to exchange"
-											class="form-control">
-									</div>
-									<div class="table-responsive">
-										<table class="table table-bordered table-hover table-striped">
-											<thead>
-												<tr>
-													<th class="text-center">Exchange</th>
-													<th class="text-center small">Average</th>
-													<th class="text-center small">Buy</th>
-													<th class="text-center small">Sell</th>
-												</tr>
-											</thead>
-											<tbody id="calc-container">
-											</tbody>
-										</table>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<input id="amount" placeholder="Amount to exchange"
+										class="form-control">
+								</div>
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover table-striped">
+										<thead>
+											<tr>
+												<th class="text-center">Exchange</th>
+												<th class="text-center small">Average</th>
+												<th class="text-center small">Buy</th>
+												<th class="text-center small">Sell</th>
+											</tr>
+										</thead>
+										<tbody id="calc-container">
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-bar-chart-o fa-fw"></i> Trend <span
+							class="pull-right badge clickable"><i
+							class="glyphicon glyphicon-chevron-up"></i></span>
+
+					</div>
+					<!-- /.panel-heading -->
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<select id="trend-options-container" class="form-control"></select>
+								<!-- /.panel-heading -->
+								<div class="panel-body">
+									<div class="text-center flot-chart">
+										<span id="flot-chart-loading"
+											class="fa-5x fa text-muted fa-spinner fa-spin"></span>
+										<div class="flot-chart-content" id="flot-line-chart"></div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-bar-chart-o fa-fw"></i> Trend <span
-								class="pull-right badge clickable"><i
-								class="glyphicon glyphicon-chevron-up"></i></span>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-bar-chart-o fa-fw"></i> Suscribe
 
-						</div>
-						<!-- /.panel-heading -->
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-lg-12">
-									<select id="trend-options-container" class="form-control"></select>
-									<!-- /.panel-heading -->
-									<div class="panel-body">
-										<div class="text-center flot-chart">
-											<span id="flot-chart-loading"
-												class="fa-5x fa text-muted fa-spinner fa-spin"></span>
-											<div class="flot-chart-content" id="flot-line-chart"></div>
-										</div>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+									<div class="input-group">
+										<input id="email" name="email" class="form-control" type="email"
+											placeholder="Input your email address to receive updates" />
+											<span class="input-group-btn">
+											<button id="suscribe" class="btn btn-primary" type="submit">Suscribe</button>
+											</span>
 									</div>
-								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -195,6 +224,13 @@
 									'glyphicon-chevron-down');
 						}
 					});
+			
+			$('button#suscribe').on(
+					"click",
+					function(e) {
+						$.post("/email/register",$("input#email").val(),function( data ) {
+							  $( "input#email" ).clear();
+					})});
 		});
 	</script>
 	<script>
