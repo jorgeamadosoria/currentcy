@@ -11,4 +11,8 @@ public interface EmailDAO {
     public String tokenByEmail(String email);
 
     public List<String> getEmailBatchForNotification();
+    
+    public void setNotify(String email,boolean notify);
+    
+    public void setEmailsToNotNotified();
 }

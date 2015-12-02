@@ -60,4 +60,14 @@ public class EmailDAOImpl implements EmailDAO {
         return (List<String>) template.queryForList(env.getProperty("select.emails"), String.class, BATCH_LIMIT);
     }
 
+	@Override
+	public void setNotify(String email, boolean notify) {
+		template.update(env.getProperty("update.notify.emails.id"),email,notify?"1":"0");
+	}
+
+	@Override
+	public void setEmailsToNotNotified() {
+		template.update(env.getProperty("update.notify.emails"));
+	}
+
 }
