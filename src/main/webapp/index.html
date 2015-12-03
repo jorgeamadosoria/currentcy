@@ -45,8 +45,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">Currentcy hub <small><i>Stay
-						current with your currency</i></small></a>
+			<a class="navbar-brand" href="index.html">Currentcy hub <small><i id="#lemma"></i></small></a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -191,7 +190,10 @@
 
 	<!-- jQuery -->
 	<script src="dist/js/jquery.min.js"></script>
+
+
 	<script src="dist/js/jquery.loadTemplate-1.4.4.js"></script>
+	<script src="dist/js/jquery.i18n.properties.js"></script>
 	<!-- Bootstrap Core JavaScript -->
 	<script src="dist/js/bootstrap.min.js"></script>
 	<!-- Flot Charts JavaScript -->
@@ -232,6 +234,16 @@
 				}, function(data) {
 					$("input#email").clear();
 				})
+			});
+			
+			$.i18n.properties({
+				name : 'Messages',
+				path : 'bundle/',
+				mode : 'both',
+				language : 'es_UY',
+				callback : function() {
+					$("#lemma").text($.i18n.prop('msg_lemma'));
+				}
 			});
 		});
 	</script>
