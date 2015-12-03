@@ -27,6 +27,9 @@ class EmailConfig {
 	    javaMailProperties.put("mail.smtp.auth", "true");
 	    javaMailProperties.put("mail.smtp.starttls.enable", "true");
 	    javaMailProperties.put("mail.debug", "true");
+	    javaMailProperties.put("mail.smtp.socketFactory.port", 587 );
+	    javaMailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+	    javaMailProperties.put("mail.smtp.socketFactory.fallback", "false");
 	    bean.setJavaMailProperties(javaMailProperties);
  
 	    return bean;

@@ -101,9 +101,11 @@ var currentcy = {
 				$("#flot-line-chart").show();
 				var buy = [];
 				var sell = [];
+				var dates = [];
 				for (var i = 0; i < data.samples.length; i++) {
 					buy.push([ i, data.samples[i].buyValue ]);
 					sell.push([ i, data.samples[i].sellValue ]);
+					dates.push([ i, data.samples[i].date ]);
 				}
 
 				var options = {
@@ -123,9 +125,13 @@ var currentcy = {
 						min : data.min,
 						max : data.max
 					},
+					xaxis: {
+					    ticks: dates,
+					    rotateTicks: 90
+					  },
 					tooltip : true,
 					tooltipOpts : {
-						content : "'%s' of %x.1 is %y.4",
+						content : "'%s' of %x is %y.4",
 						shifts : {
 							x : -50,
 							y : 1

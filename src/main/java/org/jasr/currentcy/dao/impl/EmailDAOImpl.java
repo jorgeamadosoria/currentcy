@@ -35,13 +35,19 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public String registerEmail(String email) {
-        String token = null;
-        do {
-            token = token();
-        }
-        while (template.queryForObject(env.getProperty("token.exists"), Boolean.class, token));
 
-        template.update(env.getProperty("save.email"), email, token);
+        String token = null;
+
+        boolean emailExists = template.queryForObject(env.getProperty("email.exists"), Boolean.class, email);
+        if (emailExists) {
+
+            do {
+                token = token();
+            }
+            while (template.queryForObject(env.getProperty("token.exists"), Boolean.class, token));
+
+            template.update(env.getProperty("save.email"), email, token);
+        }
         return token;
     }
 
@@ -60,14 +66,14 @@ public class EmailDAOImpl implements EmailDAO {
         return (List<String>) template.queryForList(env.getProperty("select.emails"), String.class, BATCH_LIMIT);
     }
 
-	@Override
-	public void setNotify(String email, boolean notify) {
-		template.update(env.getProperty("update.notify.emails.id"),email,notify?"1":"0");
-	}
+    @Override
+    public void setNotify(String email, boolean notify) {
+        template.update(env.getProperty("update.notify.emails.id"), email, notify ? "1" : "0");
+    }
 
-	@Override
-	public void setEmailsToNotNotified() {
-		template.update(env.getProperty("update.notify.emails"));
-	}
+    @Override
+    public void setEmailsToNotNotified() {
+        template.update(env.getProperty("update.notify.emails"));
+    }
 
 }

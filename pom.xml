@@ -6,7 +6,7 @@
 	<packaging>war</packaging>
 	<version>0.5.0-SNAPSHOT</version>
 	<name>currentcy</name>
-<properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -23,6 +23,10 @@
 		<jsoup.version>1.7.2</jsoup.version>
 		<mysql.version>5.1.37</mysql.version>
 		<mail.version>1.4.7</mail.version>
+		<spring-social.version>1.1.4.RELEASE</spring-social.version>
+		<spring-social-facebook.version>2.0.1.RELEASE</spring-social-facebook.version>
+		<spring-security-crypto.version>3.1.0.RC3</spring-security-crypto.version>
+		<httpclient.version>4.1.2</httpclient.version>
 	</properties>
 
 
@@ -51,7 +55,42 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
-<dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>${spring-security-crypto.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-core</artifactId>
+			<version>${spring-social.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-web</artifactId>
+			<version>${spring-social.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+			<version>${spring-social-facebook.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>jackson-annotations</artifactId>
+					<groupId>com.fasterxml.jackson.core</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jackson-core</artifactId>
+					<groupId>com.fasterxml.jackson.core</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>${mail.version}</version>
@@ -62,7 +101,6 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 		</dependency>
-
 		<!-- Spring Core -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -80,7 +118,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
@@ -165,40 +203,40 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-		<finalName>currentcy</finalName>
+				<finalName>currentcy</finalName>
 
-		<plugins>
-			<!-- Eclipse project -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<!-- Always download and attach dependencies source code -->
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
-				</configuration>
-			</plugin>
+				<plugins>
+					<!-- Eclipse project -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-eclipse-plugin</artifactId>
+						<version>2.9</version>
+						<configuration>
+							<!-- Always download and attach dependencies source code -->
+							<downloadSources>true</downloadSources>
+							<downloadJavadocs>true</downloadJavadocs>
+						</configuration>
+					</plugin>
 
-			<!-- Set JDK Compiler Level -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
-				</configuration>
-			</plugin>
+					<!-- Set JDK Compiler Level -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.1</version>
+						<configuration>
+							<source>${jdk.version}</source>
+							<target>${jdk.version}</target>
+						</configuration>
+					</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
-			</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>2.7</version>
+						<configuration>
+							<encoding>${project.build.sourceEncoding}</encoding>
+						</configuration>
+					</plugin>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.1.1</version>
