@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `currentcy`.`email` (
   PRIMARY KEY (`email`),
   UNIQUE INDEX `token_UNIQUE` (`token` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
+DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `currentcy`.`samples` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `currentcy`.`samples` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 846
-DEFAULT CHARACTER SET = utf8
+DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `currentcy`.`snapshot` (
   `code` VARCHAR(6) NOT NULL,
