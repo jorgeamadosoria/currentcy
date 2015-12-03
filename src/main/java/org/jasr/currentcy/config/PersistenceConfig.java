@@ -1,7 +1,9 @@
 package org.jasr.currentcy.config;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,15 @@ class PersistenceConfig {
     @Value("${OPENSHIFT_MYSQL_DB_PASSWORD}")
     private String password;
 
+    @Bean(initMethod = "migrate")
+    Flyway flyway() {
+        Flyway flyway = new Flyway();
+        flyway.setBaselineOnMigrate(true);
+        flyway.setLocations("classpath:sql/");
+        flyway.setDataSource(dataSource());
+        return flyway;
+    }
+    
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();

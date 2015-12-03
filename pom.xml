@@ -27,6 +27,7 @@
 		<spring-social-facebook.version>2.0.1.RELEASE</spring-social-facebook.version>
 		<spring-security-crypto.version>3.1.0.RC3</spring-security-crypto.version>
 		<httpclient.version>4.1.2</httpclient.version>
+		<flyway.version>3.2.1</flyway.version>
 	</properties>
 
 
@@ -55,6 +56,11 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
