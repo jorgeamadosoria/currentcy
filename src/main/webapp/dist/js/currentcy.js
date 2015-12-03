@@ -70,8 +70,6 @@ var currentcy = {
 								$(elem).find("#trend").toggleClass(
 										"fa-question-circle");
 
-							$(elem).find("#code").attr("src",
-									"dist/logos/" + src);
 							$(elem).find("a#details").click(function(e) {
 								// currentcy.flot();
 							});
