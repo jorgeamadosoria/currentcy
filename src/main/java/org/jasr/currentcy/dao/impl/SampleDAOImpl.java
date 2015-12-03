@@ -31,11 +31,11 @@ public class SampleDAOImpl implements SampleDAO {
     @Override
     public Trend getLatestSamples(String source) {
         List<Sample> samples = template.query(env.getProperty("latest.samples"),
-                new Object[] { source, source, TREND_LIMIT+1, source, TREND_LIMIT +1},
+                new Object[] { source, source, TREND_LIMIT + 1, source, TREND_LIMIT + 1 },
                 new BeanPropertyRowMapper<Sample>(Sample.class));
-        double max = template.queryForObject(env.getProperty("max.trend.value"), new Object[] { source, TREND_LIMIT+1 },
+        double max = template.queryForObject(env.getProperty("max.trend.value"), new Object[] { source, TREND_LIMIT + 1 },
                 Double.class);
-        double min = template.queryForObject(env.getProperty("min.trend.value"), new Object[] { source, TREND_LIMIT+1 },
+        double min = template.queryForObject(env.getProperty("min.trend.value"), new Object[] { source, TREND_LIMIT + 1 },
                 Double.class);
         Trend trend = new Trend();
         trend.setSamples(samples);
@@ -53,11 +53,10 @@ public class SampleDAOImpl implements SampleDAO {
     public void saveSnapshot(List<Sample> samples) {
         String saveSample = env.getProperty("save.sample");
         String saveSnapshot = env.getProperty("save.snapshot");
-
         for (Sample sample : samples) {
             if (sample != null) {
                 template.update(saveSnapshot, sample.getCode(), sample.getBuyValue(), sample.getSellValue(), sample.getBuyValue(),
-                        sample.getSellValue());
+                        sample.getSellValue(), sample.getCode(), TREND_LIMIT + 1, sample.getCode(), TREND_LIMIT + 1);
                 template.update(saveSample, sample.getCode(), sample.getBuyValue(), sample.getSellValue());
             }
         }

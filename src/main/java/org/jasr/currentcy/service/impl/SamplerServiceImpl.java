@@ -38,7 +38,7 @@ public class SamplerServiceImpl implements SamplerService {
         return samplerDAO.getLatestSamples(source);
     }
 
-    @Scheduled(fixedRate = 360000)
+    @Scheduled(fixedRate = 3600000)
     private void takeSnapshot() {
 
         List<Sample> samples = new ArrayList<Sample>();
