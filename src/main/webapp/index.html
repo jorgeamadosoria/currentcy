@@ -45,7 +45,8 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">Currentcy hub <small><i id="#lemma"></i></small></a>
+			<a class="navbar-brand" href="index.html">Currentcy hub <small><i
+					id="lemma"></i></small></a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -54,6 +55,20 @@
 				href="https://github.com/jorgeamadosoria/currentcy#currentcy"> <i
 					class="fa fa-github fa-fw fa-2x nav-2x-icon"></i> &nbsp;Help out!
 			</a></li>
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"> <i
+					class="fa fa-language fa-fw fa-2x nav-2x-icon"></i> &nbsp;Language
+					<i class="fa fa-caret-down"></i>
+			</a>
+				<ul class="dropdown-menu dropdown-messages">
+					<li><a class="lang_link" data-lang="en" href="#" alt="en (US)">EN</a></li>
+					<li class="divider"></li>
+					<li><a class="lang_link" data-lang="es_CU" href="#"
+						alt="es (Cuba)">CU</a></li>
+					<li class="divider"></li>
+					<li><a class="lang_link" data-lang="es_UY" href="#"
+						alt="es (Uruguay)">UY</a></li>
+				</ul> <!-- /.dropdown-messages --></li>
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
 					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i> &nbsp;About
@@ -87,7 +102,6 @@
 							</div>
 					</a></li>
 				</ul> <!-- /.dropdown-messages --></li>
-			<li class="dropdown">
 		</ul>
 
 	</nav>
@@ -96,7 +110,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-money fa-fw"></i> Current Rates <span
+						<i class="fa fa-money fa-fw"></i>&nbsp;<span id="msg.current.rates"></span><span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
@@ -108,7 +122,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-calculator fa-fw"></i> Calculator <span
+						<i class="fa fa-calculator fa-fw"></i>&nbsp;<span id=""></span> <span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
@@ -235,16 +249,12 @@
 					$("input#email").clear();
 				})
 			});
-			
-			$.i18n.properties({
-				name : 'Messages',
-				path : 'bundle/',
-				mode : 'both',
-				language : 'es_UY',
-				callback : function() {
-					$("#lemma").text($.i18n.prop('msg_lemma'));
-				}
+
+			$('.lang_link').on("click", function(e) {
+				currentcy.initLanguage($(this).data('lang'));
 			});
+			currentcy.initLanguage($.i18n.browserLang());
+
 		});
 	</script>
 	<script>

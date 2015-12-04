@@ -77,13 +77,13 @@
           languages = data.languages;
       }
     });
-    
     if (!languages) {
       languages = [];
     }
 
     // load and parse bundle files
     var files = getFiles(settings.name);
+    
     for (var i = 0; i < files.length; i++) {
       // 1. load base (eg, Messages.properties)
       loadAndParseFile(settings.path + files[i] + '.properties', settings);
@@ -94,6 +94,7 @@
             loadAndParseFile(settings.path + files[i] + '_' + shortCode + '.properties', settings);
         }
       }
+      
       // 3. with language code and country code (eg, Messages_pt_PT.properties)
       if (settings.language.length >= 5) {
         var longCode = settings.language.substring(0, 5);
@@ -264,6 +265,7 @@
 
   /** Load and parse .properties files */
   function loadAndParseFile(filename, settings) {
+	  alert(filename);
     $.ajax({
       url: filename,
       async: false,

@@ -1,21 +1,21 @@
 var currentcy = {
 
-	preventLetter: function(e) {
-        if (e.shiftKey === true ) {
-            if (e.which == 9) {
-                return true;
-            }
-            return false;
-        }
-        if (e.which > 57) {
-            return false;
-        }
-        if (e.which==32) {
-            return false;
-        }
-        return true;
-    },	
-		
+	preventLetter : function(e) {
+		if (e.shiftKey === true) {
+			if (e.which == 9) {
+				return true;
+			}
+			return false;
+		}
+		if (e.which > 57) {
+			return false;
+		}
+		if (e.which == 32) {
+			return false;
+		}
+		return true;
+	},
+
 	calculate : function(ele) {
 
 		var e = $("#amount").val();
@@ -28,24 +28,50 @@ var currentcy = {
 			var value = numeral(amount);
 			$("#calc-container tr").map(
 					function(index, el) {
-						$(el).find("#buy-amount").text(numeral(Math.floor(amount*$(el).find("#buy").text())).format(format));
+						$(el).find("#buy-amount").text(
+								numeral(
+										Math.floor(amount
+												* $(el).find("#buy").text()))
+										.format(format));
 						$(el).find("#avg-amount").text(
-								numeral(Math.floor(amount*$(el).find("#avg").text())).format(format));
+								numeral(
+										Math.floor(amount
+												* $(el).find("#avg").text()))
+										.format(format));
 						$(el).find("#sell-amount").text(
-								numeral(Math.floor(amount*$(el).find("#sell").text())).format(format));
+								numeral(
+										Math.floor(amount
+												* $(el).find("#sell").text()))
+										.format(format));
 					});
 		}
 		return true;
 	},
-	
+
+	initLanguage : function(lang) {
+		
+		$.i18n.properties({
+			path : 'dist/bundle/',
+			mode : 'map',
+			language : lang,
+			callback : function() {
+//				alert(lang);
+//				alert($.i18n.prop('msg.lemma'));
+				$("#lemma").text($.i18n.prop('msg.lemma'));
+			}
+		});
+	},
+
 	snapshot : function() {
 		$.get('snapshot', function(data) {
 
 			$("#calc-container").loadTemplate("dist/templates/calcrow.html",
 					data);
-			
-			$("#trend-options-container").loadTemplate("dist/templates/trendoption.html",
-					data,{success:currentcy.flot});
+
+			$("#trend-options-container").loadTemplate(
+					"dist/templates/trendoption.html", data, {
+						success : currentcy.flot
+					});
 
 			$("#snapshot-container").loadTemplate(
 					"dist/templates/snapshot.html",
@@ -84,9 +110,9 @@ var currentcy = {
 	},
 
 	flot : function() {
-		
+
 		var source = $("#trend-options-container").val();
-		
+
 		var offset = 0;
 		$.ajax({
 			url : source + "/samples",
@@ -123,10 +149,10 @@ var currentcy = {
 						min : data.min,
 						max : data.max
 					},
-					xaxis: {
-					    ticks: dates,
-					    rotateTicks: 90
-					  },
+					xaxis : {
+						ticks : dates,
+						rotateTicks : 90
+					},
 					tooltip : true,
 					tooltipOpts : {
 						content : "'%s' of %x is %y.4",
