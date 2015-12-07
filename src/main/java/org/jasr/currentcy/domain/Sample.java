@@ -22,11 +22,11 @@ public class Sample {
     public String getTrend() {
     	
         if (Math.signum(buyDiff) > 0 && Math.signum(sellDiff) > 0 )
-            return ">";
+            return "<";
         if (Math.signum(buyDiff) == 0 && Math.signum(sellDiff) == 0 )
             return "-";
         if (Math.signum(buyDiff) < 0 && Math.signum(sellDiff) < 0 )
-            return "<";
+            return ">";
         return "x";
     }
 

@@ -49,13 +49,13 @@ var currentcy = {
 	},
 
 	initLanguage : function(lang) {
-		
+
 		$.i18n.properties({
 			path : 'dist/bundle/',
 			mode : 'map',
 			language : lang,
 			callback : function() {
-//				alert($.i18n.prop('msg.lemma'));
+				// alert($.i18n.prop('msg.lemma'));
 				$("#msg-exchange").text($.i18n.prop('msg.exchange'));
 				$("#msg-calculator").text($.i18n.prop('msg.calculator'));
 				$("#lemma").text($.i18n.prop('msg.lemma'));
@@ -84,49 +84,77 @@ var currentcy = {
 	},
 
 	snapshot : function() {
-		$.get('snapshot', function(data) {
+		$
+				.get(
+						'snapshot',
+						function(data) {
 
-			$("#calc-container").loadTemplate("dist/templates/calcrow.html",
-					data);
+							$("#calc-container").loadTemplate(
+									"dist/templates/calcrow.html", data);
 
-			$("#trend-options-container").loadTemplate(
-					"dist/templates/trendoption.html", data, {
-						success : currentcy.flot
-					});
+							$("#trend-options-container").loadTemplate(
+									"dist/templates/trendoption.html", data, {
+										success : currentcy.flot
+									});
 
-			$("#snapshot-container").loadTemplate(
-					"dist/templates/snapshot.html",
-					data,
-					{
-						beforeInsert : function(elem) {
-							var src = $(elem).find("#code").attr("src");
-							var trend = $(elem).find("#trend").text();
-							$(elem).find("#trend").empty();
+							$("#snapshot-container")
+									.loadTemplate(
+											"dist/templates/snapshot.html",
+											data,
+											{
+												beforeInsert : function(elem) {
 
-							if (trend == '<')
-								$(elem).find("#trend").toggleClass(
-										"text-danger fa-arrow-circle-up");
-							if (trend == '-')
-								$(elem).find("#trend").toggleClass(
-										"text-primary fa-minus-circle");
-							if (trend == '>')
-								$(elem).find("#trend").toggleClass(
-										"text-success fa-arrow-circle-down");
+													var trend = $(elem).find(
+															"#trend").text();
+													$(elem).find("#trend")
+															.empty();
 
-							if (trend == 'x')
-								$(elem).find("#trend").toggleClass(
-										"fa-question-circle");
+													if (trend == '<')
+														$(elem)
+																.find("#trend")
+																.toggleClass(
+																		"text-danger fa-arrow-circle-up");
+													if (trend == '-')
+														$(elem)
+																.find("#trend")
+																.toggleClass(
+																		"text-primary fa-minus-circle");
+													if (trend == '>')
+														$(elem)
+																.find("#trend")
+																.toggleClass(
+																		"text-success fa-arrow-circle-down");
 
-							$(elem).find("a#details").click(function(e) {
-								// currentcy.flot();
-							});
-							$(elem).find("a#details").click();
-						},
-						error : function(e) {
-							alert(e);
-						}
-					});
-		});
+													if (trend == 'x')
+														$(elem)
+																.find("#trend")
+																.toggleClass(
+																		"fa-question-circle");
+
+													$(elem).find("a#details")
+															.click(function(e) {
+																// currentcy.flot();
+															});
+
+													$(elem).find("a#details")
+															.click();
+												},
+												afterInsert : function(elem) {
+													var src = $(elem).find(
+															".panel-default")
+															.attr("id");
+													$(elem)
+															.find("#code")
+															.attr(
+																	"src",
+																	"dist/logos/"
+																			+ src);
+												},
+												error : function(e) {
+													alert(e);
+												}
+											});
+						});
 
 	},
 

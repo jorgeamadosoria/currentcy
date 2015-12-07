@@ -18,9 +18,7 @@ import freemarker.template.TemplateException;
 @Component
 public class EmailBuilder {
 
-	@Resource
 	private String fromAddress = "darksoul.uci@gmail.com";
-	@Resource
 	private String registerSubject = "Welcome to currentcy";
 	
 	@Resource
