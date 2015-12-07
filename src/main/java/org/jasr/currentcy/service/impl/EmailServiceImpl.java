@@ -62,24 +62,24 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	public void sendEmail(String email, String token) {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		msg.setFrom("darksoul.uci@gmail.com");
-		msg.setTo(email);
-		msg.setSubject("Mail register");
 		try {
+			SimpleMailMessage msg = new SimpleMailMessage();
+			msg.setFrom("darksoul.uci@gmail.com");
+			msg.setTo(email);
+			msg.setSubject("Mail register");
 			Template template = configuration.getTemplate("register.ftl");
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("token", token);
 			Writer out = new StringWriter();
 			template.process(data, out);
 			out.flush();
+			msg.setText(out.toString());
+			mailSender.send(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (TemplateException e) {
 			e.printStackTrace();
 		}
-		msg.setText(template.);
-		mailSender.send(msg);
 	}
 
 	@Override
