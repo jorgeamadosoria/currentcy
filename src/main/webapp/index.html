@@ -45,20 +45,20 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">Currentcy hub <small><i
-					id="lemma"></i></small></a>
+			<a class="navbar-brand" href="index.html"><span id="title"></span>
+				<small><i id="lemma"></i></small></a>
 		</div>
 		<!-- /.navbar-header -->
 
 		<ul class="nav navbar-top-links navbar-right">
 			<li class="dropdown"><a target="new"
 				href="https://github.com/jorgeamadosoria/currentcy#currentcy"> <i
-					class="fa fa-github fa-fw fa-2x nav-2x-icon"></i> &nbsp;Help out!
+					class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span id="github"></span>
 			</a></li>
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
-					class="fa fa-language fa-fw fa-2x nav-2x-icon"></i> &nbsp;Language
-					<i class="fa fa-caret-down"></i>
+					class="fa fa-language fa-fw fa-2x nav-2x-icon"></i><span
+					id="language"></span> <i class="fa fa-caret-down"></i>
 			</a>
 				<ul class="dropdown-menu dropdown-messages">
 					<li><a class="lang_link" data-lang="en" href="#" alt="en (US)">EN</a></li>
@@ -71,34 +71,33 @@
 				</ul> <!-- /.dropdown-messages --></li>
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
-					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i> &nbsp;About
-					<i class="fa fa-caret-down"></i>
+					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i><span
+					id="about"></span> <i class="fa fa-caret-down"></i>
 			</a>
 				<ul class="dropdown-menu dropdown-messages">
 					<li><a href="#">
 							<div>
-								<strong>Currentcy Hub</strong> <span
-									class="pull-right text-muted"> <em>Currency
-										exchange</em>
-								</span>
+								<strong id="menu-title"></strong><span
+									class="pull-right text-muted"> <em id="msg-exchange"></em></span>
 							</div>
-							<div>Showing several current exchange rates for USD to UYU</div>
-					</a></li>
-					<li class="divider"></li>
-					<li><a href="#">
 							<div>
-								<strong>Jorge Amado Soria</strong> <span
-									class="pull-right text-muted"> <em>Java Developer</em>
-								</span> <span class="clearfix">I like trying new technologies
-									for the responsive web.</span>
+								<span id="exchange-rate"></span>
 							</div>
 					</a></li>
 					<li class="divider"></li>
 					<li><a href="#">
 							<div>
-								<strong>Contact me:</strong> <span class="pull-right text-muted"><em>darksoul.uci@gmail.com</em>
-								</span> <span class="clearfix">Suggestions, bugs or kudos
-									accepted.</span>
+								<strong id="author"></strong> <span
+									class="pull-right text-muted"> <em id="author-title"></em>
+								</span> <span class="clearfix" id="author-comment"></span>
+							</div>
+					</a></li>
+					<li class="divider"></li>
+					<li><a href="#">
+							<div>
+								<strong id="contact-me"></strong> <span
+									class="pull-right text-muted"><em><span
+										id="author-email"></span></em> </span> <span class="clearfix" id="kudos"></span>
 							</div>
 					</a></li>
 				</ul> <!-- /.dropdown-messages --></li>
@@ -110,7 +109,8 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-money fa-fw"></i>&nbsp;<span id="msg.current.rates"></span><span
+						<i class="fa fa-money fa-fw"></i>&nbsp;<span
+							id="msg-current-rates"></span><span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
@@ -122,7 +122,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-calculator fa-fw"></i>&nbsp;<span id=""></span> <span
+						<i class="fa fa-calculator fa-fw"></i>&nbsp;<span id="msg-calculator"></span> <span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
@@ -139,10 +139,10 @@
 									<table class="table table-bordered table-hover table-striped">
 										<thead>
 											<tr>
-												<th class="text-center">Exchange</th>
-												<th class="text-center small">Average</th>
-												<th class="text-center small">Buy</th>
-												<th class="text-center small">Sell</th>
+												<th class="text-center" id="table-exchange"></th>
+												<th class="text-center small" id="table-average"></th>
+												<th class="text-center small" id="table-buy"></th>
+												<th class="text-center small" id="table-sell"></th>
 											</tr>
 										</thead>
 										<tbody id="calc-container">
@@ -155,7 +155,7 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-bar-chart-o fa-fw"></i> Trend <span
+						<i class="fa fa-bar-chart-o fa-fw"></i><span id="msg-trend"></span><span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 
@@ -179,8 +179,7 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-envelope fa-fw"></i> Suscribe
-
+						<i class="fa fa-envelope fa-fw"></i><span id="subscribe"></span>
 					</div>
 					<div class="panel-body">
 						<div class="row">
@@ -190,7 +189,9 @@
 										type="email"
 										placeholder="Input your email address to receive updates" />
 									<span class="input-group-btn">
-										<button id="suscribe" class="btn btn-primary" type="submit">Suscribe</button>
+										<button id="subscribe" class="btn btn-primary" type="submit">
+											
+										</button>
 									</span>
 								</div>
 							</div>
@@ -242,8 +243,8 @@
 						}
 					});
 
-			$('button#suscribe').on("click", function(e) {
-				$.post("email/register", {
+			$('button#subscribe').on("click", function(e) {
+				$.post("email/subscribe", {
 					"email" : $("input#email").val()
 				}, function(data) {
 					$("input#email").clear();
@@ -253,12 +254,7 @@
 			$('.lang_link').on("click", function(e) {
 				currentcy.initLanguage($(this).data('lang'));
 			});
-			currentcy.initLanguage($.i18n.browserLang());
 
-		});
-	</script>
-	<script>
-		$(document).ready(function() {
 			currentcy.snapshot();
 
 			$("#trend-options-container").change(currentcy.flot);
@@ -266,6 +262,8 @@
 			$("#amount").val("");
 			$("#amount").on("input", currentcy.calculate);
 			$("#amount").on("keypress", currentcy.preventLetter);
+
+			currentcy.initLanguage($.i18n.browserLang());
 		});
 	</script>
 </body>

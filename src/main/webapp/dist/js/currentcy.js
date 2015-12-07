@@ -55,9 +55,30 @@ var currentcy = {
 			mode : 'map',
 			language : lang,
 			callback : function() {
-//				alert(lang);
 //				alert($.i18n.prop('msg.lemma'));
+				$("#msg-exchange").text($.i18n.prop('msg.exchange'));
+				$("#msg-calculator").text($.i18n.prop('msg.calculator'));
 				$("#lemma").text($.i18n.prop('msg.lemma'));
+				$("#title").text($.i18n.prop('msg.title'));
+				$("#menu-title").text($.i18n.prop('msg.title'));
+				$("#github").text($.i18n.prop('msg.github'));
+				$("#language").text($.i18n.prop('msg.language'));
+				$("#about").text($.i18n.prop('msg.about'));
+				$("#exchange-rate").text($.i18n.prop('msg.exchange.rate'));
+				$("#author").text($.i18n.prop('msg.author'));
+				$("#author-title").text($.i18n.prop('msg.author.title'));
+				$("#author-comment").text($.i18n.prop('msg.author.comment'));
+				$("#author-email").text($.i18n.prop('msg.author.email'));
+				$("#contact-me").text($.i18n.prop('msg.contact.me'));
+				$("#kudos").text($.i18n.prop('msg.kudos'));
+				$("#table-exchange").text($.i18n.prop('msg.table.exchange'));
+				$("#table-average").text($.i18n.prop('msg.table.average'));
+				$("#table-buy").text($.i18n.prop('msg.table.buy'));
+				$("#table-sell").text($.i18n.prop('msg.table.sell'));
+				$("#msg-trend").text($.i18n.prop('msg.trend'));
+				$("#subscribe").text($.i18n.prop('msg.subscribe'));
+				$("button#subscribe").text($.i18n.prop('msg.subscribe'));
+				$("#msg-current-rates").text($.i18n.prop('msg.current.rates'));
 			}
 		});
 	},

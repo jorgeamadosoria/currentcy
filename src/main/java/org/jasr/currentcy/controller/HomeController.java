@@ -35,15 +35,10 @@ public class HomeController {
         return samplerService.getLatestSamples(source);
     }
 	
-	@RequestMapping(value = "/email/register", method = RequestMethod.POST)
-    public void register(@RequestParam String email) {
+	@RequestMapping(value = "/email/subscribe", method = RequestMethod.POST)
+    public void subscribe(@RequestParam String email) {
+        emailService.subscribeEmail(email);
         
-        emailService.registerEmail(email);
     }
-	
-	@RequestMapping(value = "/email/unregister", method = RequestMethod.GET)
-    public void unregister(@RequestParam String token) {
-        
-        emailService.unregisterEmail(token);
-    }
+
 }

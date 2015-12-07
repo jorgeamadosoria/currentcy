@@ -36,6 +36,7 @@ class PersistenceConfig {
         flyway.setBaselineOnMigrate(true);
         flyway.setLocations("classpath:sql/");
         flyway.setDataSource(dataSource());
+        flyway.migrate();
         return flyway;
     }
     
@@ -47,7 +48,6 @@ class PersistenceConfig {
         config.setJdbcUrl(url);
         config.setUsername(username);	
         config.setPassword(password);
-
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

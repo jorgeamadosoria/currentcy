@@ -1,6 +1,11 @@
 package org.jasr.currentcy.service.impl;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,52 +16,88 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    @Resource
-    private EmailDAO           emailDAO;
-    @Resource
-    private JavaMailSenderImpl mailSender;
+	@Resource
+	private EmailDAO emailDAO;
+	@Resource
+	private JavaMailSenderImpl mailSender;
 
-    @Override
-    public void sendEmails() {
-        try {
-            emailDAO.setEmailsToNotNotified();
-            List<String> emails = emailDAO.getEmailBatchForNotification();
-            while (!CollectionUtils.isEmpty(emails)) {
-                sendEmail(emails);
-                System.out.println("batch of email notifications " + emails.size());
-                emails = emailDAO.getEmailBatchForNotification();
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Could not notify suscribers");
-            e.printStackTrace();
-        }
-    }
+	@Resource
+	private Configuration configuration;
 
-    private String getEmailBody() {
-        return null;
-    }
+	@Override
+	public void sendEmails() {
+		try {
+			int offset = 0;
+			List<String> emails = emailDAO.getEmailBatchForNotification(offset);
+			while (!CollectionUtils.isEmpty(emails)) {
+				offset += emails.size();
+				sendEmail(emails);
+				System.out.println("batch of email notifications " + emails.size());
+				emails = emailDAO.getEmailBatchForNotification(offset);
+			}
+		} catch (Exception e) {
+			System.out.println("Could not notify suscribers");
+			e.printStackTrace();
+		}
+	}
 
-    private void sendEmail(List<String> emails) {
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("darksoul.uci@gmail.com");
-        msg.setBcc(emails.toArray(new String[0]));
-        msg.setSubject("Exchange Update");
-        msg.setText(getEmailBody());
-        mailSender.send(msg);
-    }
+	private String getEmailBody() {
+		return null;
+	}
 
-    @Override
-    public void registerEmail(String email) {
-        emailDAO.registerEmail(email);
-    }
+	private void sendEmail(List<String> emails) {
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setFrom("darksoul.uci@gmail.com");
+		msg.setBcc(emails.toArray(new String[0]));
+		msg.setSubject("Exchange Update");
+		msg.setText(getEmailBody());
+		mailSender.send(msg);
+	}
 
-    @Override
-    public void unregisterEmail(String token) {
-        emailDAO.unregisterEmail(token);
-    }
+	public void sendEmail(String email, String token) {
+		SimpleMailMessage msg = new SimpleMailMessage();
+		msg.setFrom("darksoul.uci@gmail.com");
+		msg.setTo(email);
+		msg.setSubject("Mail register");
+		try {
+			Template template = configuration.getTemplate("register.ftl");
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("token", token);
+			Writer out = new StringWriter();
+			template.process(data, out);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+		msg.setText(template.);
+		mailSender.send(msg);
+	}
+
+	@Override
+	public void subscribeEmail(String email) {
+
+		String token = emailDAO.subscribeEmail(email);
+		sendEmail(email, token);
+
+	}
+
+	@Override
+	public void registerEmail(String token) {
+		emailDAO.registerEmail(token);
+	}
+
+	@Override
+	public void unregisterEmail(String token) {
+		emailDAO.unregisterEmail(token);
+	}
 
 }

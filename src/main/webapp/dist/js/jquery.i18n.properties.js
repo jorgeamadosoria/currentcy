@@ -265,7 +265,6 @@
 
   /** Load and parse .properties files */
   function loadAndParseFile(filename, settings) {
-	  alert(filename);
     $.ajax({
       url: filename,
       async: false,

@@ -25,9 +25,10 @@
 		<mail.version>1.4.7</mail.version>
 		<spring-social.version>1.1.4.RELEASE</spring-social.version>
 		<spring-social-facebook.version>2.0.1.RELEASE</spring-social-facebook.version>
-		<spring-security-crypto.version>3.1.0.RC3</spring-security-crypto.version>
+		<spring-security-crypto.version>3.2.4.RELEASE</spring-security-crypto.version>
 		<httpclient.version>4.1.2</httpclient.version>
 		<flyway.version>3.2.1</flyway.version>
+		<freemarker.version>2.3.23</freemarker.version>
 	</properties>
 
 
@@ -66,6 +67,12 @@
 			<artifactId>spring-security-crypto</artifactId>
 			<version>${spring-security-crypto.version}</version>
 		</dependency>
+		<dependency>
+	<groupId>org.freemarker</groupId>
+	<artifactId>freemarker</artifactId>
+	<version>${freemarker.version}</version>
+</dependency>
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
