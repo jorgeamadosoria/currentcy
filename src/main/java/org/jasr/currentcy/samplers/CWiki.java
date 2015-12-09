@@ -2,6 +2,7 @@ package org.jasr.currentcy.samplers;
 
 import java.io.IOException;
 
+import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("CWiki")
 public class CWiki extends SamplerBase{
 	
-	public Sample doSample(Document doc,Sample sample) throws IOException{
+	public Sample doSample(Document doc,Sample sample,Currencies currency) throws IOException{
 		double buyValue = Double.parseDouble(doc.select("span:contains(UYU)").get(0).text().replace(" UYU", "").trim());
 		double sellValue = Double.parseDouble(doc.select("span:contains(UYU)").get(0).text().replace(" UYU", "").trim());
 		sample.setBuyValue(buyValue);

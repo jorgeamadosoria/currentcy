@@ -1,19 +1,17 @@
 package org.jasr.currentcy.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.dao.EmailDAO;
 import org.jasr.currentcy.service.EmailService;
+import org.jasr.currentcy.service.SamplerService;
 import org.jasr.currentcy.utils.EmailBuilder;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-
-import freemarker.template.TemplateException;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -22,18 +20,20 @@ public class EmailServiceImpl implements EmailService {
 	private EmailDAO emailDAO;
 	@Resource
 	private JavaMailSenderImpl mailSender;
+	@Resource
+	private SamplerService samplerService;
 
 	@Resource
 	private EmailBuilder emailBodyUtils;
 
 	@Override
-	public void sendEmails() {
+	public void sendUpdateEmails() {
 		try {
 			int offset = 0;
 			List<String> emails = emailDAO.getEmailBatchForNotification(offset);
 			while (!CollectionUtils.isEmpty(emails)) {
 				offset += emails.size();
-				sendEmail(emails);
+				doSendEmail(null, emails, "Exchange Update", emailBodyUtils.getUpdateEmailBody(samplerService.getSnapshot()));
 				System.out.println("batch of email notifications " + emails.size());
 				emails = emailDAO.getEmailBatchForNotification(offset);
 			}
@@ -43,34 +43,25 @@ public class EmailServiceImpl implements EmailService {
 		}
 	}
 
-	private String getEmailBody() {
-		return null;
-	}
-
-	private void sendEmail(List<String> emails) {
+	private void doSendEmail(String to, List<String> bcc, String subject, String text) {
 		SimpleMailMessage msg = new SimpleMailMessage();
+		if (to != null)
+			msg.setTo(to);
+		if (!CollectionUtils.isEmpty(bcc))
+			msg.setBcc(bcc.toArray(new String[0]));
 		msg.setFrom("darksoul.uci@gmail.com");
-		msg.setBcc(emails.toArray(new String[0]));
-		msg.setSubject("Exchange Update");
-		msg.setText(getEmailBody());
+		msg.setSubject(subject);
 		mailSender.send(msg);
 	}
 
-	public void sendEmail(String email, String token) {
-			SimpleMailMessage msg = new SimpleMailMessage();
-			msg.setFrom("darksoul.uci@gmail.com");
-			msg.setTo(email);
-			msg.setSubject("Mail register");
-			msg.setText(emailBodyUtils.getRegisterEmailBody(token));
-			mailSender.send(msg);
+	public void sendRegisterEmail(String email, String token) {
+		doSendEmail(email, null, "Mail register", emailBodyUtils.getRegisterEmailBody(token));
 	}
 
 	@Override
 	public void subscribeEmail(String email) {
-
 		String token = emailDAO.subscribeEmail(email);
-		sendEmail(email, token);
-
+		sendRegisterEmail(email, token);
 	}
 
 	@Override

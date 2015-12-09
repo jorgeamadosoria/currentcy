@@ -2,6 +2,7 @@ package org.jasr.currentcy.samplers;
 
 import java.io.IOException;
 
+import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("YHOO")
 public class YahooFinance extends SamplerBase{
 	
-	public Sample doSample(Document doc,Sample sample) throws IOException{
+	public Sample doSample(Document doc,Sample sample,Currencies currency) throws IOException{
 		String prefix = "\"currency\",\"price\":{\"fmt\":\"";
 		int idx = doc.toString().indexOf(prefix) + prefix.length();
 		String val = doc.toString().substring(idx,idx+7);

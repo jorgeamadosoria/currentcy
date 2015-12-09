@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
 import org.jasr.currentcy.service.EmailService;
@@ -24,15 +25,15 @@ public class HomeController {
     private EmailService emailService;
     
 	@RequestMapping(value = "/snapshot", method = RequestMethod.GET)
-	public List<Sample> snapshot(Principal principal) {
+	public List<Sample> snapshot(Principal principal,@RequestParam Currencies currency) {
 	    
-		return samplerService.getSnapshot();
+		return samplerService.getSnapshot(currency);
 	}
 	
 	@RequestMapping(value = "/{source}/samples", method = RequestMethod.GET)
-    public Trend samples(Principal principal,@PathVariable String source) {
+    public Trend samples(Principal principal,@PathVariable String source,@RequestParam Currencies currency) {
         
-        return samplerService.getLatestSamples(source);
+        return samplerService.getLatestSamples(source,currency);
     }
 	
 	@RequestMapping(value = "/email/subscribe", method = RequestMethod.POST)

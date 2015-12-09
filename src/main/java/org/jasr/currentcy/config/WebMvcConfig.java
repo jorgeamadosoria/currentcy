@@ -1,12 +1,14 @@
 package org.jasr.currentcy.config;
 
 import org.jasr.currentcy.Application;
+import org.jasr.currentcy.utils.CurrenciesConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -22,7 +24,13 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
     private static final String RESOURCES_LOCATION = "/template/";
     private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
-    @Bean
+    @Override
+	protected void addFormatters(FormatterRegistry registry) {
+    	registry.addConverter(new CurrenciesConverter());
+		super.addFormatters(registry);
+	}
+
+	@Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }

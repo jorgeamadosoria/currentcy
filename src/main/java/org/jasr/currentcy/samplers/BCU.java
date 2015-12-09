@@ -2,6 +2,7 @@ package org.jasr.currentcy.samplers;
 
 import java.io.IOException;
 
+import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class BCU extends SamplerBase{
 
 	@Override
-	public Sample doSample(Document doc,Sample sample) throws IOException {
+	public Sample doSample(Document doc,Sample sample,Currencies currency) throws IOException {
 		double buyValue = Double.parseDouble(doc.select(".Cotizaciones tr").eq(1).select("td").eq(2).text().replace(",", ".").trim());
 		double sellValue = Double.parseDouble(doc.select(".Cotizaciones tr").eq(1).select("td").eq(2).text().replace(",", ".").trim());
 		sample.setBuyValue(buyValue);
