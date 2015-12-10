@@ -61,7 +61,7 @@ public class SampleDAOImpl implements SampleDAO {
 		String saveSnapshot = env.getProperty("save.snapshot");
 		for (Sample sample : samples) {
 			if (sample != null) {
-				template.update(saveSnapshot, sample.getCode(), sample.getBuyValue(), sample.getSellValue(),
+				template.update(saveSnapshot, sample.getCode(), sample.getBuyValue(), sample.getSellValue(),cur,
 						sample.getBuyValue(), sample.getSellValue(), sample.getCode(), cur,TREND_LIMIT + 1,
 						sample.getCode(), cur,TREND_LIMIT + 1);
 				template.update(saveSample, sample.getCode(), sample.getBuyValue(), sample.getSellValue(),

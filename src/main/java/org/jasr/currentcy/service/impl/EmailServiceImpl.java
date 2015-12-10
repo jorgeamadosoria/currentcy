@@ -1,10 +1,13 @@
 package org.jasr.currentcy.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.dao.EmailDAO;
+import org.jasr.currentcy.domain.Currencies;
+import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.service.EmailService;
 import org.jasr.currentcy.service.SamplerService;
 import org.jasr.currentcy.utils.EmailBuilder;
@@ -33,7 +36,14 @@ public class EmailServiceImpl implements EmailService {
 			List<String> emails = emailDAO.getEmailBatchForNotification(offset);
 			while (!CollectionUtils.isEmpty(emails)) {
 				offset += emails.size();
-				doSendEmail(null, emails, "Exchange Update", emailBodyUtils.getUpdateEmailBody(samplerService.getSnapshot()));
+				
+				List<List<Sample>> samplesByCurrency = new ArrayList<>();
+				for(Currencies cur:Currencies.values()){
+				    samplesByCurrency.add(cur.order, samplerService.getSnapshot(cur));
+				    
+		            doSendEmail(null, emails, "Exchange Update", emailBodyUtils.getUpdateEmailBody(samplesByCurrency));
+				}
+				
 				System.out.println("batch of email notifications " + emails.size());
 				emails = emailDAO.getEmailBatchForNotification(offset);
 			}
