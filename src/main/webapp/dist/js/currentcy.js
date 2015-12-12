@@ -1,4 +1,6 @@
 var currentcy = {
+		
+	currency:'usd',	
 
 	preventLetter : function(e) {
 		if (e.shiftKey === true) {
@@ -58,6 +60,7 @@ var currentcy = {
 				// alert($.i18n.prop('msg.lemma'));
 				$("#msg-exchange").text($.i18n.prop('msg.exchange'));
 				$("#msg-calculator").text($.i18n.prop('msg.calculator'));
+				$("#msg-currency").text($.i18n.prop('msg.currency'));
 				$("#lemma").text($.i18n.prop('msg.lemma'));
 				$("#title").text($.i18n.prop('msg.title'));
 				$("#menu-title").text($.i18n.prop('msg.title'));

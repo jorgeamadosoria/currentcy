@@ -18,19 +18,20 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 @Configuration
 @PropertySource("classpath:application.properties")
-@ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class), useDefaultFilters = false)
+@ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class) , useDefaultFilters = false)
 class WebMvcConfig extends WebMvcConfigurationSupport {
 
     private static final String RESOURCES_LOCATION = "/template/";
-    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
+    private static final String RESOURCES_HANDLER  = RESOURCES_LOCATION + "**";
+
 
     @Override
-	protected void addFormatters(FormatterRegistry registry) {
-    	registry.addConverter(new CurrenciesConverter());
-		super.addFormatters(registry);
-	}
+    protected void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new CurrenciesConverter());
+        super.addFormatters(registry);
+    }
 
-	@Bean
+    @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }

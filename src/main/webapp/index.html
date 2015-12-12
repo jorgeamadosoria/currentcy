@@ -50,11 +50,13 @@
 		</div>
 		<!-- /.navbar-header -->
 
-		<ul class="nav navbar-top-links navbar-right">
-			<li class="dropdown"><a target="new"
-				href="https://github.com/jorgeamadosoria/currentcy#currentcy"> <i
-					class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span id="github"></span>
-			</a></li>
+		<ul class="nav navbar-top-links navbar-right nav-pills">
+			<li class="currency_link nav-pills active"><a href="#"
+				data-currency="usd" data-toggle="tab"><i
+					class="fa fa-usd fa-fw fa-2x nav-2x-icon"></i></a></li>
+			<li class="currency_link nav-pills"><a href="#"
+				data-currency="eur" data-toggle="tab"><i
+					class="fa fa-eur fa-fw fa-2x nav-2x-icon"></i></a></li>
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
 					class="fa fa-language fa-fw fa-2x nav-2x-icon"></i><span
@@ -102,20 +104,21 @@
 							</div>
 					</a></li>
 				</ul> <!-- /.dropdown-messages --></li>
-
-			<li class="dropdown"><div><form
+			<li class="dropdown"><a target="new"
+				href="https://github.com/jorgeamadosoria/currentcy#currentcy"> <i
+					class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span id="github"></span>
+			</a></li>
+			<li class="dropdown"><a id="paypal-submit"
+				class="dropdown-toggle"> <i
+					class="fa fa-paypal fa-fw fa-2x nav-2x-icon"></i><span>Donate</span>
+			</a>
+				<form id="paypal-form"
 					action="https://www.paypal.com/cgi-bin/webscr" method="post"
 					target="_top">
 					<input type="hidden" name="cmd" value="_s-xclick"> <input
 						type="hidden" name="hosted_button_id" value="K7GMMVL54MFAA">
-					<input type="image"
-						src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
-						border="0" name="submit"
-						alt="PayPal - The safer, easier way to pay online!"> <img
-						alt="" border="0"
-						src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif"
-						width="1" height="1">
-				</form></div></li>
+
+				</form></li>
 		</ul>
 
 	</nav>
@@ -124,7 +127,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<i class="fa fa-money fa-fw"></i>&nbsp;<span
+						<i class="fa fa-exchange fa-fw"></i>&nbsp;<span
 							id="msg-current-rates"></span><span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
@@ -269,6 +272,15 @@
 
 			$('.lang_link').on("click", function(e) {
 				currentcy.initLanguage($(this).data('lang'));
+			});
+
+			$('.currency_link').on("click", function(e) {
+				currentcy.currency = $(this).data('currency');
+				alert($(this).data('currency'));
+			});
+
+			$('#paypal-submit').on("click", function(e) {
+				$('#paypal-form').submit();
 			});
 
 			currentcy.snapshot();
