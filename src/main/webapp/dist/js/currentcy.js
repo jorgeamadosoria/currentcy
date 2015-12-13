@@ -89,7 +89,7 @@ var currentcy = {
 	snapshot : function() {
 		$
 				.get(
-						'snapshot',
+						'snapshot?currency='+currentcy.currency,
 						function(data) {
 
 							$("#calc-container").loadTemplate(
@@ -135,11 +135,6 @@ var currentcy = {
 																		"fa-question-circle");
 
 													$(elem).find("a#details")
-															.click(function(e) {
-																// currentcy.flot();
-															});
-
-													$(elem).find("a#details")
 															.click();
 												},
 												afterInsert : function(elem) {
@@ -167,7 +162,7 @@ var currentcy = {
 
 		var offset = 0;
 		$.ajax({
-			url : source + "/samples",
+			url : source + "/samples?currency=" + currentcy.currency,
 			beforeSend : function(data) {
 				$("#flot-chart-loading").show();
 				$("#flot-line-chart").hide();

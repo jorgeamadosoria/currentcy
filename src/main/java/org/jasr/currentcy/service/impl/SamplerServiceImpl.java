@@ -21,56 +21,59 @@ import org.springframework.stereotype.Service;
 @Service
 public class SamplerServiceImpl implements SamplerService {
 
-	@Resource
-	private SampleDAO samplerDAO;
+    @Resource
+    private SampleDAO         samplerDAO;
 
-	@Resource
-	private EmailService emailService;
+    @Resource
+    private EmailService      emailService;
 
-	@Autowired
-	private List<SamplerBase> samplers;
+    @Autowired
+    private List<SamplerBase> samplers;
 
-	@Override
-	public List<Sample> getSnapshot(Currencies currency) {
-		return samplerDAO.getSnapshot(currency);
-	}
+    @Override
+    public List<Sample> getSnapshot(Currencies currency) {
+        return samplerDAO.getSnapshot(currency);
+    }
 
-	@Override
-	public Trend getLatestSamples(String source, Currencies currency) {
-		return samplerDAO.getLatestSamples(source, currency);
-	}
+    @Override
+    public Trend getLatestSamples(String source, Currencies currency) {
+        return samplerDAO.getLatestSamples(source, currency);
+    }
 
-	@Scheduled(fixedRate = 3600000)
-	private void takeSnapshot() {
-		List<Sample> samples = new ArrayList<Sample>();
-		for (Currencies currency : Currencies.values()) {
-			for (SamplerBase sampler : samplers) {
-				samples.add(sampler.sample(currency));
-				System.out.printf("%s sampled at %s\n", sampler.getCode(), new Date().toString());
-			}
+    @Scheduled(fixedRate = 3600000)
+    private void takeSnapshot() {
+        List<Sample> samples = new ArrayList<Sample>();
+        boolean isChanged = false;
+        for (Currencies currency : Currencies.values()) {
+            for (SamplerBase sampler : samplers) {
+                samples.add(sampler.sample(currency));
+                System.out.printf("%s sampled at %s\n", sampler.getCode(), new Date().toString());
+            }
 
-			if (isChange(samples,currency))
-				emailService.sendUpdateEmails();
-			samplerDAO.saveSnapshot(samples, currency);
-		}
-	}
+            isChanged |= isChange(samples, currency);
+            samplerDAO.saveSnapshot(samples, currency);
+            samples.clear();
+        }
+        if (isChanged)
+            emailService.sendUpdateEmails();
+    }
 
-	private boolean isChange(List<Sample> samples,Currencies currency) {
-		List<Sample> snapshots = samplerDAO.getSnapshot(currency);
+    private boolean isChange(List<Sample> samples, Currencies currency) {
+        List<Sample> snapshots = samplerDAO.getSnapshot(currency);
 
-		for (Sample sample1 : snapshots) {
-			boolean result = false;
-			for (Sample sample2 : samples) {
-				// if at least one sampler is equal to a sampler on the other
-				// list, result = true
-				result = result || sample1.equals(sample2);
-			}
-			// if all samplers are different, then there is change.
-			if (!result)
-				return true;
-		}
-		// result never is true, there is no change.
-		return false;
-	}
+        for (Sample sample1 : snapshots) {
+            boolean result = false;
+            for (Sample sample2 : samples) {
+                // if at least one sampler is equal to a sampler on the other
+                // list, result = true
+                result = result || sample1.equals(sample2);
+            }
+            // if all samplers are different, then there is change.
+            if (!result)
+                return true;
+        }
+        // result never is true, there is no change.
+        return false;
+    }
 
 }

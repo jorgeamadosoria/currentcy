@@ -51,10 +51,10 @@
 		<!-- /.navbar-header -->
 
 		<ul class="nav navbar-top-links navbar-right nav-pills">
-			<li class="currency_link nav-pills active"><a href="#"
+			<li class="nav-pills active"><a class="currency_link" href="#"
 				data-currency="usd" data-toggle="tab"><i
 					class="fa fa-usd fa-fw fa-2x nav-2x-icon"></i></a></li>
-			<li class="currency_link nav-pills"><a href="#"
+			<li class="nav-pills"><a class="currency_link" href="#"
 				data-currency="eur" data-toggle="tab"><i
 					class="fa fa-eur fa-fw fa-2x nav-2x-icon"></i></a></li>
 			<li class="dropdown"><a class="dropdown-toggle"
@@ -276,7 +276,7 @@
 
 			$('.currency_link').on("click", function(e) {
 				currentcy.currency = $(this).data('currency');
-				alert($(this).data('currency'));
+				currentcy.snapshot();
 			});
 
 			$('#paypal-submit').on("click", function(e) {

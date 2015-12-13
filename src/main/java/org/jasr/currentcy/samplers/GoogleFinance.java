@@ -8,24 +8,40 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 @Component("GOOG")
-public class GoogleFinance extends SamplerBase{
-	
-	public Sample doSample(Document doc,Sample sample,Currencies currency) throws IOException{
-		double buyValue = Double.parseDouble(doc.select("div#currency_value span.bld").eq(0).text().replace(" UYU", "").trim());
-		double sellValue = Double.parseDouble(doc.select("div#currency_value span.bld").eq(0).text().replace(" UYU", "").trim());
-		sample.setBuyValue(buyValue);
-		sample.setSellValue(sellValue);
-		return sample;
-	}
-	public String getCode(){
-		return "GOOG";
-	}
-	@Override
-	public String getUrl() {
-		return "https://www.google.com/finance?q=USDUYU";	
-	}
-	@Override
-	public String getName() {
-		return "Google Finance";
-	}
+public class GoogleFinance extends SamplerBase {
+
+    public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {
+        double buyValue = 0;
+        double sellValue = 0;
+        if (currency.equals(Currencies.USD)) {
+            buyValue = Double.parseDouble(doc.select("div#currency_value span.bld").eq(0).text().replace(" UYU", "").trim());
+            sellValue = Double.parseDouble(doc.select("div#currency_value span.bld").eq(0).text().replace(" UYU", "").trim());
+        }
+        if (currency.equals(Currencies.EUR)) {
+            buyValue = Double.parseDouble(doc.select("div#currency_value span.bld").eq(0).text().replace(" UYU", "").trim());
+            sellValue = Double.parseDouble(doc.select("div#currency_value span.bld").eq(0).text().replace(" UYU", "").trim());
+        }
+        sample.setBuyValue(buyValue);
+        sample.setSellValue(sellValue);
+        return sample;
+    }
+
+    public String getCode() {
+        return "GOOG";
+    }
+
+    @Override
+    public String getUrl() {
+        return "https://www.google.com/finance";
+    }
+    
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
+        return "https://www.google.com/finance?q=" + currency.code.toUpperCase() + "UYU";
+    }
+
+    @Override
+    public String getName() {
+        return "Google Finance";
+    }
 }

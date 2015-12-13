@@ -19,7 +19,7 @@ public enum Currencies {
 	}
 
 	private boolean isCode(String currencyCode) {
-		return this.code.equals(currencyCode);
+		return this.code.equalsIgnoreCase(currencyCode);
 	}
 
 	public static Currencies getCurrency(String currencyCode) {

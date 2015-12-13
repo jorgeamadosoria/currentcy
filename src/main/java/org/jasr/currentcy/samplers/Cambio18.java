@@ -11,13 +11,20 @@ import org.springframework.stereotype.Component;
 public class Cambio18 extends SamplerBase{
 	
 	public Sample doSample(Document doc,Sample sample,Currencies currency) throws IOException{
-	    ;
+	    double buyValue = 0;
+        double sellValue = 0;
+        if (currency.equals(Currencies.USD)) {
+            buyValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td").get(2).select("font").text());
+            sellValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td").get(3).select("font").text());
+        }
+        if (currency.equals(Currencies.EUR)) {
+            buyValue = Double.parseDouble(doc.select("[src=images/euros.jpg]").get(0).parent().parent().select("td").get(2).select("font").text());
+            sellValue = Double.parseDouble(doc.select("[src=images/euros.jpg]").get(0).parent().parent().select("td").get(3).select("font").text());
+        }
+        sample.setBuyValue(buyValue);
+        sample.setSellValue(sellValue);
+        return sample;
 	    
-		double buyValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td").get(2).select("font").text());
-		double sellValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td").get(3).select("font").text());
-		sample.setBuyValue(buyValue);
-		sample.setSellValue(sellValue);
-		return sample;
 	}
 	public String getCode(){
 		return "C18";

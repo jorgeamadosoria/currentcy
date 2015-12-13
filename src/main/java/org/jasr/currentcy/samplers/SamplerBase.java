@@ -13,6 +13,10 @@ public abstract class SamplerBase {
    
 	public abstract String getUrl();
 	
+    public String getUrlByCurrency(Currencies currency) {
+       return getUrl();
+    }
+	
 	public int getId() {
 		return id;
 	}
@@ -25,7 +29,7 @@ public abstract class SamplerBase {
     public Sample sample(Currencies currency){
     	Sample sample = null;
     	try{
-    		Document doc = Jsoup.connect(getUrl()).get();
+    		Document doc = Jsoup.connect(getUrlByCurrency(currency)).get();
     		sample = new Sample();
     		sample.setCode(getCode());
     		sample = doSample(doc,sample,currency);
