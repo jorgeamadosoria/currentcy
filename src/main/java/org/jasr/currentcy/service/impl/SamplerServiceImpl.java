@@ -47,7 +47,7 @@ public class SamplerServiceImpl implements SamplerService {
         for (Currencies currency : Currencies.values()) {
             for (SamplerBase sampler : samplers) {
                 samples.add(sampler.sample(currency));
-                System.out.printf("%s sampled at %s\n", sampler.getCode(), new Date().toString());
+                System.out.printf("%s - %s sampled at %s\n", currency.code,sampler.getCode(), new Date().toString());
             }
 
             isChanged |= isChange(samples, currency);
