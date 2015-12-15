@@ -1,17 +1,19 @@
 #code {
-	height:100px;
-	width:100px
+	height: 100px;
+	width: 100px
 }
 
 .tiny {
 	font-size: 10px;
 }
 
-
+a.lang_link {
+	padding: 5px !important;
+}
 
 .clickable {
-    cursor: pointer;
-}    
+	cursor: pointer;
+}
 
 .nav-2x-icon {
 	vertical-align: middle;

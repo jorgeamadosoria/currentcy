@@ -50,28 +50,7 @@
 		</div>
 		<!-- /.navbar-header -->
 
-		<ul class="nav navbar-top-links navbar-right nav-pills">
-			<li class="nav-pills active"><a class="currency_link" href="#"
-				data-currency="usd" data-toggle="tab"><i
-					class="fa fa-usd fa-fw fa-2x nav-2x-icon"></i></a></li>
-			<li class="nav-pills"><a class="currency_link" href="#"
-				data-currency="eur" data-toggle="tab"><i
-					class="fa fa-eur fa-fw fa-2x nav-2x-icon"></i></a></li>
-			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#"> <i
-					class="fa fa-language fa-fw fa-2x nav-2x-icon"></i><span
-					id="language"></span> <i class="fa fa-caret-down"></i>
-			</a>
-				<ul class="dropdown-menu">
-					<li><a class="lang_link" data-lang="en" href="#"><img
-							src="dist/flags/US.png" alt="en (US)"></a></li>
-					<li class="divider"></li>
-					<li><a class="lang_link" data-lang="es_CU" href="#"><img
-							src="dist/flags/CU.png" alt="es (Cuba)"></a></li>
-					<li class="divider"></li>
-					<li><a class="lang_link" data-lang="es_UY" href="#"><img
-							src="dist/flags/UY.png" alt="es (Uruguay)"></a></li>
-				</ul> <!-- /.dropdown-messages --></li>
+		<ul class="nav navbar-top-links navbar-right">
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
 					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i><span
@@ -121,6 +100,23 @@
 				</form></li>
 		</ul>
 
+		<ul class="nav navbar-top-links navbar-right nav-pills">
+			<li class="nav-pills" id="en"><a class="lang_link"
+				data-lang="en" data-toggle="tab" href="#"><img
+					src="dist/flags/US.png" alt="en (US)"></a></li>
+			<li class="nav-pills" id="es_CU"><a class="lang_link" data-lang="es_CU" data-toggle="tab"
+				href="#"><img src="dist/flags/CU.png" alt="es (Cuba)"></a></li>
+			<li class="nav-pills" id="es_UY"><a class="lang_link" data-lang="es_UY" data-toggle="tab"
+				href="#"><img src="dist/flags/UY.png" alt="es (Uruguay)"></a></li>
+		</ul>
+		<ul class="nav navbar-top-links navbar-right nav-pills">
+			<li class="nav-pills" id="usd"><a class="currency_link" href="#"
+				data-currency="usd" data-toggle="tab"><i
+					class="fa fa-usd fa-fw fa-2x nav-2x-icon"></i></a></li>
+			<li class="nav-pills" id="eur"><a class="currency_link" href="#"
+				data-currency="eur" data-toggle="tab"><i
+					class="fa fa-eur fa-fw fa-2x nav-2x-icon"></i></a></li>
+		</ul>
 	</nav>
 	<div id="page-wrapper">
 		<div class="row">
@@ -224,7 +220,7 @@
 
 	<!-- jQuery -->
 	<script src="dist/js/jquery.min.js"></script>
-
+	<script src="dist/js/store.min.js"></script>
 
 	<script src="dist/js/jquery.loadTemplate-1.4.4.js"></script>
 	<script src="dist/js/jquery.i18n.properties.js"></script>
@@ -239,6 +235,12 @@
 	<script src="dist/js/numeral.min.js"></script>
 	<script src="dist/js/currentcy.js"></script>
 	<script type="text/javascript">
+	$.addTemplateFormatter("snapshotDateFormatter",
+		    function(value, template) {
+		
+		        return value.replace('.0','');
+		    });
+	
 		jQuery(function($) {
 			$('.panel-heading span.clickable').on(
 					"click",
@@ -271,11 +273,13 @@
 			});
 
 			$('.lang_link').on("click", function(e) {
+				currentcy.setLocale($(this).data('lang'));
 				currentcy.initLanguage($(this).data('lang'));
 			});
+			
 
 			$('.currency_link').on("click", function(e) {
-				currentcy.currency = $(this).data('currency');
+				currentcy.setCurrency($(this).data('currency'));
 				currentcy.snapshot();
 			});
 
@@ -291,7 +295,16 @@
 			$("#amount").on("input", currentcy.calculate);
 			$("#amount").on("keypress", currentcy.preventLetter);
 
-			currentcy.initLanguage($.i18n.browserLang());
+			$("#" + currentcy.getCurrency()).addClass("active");
+			$("#" + currentcy.getLocale()).addClass("active");
+			// 			//default initialization values
+			// 			currentcy.setCurrency('usd');
+			// 			currentcy.setLocale($.i18n.browserLang());
+
+			//initial i18n values
+			currentcy.initLanguage();
+			
+			
 		});
 	</script>
 </body>

@@ -1,6 +1,35 @@
 var currentcy = {
+
+	defaultCurrency: 'usd',
+	defaultLocale : 'en',
 		
-	currency:'usd',	
+	getCurrency : function() {
+		if (!store.get('currency'))
+			currentcy.setCurrency(currentcy.defaultCurrency);
+		return store.get('currency');
+	},
+
+	setCurrency : function(cur) {
+		store.set('currency',cur);
+	},
+
+	getLocale : function() {
+		if (!store.get('locale'))
+			currentcy.setLocale(currentcy.defaultLocale);
+		return store.get('locale');
+	},
+
+	setLocale : function(locale) {
+		store.set('locale',locale);
+	},
+
+	checkLocalStore : function() {
+		if (!store.enabled) {
+			alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
+			return false;
+		}
+		return true;
+	},
 
 	preventLetter : function(e) {
 		if (e.shiftKey === true) {
@@ -50,8 +79,9 @@ var currentcy = {
 		return true;
 	},
 
-	initLanguage : function(lang) {
+	initLanguage : function() {
 
+		var lang = currentcy.getLocale();
 		$.i18n.properties({
 			path : 'dist/bundle/',
 			mode : 'map',
@@ -89,7 +119,7 @@ var currentcy = {
 	snapshot : function() {
 		$
 				.get(
-						'snapshot?currency='+currentcy.currency,
+						'snapshot?currency=' + currentcy.getCurrency(),
 						function(data) {
 
 							$("#calc-container").loadTemplate(
@@ -162,7 +192,7 @@ var currentcy = {
 
 		var offset = 0;
 		$.ajax({
-			url : source + "/samples?currency=" + currentcy.currency,
+			url : source + "/samples?currency=" + currentcy.getCurrency(),
 			beforeSend : function(data) {
 				$("#flot-chart-loading").show();
 				$("#flot-line-chart").hide();

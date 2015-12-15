@@ -8,7 +8,7 @@ public final class CurrenciesConverter implements Converter<String, Currencies> 
     @Override
     public Currencies convert(String source) {
         if (source == null || source.isEmpty()) {
-            return null;
+            return Currencies.USD;
         }
  
         return Currencies.getCurrency(source);
