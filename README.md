@@ -3,6 +3,7 @@ Currentcy is an exchange rate aggregator that basically parses info from public 
 A list of supported exchanges can be seen here listed alphabetically:
 <ul>
 <li>Abitab (Cambilex)  http://www.cambilex.com.uy</li>
+<li>BBVa https://www.bbva.com.uy/Inicio/Personas/</li>
 <li>Banco Central del Uruguay  http://www.bcu.gub.uy</li>
 <li>Banco República  http://www.brou.com.uy</li>
 <li>Cambio 18  http://www.cambio18.com</li>
