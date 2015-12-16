@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 
 import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
 import freemarker.template.Configuration;
@@ -26,7 +25,7 @@ public class EmailBuilder {
 
 	public String getUpdateEmailBody(List<List<Sample>> samplesByCurrency) {
 		try {
-			Template template = configuration.getTemplate("rates.ftl");
+			Template template = configuration.getTemplate("ftl/rates.ftl");
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("currencies",Currencies.values());
 			data.put("snapshots",samplesByCurrency);
@@ -44,7 +43,7 @@ public class EmailBuilder {
 	
 	public String getRegisterEmailBody(String token) {
 		try {
-			Template template = configuration.getTemplate("register.ftl");
+			Template template = configuration.getTemplate("ftl/register.ftl");
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("token", token);
 			Writer out = new StringWriter();

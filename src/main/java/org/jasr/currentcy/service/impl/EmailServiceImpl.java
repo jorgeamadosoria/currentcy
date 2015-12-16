@@ -19,69 +19,71 @@ import org.springframework.util.CollectionUtils;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-	@Resource
-	private EmailDAO emailDAO;
-	@Resource
-	private JavaMailSenderImpl mailSender;
-	@Resource
-	private SamplerService samplerService;
+    @Resource
+    private EmailDAO           emailDAO;
+    @Resource
+    private JavaMailSenderImpl mailSender;
+    @Resource
+    private SamplerService     samplerService;
 
-	@Resource
-	private EmailBuilder emailBodyUtils;
+    @Resource
+    private EmailBuilder       emailBodyUtils;
 
-	@Override
-	public void sendUpdateEmails() {
-		try {
-			int offset = 0;
-			List<String> emails = emailDAO.getEmailBatchForNotification(offset);
-			while (!CollectionUtils.isEmpty(emails)) {
-				offset += emails.size();
-				
-				List<List<Sample>> samplesByCurrency = new ArrayList<>();
-				for(Currencies cur:Currencies.values()){
-				    samplesByCurrency.add(cur.order, samplerService.getSnapshot(cur));
-				    
-		            doSendEmail(null, emails, "Exchange Update", emailBodyUtils.getUpdateEmailBody(samplesByCurrency));
-				}
-				
-				System.out.println("batch of email notifications " + emails.size());
-				emails = emailDAO.getEmailBatchForNotification(offset);
-			}
-		} catch (Exception e) {
-			System.out.println("Could not notify suscribers");
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void sendUpdateEmails() {
+        try {
+            List<List<Sample>> samplesByCurrency = new ArrayList<>();
+            for (Currencies cur : Currencies.values()) {
+                samplesByCurrency.add(cur.order, samplerService.getSnapshot(cur));
+            }
+            String body = emailBodyUtils.getUpdateEmailBody(samplesByCurrency);
 
-	private void doSendEmail(String to, List<String> bcc, String subject, String text) {
-		SimpleMailMessage msg = new SimpleMailMessage();
-		if (to != null)
-			msg.setTo(to);
-		if (!CollectionUtils.isEmpty(bcc))
-			msg.setBcc(bcc.toArray(new String[0]));
-		msg.setFrom("darksoul.uci@gmail.com");
-		msg.setSubject(subject);
-		mailSender.send(msg);
-	}
+            int offset = 0;
+            List<String> emails = emailDAO.getEmailBatchForNotification(offset);
+            while (!CollectionUtils.isEmpty(emails)) {
+                offset += emails.size();
 
-	public void sendRegisterEmail(String email, String token) {
-		doSendEmail(email, null, "Mail register", emailBodyUtils.getRegisterEmailBody(token));
-	}
+                doSendEmail(null, emails, "Exchange Update", body);
 
-	@Override
-	public void subscribeEmail(String email) {
-		String token = emailDAO.subscribeEmail(email);
-		sendRegisterEmail(email, token);
-	}
+                System.out.println("batch of email notifications " + emails.size());
+                emails = emailDAO.getEmailBatchForNotification(offset);
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Could not notify suscribers");
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void registerEmail(String token) {
-		emailDAO.registerEmail(token);
-	}
+    private void doSendEmail(String to, List<String> bcc, String subject, String text) {
+        SimpleMailMessage msg = new SimpleMailMessage();
+        if (to != null)
+            msg.setTo(to);
+        if (!CollectionUtils.isEmpty(bcc))
+            msg.setBcc(bcc.toArray(new String[0]));
+        msg.setFrom("darksoul.uci@gmail.com");
+        msg.setSubject(subject);
+        mailSender.send(msg);
+    }
 
-	@Override
-	public void unregisterEmail(String token) {
-		emailDAO.unregisterEmail(token);
-	}
+    public void sendRegisterEmail(String email, String token) {
+        doSendEmail(email, null, "Mail register", emailBodyUtils.getRegisterEmailBody(token));
+    }
+
+    @Override
+    public void subscribeEmail(String email) {
+        String token = emailDAO.subscribeEmail(email);
+        sendRegisterEmail(email, token);
+    }
+
+    @Override
+    public void registerEmail(String token) {
+        emailDAO.registerEmail(token);
+    }
+
+    @Override
+    public void unregisterEmail(String token) {
+        emailDAO.unregisterEmail(token);
+    }
 
 }

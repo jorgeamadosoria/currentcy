@@ -21,7 +21,7 @@ class EmailConfig {
     @Bean
     public freemarker.template.Configuration configuration() {
     	freemarker.template.Configuration bean = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_23);
-    	bean.setClassForTemplateLoading(this.getClass(),"ftl");
+    	bean.setClassForTemplateLoading(this.getClass(),"/");
     	bean.setDefaultEncoding("UTF-8");
     	return bean;
     }

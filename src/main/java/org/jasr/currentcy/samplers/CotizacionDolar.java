@@ -37,6 +37,6 @@ public class CotizacionDolar extends SamplerBase {
 
     @Override
     public String getName() {
-        return "Cotización D&oacute;lar Uruguay";
+        return "Cotizaci&oacute;n D&oacute;lar Uruguay";
     }
 }
