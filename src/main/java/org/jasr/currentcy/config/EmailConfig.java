@@ -1,13 +1,11 @@
 package org.jasr.currentcy.config;
 
-import java.io.File;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 @Configuration
 class EmailConfig {

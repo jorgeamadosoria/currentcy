@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.jasr.currentcy.dao.EmailDAO;
 import org.jasr.currentcy.domain.Currencies;
+import org.jasr.currentcy.domain.Email;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.service.EmailService;
 import org.jasr.currentcy.service.SamplerService;
@@ -39,11 +40,14 @@ public class EmailServiceImpl implements EmailService {
             String body = emailBodyUtils.getUpdateEmailBody(samplesByCurrency);
 
             int offset = 0;
-            List<String> emails = emailDAO.getEmailBatchForNotification(offset);
+            List<Email> emails = emailDAO.getEmailBatchForNotification(offset);
             while (!CollectionUtils.isEmpty(emails)) {
                 offset += emails.size();
 
-                doSendEmail(null, emails, "Exchange Update", body);
+                for (Email email : emails) {
+                    String bodyEmail = body.replace("[[TOKEN]]", email.getToken());
+                    doSendEmail(email.getEmail(), null, "Exchange Update", bodyEmail);
+                }
 
                 System.out.println("batch of email notifications " + emails.size());
                 emails = emailDAO.getEmailBatchForNotification(offset);
@@ -55,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    private void doSendEmail(String to, List<String> bcc, String subject, String text) {
+    private void doSendEmail(String to, List<Email> bcc, String subject, String text) {
         SimpleMailMessage msg = new SimpleMailMessage();
         if (to != null)
             msg.setTo(to);

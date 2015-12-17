@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.dao.EmailDAO;
+import org.jasr.currentcy.domain.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -68,8 +69,8 @@ public class EmailDAOImpl implements EmailDAO {
     }
 
     @Override
-    public List<String> getEmailBatchForNotification(int offset) {
-        return (List<String>) template.queryForList(env.getProperty("select.emails"), String.class, BATCH_LIMIT,offset);
+    public List<Email> getEmailBatchForNotification(int offset) {
+        return template.queryForList(env.getProperty("select.emails"), Email.class,  BATCH_LIMIT,offset);
     }
 
 

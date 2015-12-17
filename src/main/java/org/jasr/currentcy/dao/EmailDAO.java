@@ -2,6 +2,8 @@ package org.jasr.currentcy.dao;
 
 import java.util.List;
 
+import org.jasr.currentcy.domain.Email;
+
 public interface EmailDAO {
 
 	public String subscribeEmail(String email);
@@ -12,6 +14,6 @@ public interface EmailDAO {
 
     public String tokenByEmail(String email);
 
-    public List<String> getEmailBatchForNotification(int offset);
+    public List<Email> getEmailBatchForNotification(int offset);
     
 }
