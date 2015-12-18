@@ -51,7 +51,7 @@ public class SampleDAOImpl implements SampleDAO {
 	@Override
 	public List<Sample> getSnapshot(Currencies currency) {
 		return template.query(env.getProperty("select.snapshot"),
-				new Object[] { Currency.getInstance(currency.locale).getCurrencyCode() }, rowMapper);
+				new Object[] { currency.code,currency.code,currency.code }, rowMapper);
 	}
 
 	@Override

@@ -121,15 +121,26 @@ var currentcy = {
 				.get(
 						'snapshot?currency=' + currentcy.getCurrency(),
 						function(data) {
-
+							var bestBuy = null;
+							var sellBuy = null;
+							for(var snapshot of data){
+								if (snapshot.bestBuy)
+									bestBuy = snapshot;
+								if (snapshot.bestSell)
+									bestSell = snapshot;
+							}
+							
 							$("#calc-container").loadTemplate(
 									"dist/templates/calcrow.html", data);
 
+							$("tr #"+bestBuy.code).addClass("success");
+							
 							$("#trend-options-container").loadTemplate(
 									"dist/templates/trendoption.html", data, {
 										success : currentcy.flot
 									});
 
+							
 							$("#snapshot-container")
 									.loadTemplate(
 											"dist/templates/snapshot.html",

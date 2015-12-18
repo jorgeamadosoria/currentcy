@@ -4,47 +4,65 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Sample {
-   private int id;
-   private String date;
-   private double sellValue;
-   private double buyValue;
-   private double buyDiff;
-   private double sellDiff;
-   private String code;
-   private String url;
-   private String name;
-    
-	/**
+    private int     id;
+    private String  date;
+    private double  sellValue;
+    private double  buyValue;
+    private double  buyDiff;
+    private double  sellDiff;
+    private String  code;
+    private String  url;
+    private String  name;
+    private boolean bestBuy  = true;
+    private boolean bestSell = true;
+
+    public boolean isBestBuy() {
+        return bestBuy;
+    }
+
+    public void setBestBuy(boolean bestBuy) {
+        this.bestBuy = bestBuy;
+    }
+
+    public boolean isBestSell() {
+        return bestSell;
+    }
+
+    public void setBestSell(boolean bestSell) {
+        this.bestSell = bestSell;
+    }
+
+    /**
      * Must be Mexico in order to use the peso symbol. Uruguay (UY) uses a weird NU$ symbol.
      */
-    private Locale locale = new Locale("es","MX");
-    
+    private Locale locale = new Locale("es", "MX");
+
     public String getTrend() {
-    	
-        if (Math.signum(buyDiff) > 0 && Math.signum(sellDiff) > 0 )
+
+        if (Math.signum(buyDiff) > 0 && Math.signum(sellDiff) > 0)
             return "<";
-        if (Math.signum(buyDiff) == 0 && Math.signum(sellDiff) == 0 )
+        if (Math.signum(buyDiff) == 0 && Math.signum(sellDiff) == 0)
             return "-";
-        if (Math.signum(buyDiff) < 0 && Math.signum(sellDiff) < 0 )
+        if (Math.signum(buyDiff) < 0 && Math.signum(sellDiff) < 0)
             return ">";
         return "x";
     }
 
-    public double getAvgValue(){
-        return (buyValue + sellValue)/2d;
+    public double getAvgValue() {
+        return (buyValue + sellValue) / 2d;
     }
-    
-    public String getAvg(){
+
+    public String getAvg() {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        return currencyFormatter.format((buyValue + sellValue)/2d);
+        return currencyFormatter.format((buyValue + sellValue) / 2d);
     }
-    
-    public String getBuy(){
+
+    public String getBuy() {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         return currencyFormatter.format(buyValue);
     }
-    
-    public String getSell(){
+
+    public String getSell() {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         return currencyFormatter.format(sellValue);
     }
@@ -58,7 +76,7 @@ public class Sample {
     }
 
     public String getDate() {
-        return date.substring(0,date.length()-5);
+        return date.substring(0, date.length() - 5);
     }
 
     public void setDate(String date) {
@@ -163,7 +181,5 @@ public class Sample {
             return false;
         return true;
     }
-    
-    
 
 }

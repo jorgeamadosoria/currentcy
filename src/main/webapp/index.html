@@ -104,10 +104,12 @@
 			<li class="nav-pills" id="en"><a class="lang_link"
 				data-lang="en" data-toggle="tab" href="#"><img
 					src="dist/flags/US.png" alt="en (US)"></a></li>
-			<li class="nav-pills" id="es_CU"><a class="lang_link" data-lang="es_CU" data-toggle="tab"
-				href="#"><img src="dist/flags/CU.png" alt="es (Cuba)"></a></li>
-			<li class="nav-pills" id="es_UY"><a class="lang_link" data-lang="es_UY" data-toggle="tab"
-				href="#"><img src="dist/flags/UY.png" alt="es (Uruguay)"></a></li>
+			<li class="nav-pills" id="es_CU"><a class="lang_link"
+				data-lang="es_CU" data-toggle="tab" href="#"><img
+					src="dist/flags/CU.png" alt="es (Cuba)"></a></li>
+			<li class="nav-pills" id="es_UY"><a class="lang_link"
+				data-lang="es_UY" data-toggle="tab" href="#"><img
+					src="dist/flags/UY.png" alt="es (Uruguay)"></a></li>
 		</ul>
 		<ul class="nav navbar-top-links navbar-right nav-pills">
 			<li class="nav-pills" id="usd"><a class="currency_link" href="#"
@@ -270,7 +272,6 @@
 				currentcy.setLocale($(this).data('lang'));
 				currentcy.initLanguage($(this).data('lang'));
 			});
-			
 
 			$('.currency_link').on("click", function(e) {
 				currentcy.setCurrency($(this).data('currency'));
@@ -297,8 +298,7 @@
 
 			//initial i18n values
 			currentcy.initLanguage();
-			
-			
+
 		});
 	</script>
 </body>

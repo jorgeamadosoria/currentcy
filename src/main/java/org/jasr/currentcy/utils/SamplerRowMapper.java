@@ -25,6 +25,8 @@ public class SamplerRowMapper extends BeanPropertyRowMapper<Sample> {
 	@Override
 	public Sample mapRow(ResultSet arg0, int arg1) throws SQLException {
 		Sample sample = super.mapRow(arg0, arg1);
+		sample.setBestBuy(arg0.getBoolean("best_buy"));
+		sample.setBestSell(arg0.getBoolean("best_sell"));
 		sample.setUrl(samplers.get(sample.getCode()).getUrl());
 		sample.setName(samplers.get(sample.getCode()).getName());
 		return sample;

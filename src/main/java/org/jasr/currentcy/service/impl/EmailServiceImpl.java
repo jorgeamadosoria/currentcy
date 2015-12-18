@@ -45,6 +45,8 @@ public class EmailServiceImpl implements EmailService {
                 offset += emails.size();
 
                 for (Email email : emails) {
+                    // this [[TOKEN]] is not a freemarker variable because it changes with each recipient, but the rest of the
+                    // email remains the same, so I guess this is more efficient
                     String bodyEmail = body.replace("[[TOKEN]]", email.getToken());
                     doSendEmail(email.getEmail(), null, "Exchange Update", bodyEmail);
                 }

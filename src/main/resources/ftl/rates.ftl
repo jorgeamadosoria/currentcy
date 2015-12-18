@@ -4,12 +4,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width"/>
   <style>
-/**********************************************
-* Ink v1.0.5 - Copyright 2013 ZURB Inc        *
-**********************************************/
-
-/* Client-specific Styles and Reset */
-
 #outlook a {
   padding:0;
 }
@@ -89,8 +83,8 @@ table, tr, td {
 }
 
 hr {
-  color: #d9d9d9;
-  background-color: #d9d9d9;
+  color: #e7e7e7;
+  background-color: #e7e7e7;
   height: 1px;
   border: none;
 }
@@ -130,7 +124,12 @@ table.column {
 
 table.columns td,
 table.column td {
-  padding: 0px 0px 10px;
+  padding: 0px 0px 5px 5px;
+}
+
+table.columns th,
+table.column th {
+  padding: 0px 0px 5px 5px;
 }
 
 table.columns td.sub-columns,
@@ -291,8 +290,6 @@ table.column .text-pad-right {
   width:52px;
 }
 
-/* Alignment and Visibility Classes */
-
 table.center, td.center {
   text-align: center;
 }
@@ -334,7 +331,7 @@ img.center {
 /* Typography */
 
 body, table.body, h1, h2, h3, h4, h5, h6, p, td {
-  color: #222222;
+  color: #777;
   font-family: Helvetica, Arial, sans-serif;
   font-weight: normal;
   padding:0;
@@ -759,7 +756,7 @@ body.outlook p {
     }
 
     .header {
-      background: #999999;
+      background: #e7e7e7;
     }
 
     .footer .wrapper {
@@ -803,6 +800,62 @@ body.outlook p {
         <center>
           <table class="row header">
             <tr>
+              <td class="wrapper last center" align="center">
+                <table class="twelve columns">
+                  <tr>
+                    <td>
+                      <h1>Currentcy</h1>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <table class="container">
+            <tr>
+              <td>
+                <table class="row">
+                  <tr>
+                    <td class="wrapper last">
+                          	<#list snapshots as snapshotbycur>
+               					<br/>
+               					<h1>${currencies[snapshotbycur_index]}</h1>
+		                    <table class="panel callout twelve columns">
+		                        <thead class="header">
+		                            <tr>
+		                                <th class="text-pad">Name</th>
+		                                <th class="text-pad">Avg</th>
+		                                <th class="text-pad">Buy</th>
+		                                <th class="text-pad">Sell</th>
+		                                <th class="text-pad">Date</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                        <#list snapshotbycur as snapshot>
+		                            <tr>
+									    <td class="text-pad">${snapshot.name}</td>
+									    <td class="text-pad">${snapshot.avg}</td>
+									    <td class="text-pad">${snapshot.buy}</td>
+										<td class="text-pad">${snapshot.sell}</td>
+										<td class="text-pad">${snapshot.date}</td>
+		                            </tr>
+								</#list>
+		                        </tbody>
+		                    </table>
+							</#list>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+  <br/>
+  <table class="row header">
+            <tr>
               <td class="center" align="center">
                 <center>
                   <table class="container">
@@ -811,110 +864,18 @@ body.outlook p {
                         <table class="twelve columns">
                           <tr>
                             <td>
-                              <h1>Currentcy</h1>
+                              <center>
+                              <p style="text-align:center;"><a href="http://currentcy-jasr.rhcloud.com">Currentcy</a> | <a href="mailto:darksoul.uci@gmail.com">Contact me</a> | <a href="http://currentcy-jasr.rhcloud.com/email/unregister?token=[[TOKEN]]">Unsubscribe</a></p>
+                            </center>
                             </td>
                           </tr>
                         </table>
-
                       </td>
                     </tr>
                   </table>
-
                 </center>
               </td>
             </tr>
           </table>
-
-          <table class="container">
-            <tr>
-              <td>
-
-                <table class="row">
-                  <tr>
-                    <td class="wrapper last">
-
-                      <table class="twelve columns">
-                        <tr>
-                          <td>
-                          		<#list snapshots as snapshotbycur>
-               <h1>${currencies[snapshotbycur_index]}</h1>
-					<br/>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Avg</th>
-                                <th>Buy</th>
-                                <th>Sell</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <#list snapshotbycur as snapshot>
-                            <tr>
-							    <td>${snapshot.name}</td>
-							    <td>${snapshot.avg}</td>
-							    <td>${snapshot.buy}</td>
-								<td>${snapshot.sell}</td>
-								<td>${snapshot.date}</td>
-                            </tr>
-						</#list>
-                        </tbody>
-                    </table>
-	</#list>
-                          </td>
-                          <td class="expander"></td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-
-                <table class="row callout">
-                  <tr>
-                    <td class="wrapper last">
-
-                      <table class="twelve columns">
-                        <tr>
-                          <td class="panel">
-                            <p>Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. <a href="#">Click it! »</a></p>
-                          </td>
-                          <td class="expander"></td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-
-                <table class="row">
-                  <tr>
-                    <td class="wrapper last">
-
-                      <table class="twelve columns">
-                        <tr>
-                          <td align="center">
-                            <center>
-                              <p style="text-align:center;"><a href="http://currentcy-jasr.rhcloud.com">Currentcy</a> | <a href="mailto:darksoul.uci@gmail.com">Contact me</a> | <a href="http://currentcy-jasr.rhcloud.com/email/unregister?token=[[TOKEN]]">Unsubscribe</a></p>
-                            </center>
-                          </td>
-                          <td class="expander"></td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-
-              <!-- container end below -->
-              </td>
-            </tr>
-          </table>
-
-        </center>
-      </td>
-    </tr>
-  </table>
 </body>
 </html>
