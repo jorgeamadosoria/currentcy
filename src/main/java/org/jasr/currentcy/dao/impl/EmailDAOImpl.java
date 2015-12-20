@@ -73,5 +73,10 @@ public class EmailDAOImpl implements EmailDAO {
         return template.queryForList(env.getProperty("select.emails"), Email.class,  BATCH_LIMIT,offset);
     }
 
+	@Override
+	public String emailByToken(String token) {
+		return template.queryForObject(env.getProperty("email.token"), String.class, token);
+	}
+
 
 }

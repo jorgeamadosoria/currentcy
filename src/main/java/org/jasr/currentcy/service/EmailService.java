@@ -3,6 +3,7 @@ package org.jasr.currentcy.service;
 public interface EmailService {
 
 	public void sendUpdateEmails();
+	public void sendUpdateEmail(String token);
     public void registerEmail(String email);
     public void unregisterEmail(String token);
     public void subscribeEmail(String token);

@@ -13,6 +13,8 @@ public interface EmailDAO {
     public void unregisterEmail(String token);
 
     public String tokenByEmail(String email);
+    
+    public String emailByToken(String token);
 
     public List<Email> getEmailBatchForNotification(int offset);
     
