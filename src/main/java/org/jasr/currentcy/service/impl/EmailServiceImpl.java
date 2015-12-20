@@ -49,7 +49,7 @@ public class EmailServiceImpl implements EmailService {
 					// changes with each recipient, but the rest of the
 					// email remains the same, so I guess this is more efficient
 					String bodyEmail = body.replace("[[TOKEN]]", email.getToken());
-					doSendEmail(email.getEmail(), null, "Exchange Update", bodyEmail);
+					doSendEmail(email.getEmail(), null, "Currentcy update", bodyEmail);
 				}
 
 				System.out.println("batch of email notifications " + emails.size());
