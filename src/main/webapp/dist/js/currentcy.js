@@ -88,31 +88,31 @@ var currentcy = {
 			language : lang,
 			callback : function() {
 				// alert($.i18n.prop('msg.lemma'));
-				$("#msg-exchange").text($.i18n.prop('msg.exchange'));
-				$("#msg-calculator").text($.i18n.prop('msg.calculator'));
-				$("#msg-currency").text($.i18n.prop('msg.currency'));
-				$("#lemma").text($.i18n.prop('msg.lemma'));
-				$("#title").text($.i18n.prop('msg.title'));
-				$("#menu-title").text($.i18n.prop('msg.title'));
-				$("#github").text($.i18n.prop('msg.github'));
-				$("#paypal").text($.i18n.prop('msg.paypal'));
-				$("#language").text($.i18n.prop('msg.language'));
-				$("#about").text($.i18n.prop('msg.about'));
-				$("#exchange-rate").text($.i18n.prop('msg.exchange.rate'));
-				$("#author").text($.i18n.prop('msg.author'));
-				$("#author-title").text($.i18n.prop('msg.author.title'));
-				$("#author-comment").text($.i18n.prop('msg.author.comment'));
-				$("#author-email").text($.i18n.prop('msg.author.email'));
-				$("#contact-me").text($.i18n.prop('msg.contact.me'));
-				$("#kudos").text($.i18n.prop('msg.kudos'));
-				$("#table-exchange").text($.i18n.prop('msg.table.exchange'));
-				$("#table-average").text($.i18n.prop('msg.table.average'));
-				$("#table-buy").text($.i18n.prop('msg.table.buy'));
-				$("#table-sell").text($.i18n.prop('msg.table.sell'));
-				$("#msg-trend").text($.i18n.prop('msg.trend'));
-				$("#subscribe").text($.i18n.prop('msg.subscribe'));
-				$("button#subscribe").text($.i18n.prop('msg.subscribe'));
-				$("#msg-current-rates").text($.i18n.prop('msg.current.rates'));
+				$("#msg-exchange").html($.i18n.prop('msg.exchange'));
+				$("#msg-calculator").html($.i18n.prop('msg.calculator'));
+				$("#msg-currency").html($.i18n.prop('msg.currency'));
+				$("#lemma").html($.i18n.prop('msg.lemma'));
+				$("#title").html($.i18n.prop('msg.title'));
+				$("#menu-title").html($.i18n.prop('msg.title'));
+				$("#github").html($.i18n.prop('msg.github'));
+				$("#paypal").html($.i18n.prop('msg.paypal'));
+				$("#language").html($.i18n.prop('msg.language'));
+				$("#about").html($.i18n.prop('msg.about'));
+				$("#exchange-rate").html($.i18n.prop('msg.exchange.rate'));
+				$("#author").html($.i18n.prop('msg.author'));
+				$("#author-title").html($.i18n.prop('msg.author.title'));
+				$("#author-comment").html($.i18n.prop('msg.author.comment'));
+				$("#author-email").html($.i18n.prop('msg.author.email'));
+				$("#contact-me").html($.i18n.prop('msg.contact.me'));
+				$("#kudos").html($.i18n.prop('msg.kudos'));
+				$("#table-exchange").html($.i18n.prop('msg.table.exchange'));
+				$("#table-average").html($.i18n.prop('msg.table.average'));
+				$("#table-buy").html($.i18n.prop('msg.table.buy'));
+				$("#table-sell").html($.i18n.prop('msg.table.sell'));
+				$("#msg-trend").html($.i18n.prop('msg.trend'));
+				$("#subscribe").html($.i18n.prop('msg.subscribe'));
+				$("button#subscribe").html($.i18n.prop('msg.subscribe'));
+				$("#msg-current-rates").html($.i18n.prop('msg.current.rates'));
 			}
 		});
 	},
