@@ -95,6 +95,7 @@ var currentcy = {
 				$("#title").text($.i18n.prop('msg.title'));
 				$("#menu-title").text($.i18n.prop('msg.title'));
 				$("#github").text($.i18n.prop('msg.github'));
+				$("#paypal").text($.i18n.prop('msg.paypal'));
 				$("#language").text($.i18n.prop('msg.language'));
 				$("#about").text($.i18n.prop('msg.about'));
 				$("#exchange-rate").text($.i18n.prop('msg.exchange.rate'));
