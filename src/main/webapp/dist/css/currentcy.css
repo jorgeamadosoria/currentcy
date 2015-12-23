@@ -1,3 +1,5 @@
+body { padding-top: 70px; }
+
 #code {
 	height: 100px;
 	width: 100px
@@ -5,10 +7,6 @@
 
 .tiny {
 	font-size: 10px;
-}
-
-a.lang_link {
-	padding: 5px !important;
 }
 
 .clickable {

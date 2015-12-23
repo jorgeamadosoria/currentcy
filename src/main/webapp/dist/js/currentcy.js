@@ -88,6 +88,9 @@ var currentcy = {
 			language : lang,
 			callback : function() {
 				// alert($.i18n.prop('msg.lemma'));
+				$("#msg-en").html($.i18n.prop('msg.en'));
+				$("#msg-es-cu").html($.i18n.prop('msg.es.cu'));
+				$("#msg-es-uy").html($.i18n.prop('msg.es.uy'));
 				$("#msg-exchange").html($.i18n.prop('msg.exchange'));
 				$("#msg-calculator").html($.i18n.prop('msg.calculator'));
 				$("#msg-currency").html($.i18n.prop('msg.currency'));
@@ -96,7 +99,7 @@ var currentcy = {
 				$("#menu-title").html($.i18n.prop('msg.title'));
 				$("#github").html($.i18n.prop('msg.github'));
 				$("#paypal").html($.i18n.prop('msg.paypal'));
-				$("#language").html($.i18n.prop('msg.language'));
+				$("#msg-language").html($.i18n.prop('msg.language'));
 				$("#about").html($.i18n.prop('msg.about'));
 				$("#exchange-rate").html($.i18n.prop('msg.exchange.rate'));
 				$("#author").html($.i18n.prop('msg.author'));
@@ -105,6 +108,7 @@ var currentcy = {
 				$("#author-email").html($.i18n.prop('msg.author.email'));
 				$("#contact-me").html($.i18n.prop('msg.contact.me'));
 				$("#kudos").html($.i18n.prop('msg.kudos'));
+				$("#table-trend").html($.i18n.prop('msg.table.trend'));
 				$("#table-exchange").html($.i18n.prop('msg.table.exchange'));
 				$("#table-average").html($.i18n.prop('msg.table.average'));
 				$("#table-buy").html($.i18n.prop('msg.table.buy'));
@@ -125,16 +129,49 @@ var currentcy = {
 							var bestBuy = null;
 							var sellBuy = null;
 							for(var snapshot of data){
-								if (snapshot.bestBuy)
+								if (snapshot.bestBuy){
 									bestBuy = snapshot;
-								if (snapshot.bestSell)
+								}
+								if (snapshot.bestSell){
 									bestSell = snapshot;
+								}
 							}
 							
+							
 							$("#calc-container").loadTemplate(
-									"dist/templates/calcrow.html", data);
+									"dist/templates/calcrow.html", data,{
+										beforeInsert : function(elem) {
+											$("tr#"+bestBuy.code).addClass("success");
+											var trend = $(elem).find(
+													"#trend").text();
+											$(elem).find("#trend")
+													.empty();
 
-							$("tr #"+bestBuy.code).addClass("success");
+											if (trend == '<')
+												$(elem)
+														.find("#trend")
+														.toggleClass(
+																"text-danger fa-arrow-circle-up");
+											if (trend == '-')
+												$(elem)
+														.find("#trend")
+														.toggleClass(
+																"text-primary fa-minus-circle");
+											if (trend == '>')
+												$(elem)
+														.find("#trend")
+														.toggleClass(
+																"text-success fa-arrow-circle-down");
+
+											if (trend == 'x')
+												$(elem)
+														.find("#trend")
+														.toggleClass(
+																"fa-question-circle");
+										}
+									});
+
+							
 							
 							$("#trend-options-container").loadTemplate(
 									"dist/templates/trendoption.html", data, {
@@ -147,38 +184,7 @@ var currentcy = {
 											"dist/templates/snapshot.html",
 											data,
 											{
-												beforeInsert : function(elem) {
-
-													var trend = $(elem).find(
-															"#trend").text();
-													$(elem).find("#trend")
-															.empty();
-
-													if (trend == '<')
-														$(elem)
-																.find("#trend")
-																.toggleClass(
-																		"text-danger fa-arrow-circle-up");
-													if (trend == '-')
-														$(elem)
-																.find("#trend")
-																.toggleClass(
-																		"text-primary fa-minus-circle");
-													if (trend == '>')
-														$(elem)
-																.find("#trend")
-																.toggleClass(
-																		"text-success fa-arrow-circle-down");
-
-													if (trend == 'x')
-														$(elem)
-																.find("#trend")
-																.toggleClass(
-																		"fa-question-circle");
-
-													$(elem).find("a#details")
-															.click();
-												},
+												
 												afterInsert : function(elem) {
 													var src = $(elem).find(
 															".panel-default")
@@ -194,7 +200,10 @@ var currentcy = {
 													alert(e);
 												}
 											});
+							
+							
 						});
+		
 
 	},
 

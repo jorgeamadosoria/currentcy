@@ -36,21 +36,52 @@
 <body>
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-default navbar-static-top" role="navigation"
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
 		style="margin-bottom: 0">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
 			<a class="navbar-brand" href="index.html"><span id="title"></span>
 				<small><i id="lemma"></i></small></a>
 		</div>
 		<!-- /.navbar-header -->
 
 		<ul class="nav navbar-top-links navbar-right">
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"> <i
+					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i><span
+					id="msg-currency"></span> <i class="fa fa-caret-down"></i>
+			</a>
+				<ul class="dropdown-menu">
+					<li><ul class="nav nav-pills">
+							<li class="nav-pills" id="usd"><a class="currency_link"
+								href="#" data-currency="usd" data-toggle="tab"><i
+									class="fa fa-usd fa-fw fa-2x nav-2x-icon"></i></a></li>
+							<li class="nav-pills" id="eur"><a class="currency_link"
+								href="#" data-currency="eur" data-toggle="tab"><i
+									class="fa fa-eur fa-fw fa-2x nav-2x-icon"></i></a></li>
+						</ul></li>
+				</ul></li>
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#"> <i
+					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i><span
+					id="msg-language"></span> <i class="fa fa-caret-down"></i>
+			</a>
+				<ul class="dropdown-menu">
+					<li><ul class="nav nav-pills">
+							<li class="nav-pills"></li>
+							<li class="nav-pills" id="en"><a class="lang_link"
+								data-lang="en" data-toggle="tab" href="#"><img
+									src="dist/flags/US.png" alt="en (US)">&nbsp;&nbsp;<span
+									id="msg-en"></span></a></li>
+							<li class="nav-pills" id="es_CU"><a class="lang_link"
+								data-lang="es_CU" data-toggle="tab" href="#"><img
+									src="dist/flags/CU.png" alt="es (Cuba)">&nbsp;&nbsp;<span
+									id="msg-es-cu"></span></a></li>
+							<li class="nav-pills" id="es_UY"><a class="lang_link"
+								data-lang="es_UY" data-toggle="tab" href="#"><img
+									src="dist/flags/UY.png" alt="es (Uruguay)">&nbsp;&nbsp;<span
+									id="msg-es-uy"></span></a></li>
+						</ul></li>
+				</ul></li>
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#"> <i
 					class="fa fa-info-circle fa-fw fa-2x nav-2x-icon"></i><span
@@ -82,42 +113,25 @@
 										id="author-email"></span></em> </span> <span class="clearfix" id="kudos"></span>
 							</div>
 					</a></li>
-				</ul> <!-- /.dropdown-messages --></li>
-			<li class="dropdown"><a target="new"
-				href="https://github.com/jorgeamadosoria/currentcy#currentcy"> <i
-					class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span id="github"></span>
-			</a></li>
-			<li class="dropdown"><a id="paypal-submit"
-				class="dropdown-toggle"> <i
-					class="fa fa-paypal fa-fw fa-2x nav-2x-icon"></i><span id="paypal"></span>
-			</a>
-				<form id="paypal-form"
-					action="https://www.paypal.com/cgi-bin/webscr" method="post"
-					target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick"> <input
-						type="hidden" name="hosted_button_id" value="K7GMMVL54MFAA">
+					<li class="divider"></li>
+					<li><a target="new"
+						href="https://github.com/jorgeamadosoria/currentcy#currentcy">
+							<i class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span
+							id="github"></span>
+					</a></li>
+					<li class="divider"></li>
+					<li><a id="paypal-submit"> <i
+							class="fa fa-paypal fa-fw fa-2x nav-2x-icon"></i><span
+							id="paypal"></span>
+					</a>
+						<form id="paypal-form"
+							action="https://www.paypal.com/cgi-bin/webscr" method="post"
+							target="_top">
+							<input type="hidden" name="cmd" value="_s-xclick"> <input
+								type="hidden" name="hosted_button_id" value="K7GMMVL54MFAA">
 
-				</form></li>
-		</ul>
-
-		<ul class="nav navbar-top-links navbar-right nav-pills">
-			<li class="nav-pills" id="en"><a class="lang_link"
-				data-lang="en" data-toggle="tab" href="#"><img
-					src="dist/flags/US.png" alt="en (US)"></a></li>
-			<li class="nav-pills" id="es_CU"><a class="lang_link"
-				data-lang="es_CU" data-toggle="tab" href="#"><img
-					src="dist/flags/CU.png" alt="es (Cuba)"></a></li>
-			<li class="nav-pills" id="es_UY"><a class="lang_link"
-				data-lang="es_UY" data-toggle="tab" href="#"><img
-					src="dist/flags/UY.png" alt="es (Uruguay)"></a></li>
-		</ul>
-		<ul class="nav navbar-top-links navbar-right nav-pills">
-			<li class="nav-pills" id="usd"><a class="currency_link" href="#"
-				data-currency="usd" data-toggle="tab"><i
-					class="fa fa-usd fa-fw fa-2x nav-2x-icon"></i></a></li>
-			<li class="nav-pills" id="eur"><a class="currency_link" href="#"
-				data-currency="eur" data-toggle="tab"><i
-					class="fa fa-eur fa-fw fa-2x nav-2x-icon"></i></a></li>
+						</form></li>
+				</ul></li>
 		</ul>
 	</nav>
 	<div id="page-wrapper">
@@ -153,9 +167,10 @@
 										class="form-control">
 								</div>
 								<div class="table-responsive">
-									<table class="table table-bordered table-hover table-striped">
+									<table id="calcs" class="table table-bordered table-hover table-striped">
 										<thead>
 											<tr>
+												<th class="text-center"><i class="fa fa-line-chart"></i></th>
 												<th class="text-center" id="table-exchange"></th>
 												<th class="text-center small" id="table-average"></th>
 												<th class="text-center small" id="table-buy"></th>
@@ -214,8 +229,7 @@
 									</span>
 								</div>
 								<div class="text-center hidden" id="subscribe-loading">
-									<span 
-										class="fa-5x fa text-muted fa-spinner fa-spin"></span>
+									<span class="fa-5x fa text-muted fa-spinner fa-spin"></span>
 								</div>
 							</div>
 						</div>
@@ -243,7 +257,11 @@
 	<script src="dist/js/numeral.min.js"></script>
 	<script src="dist/js/currentcy.js"></script>
 	<script type="text/javascript">
+		function paypalSubmit() {
+			$("form#paypal-form").submit();
+		};
 		jQuery(function($) {
+			$("a#paypal-submit").attr("href", "javascript:paypalSubmit();");
 			$('.panel-heading span.clickable').on(
 					"click",
 					function(e) {
