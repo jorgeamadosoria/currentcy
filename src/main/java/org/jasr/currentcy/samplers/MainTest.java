@@ -10,7 +10,7 @@ public class MainTest {
 //        SamplerBase[] samplers = new SamplerBase[] { new AbitabCambilex(), new BBVa(), new BCU(), new BROU(), new Cambio18(),
 //                new CambioSir(), new CotizacionDolar(), new CWiki(), new GoogleFinance(), new Indumex(), new YahooFinance() };
         SamplerBase[] samplers = new SamplerBase[] { 
-                 new GoogleFinance(), new YahooFinance() };
+                 new GalesSA()};
 
         for (SamplerBase sampler : samplers) {
             System.out.println(sampler.getName());
