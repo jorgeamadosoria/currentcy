@@ -13,13 +13,10 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:sql.properties")
-class PersistenceConfig {
+public class PersistenceConfig {
 
     @Value("${OPENSHIFT_MYSQL_DB_HOST}")
     private String host;
@@ -29,41 +26,30 @@ class PersistenceConfig {
     private String username;
     @Value("${OPENSHIFT_MYSQL_DB_PASSWORD}")
     private String password;
+    
+    @Resource
+    private DataSource dataSource;
 
     @Bean(initMethod = "migrate")
     Flyway flyway() {
         Flyway flyway = new Flyway();
         flyway.setBaselineOnMigrate(true);
         flyway.setLocations("classpath:sql/");
-        flyway.setDataSource(dataSource());
+        flyway.setDataSource(dataSource);
         flyway.migrate();
         return flyway;
     }
     
-    @Bean
-    public DataSource dataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://"+host+":"+port+"/currentcy";
-        config.setJdbcUrl(url);
-        config.setUsername(username);	
-        config.setPassword(password);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        config.addDataSourceProperty("useServerPrepStmts", "true");
-        config.setConnectionTestQuery("select * from snapshot");
-        return new HikariDataSource(config);
-    }
+   
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate bean = new JdbcTemplate(dataSource());
+        JdbcTemplate bean = new JdbcTemplate(dataSource);
         return bean;
     }
 
     @Bean
     public PlatformTransactionManager txManager() {
-        return new DataSourceTransactionManager(dataSource());
+        return new DataSourceTransactionManager(dataSource);
     }
 }

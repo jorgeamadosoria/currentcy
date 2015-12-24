@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 @Configuration
 @ComponentScan(basePackageClasses = Application.class, excludeFilters = @Filter({Controller.class, Configuration.class}))
 @EnableScheduling
-class ApplicationConfig {
+public class ApplicationConfig {
 
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

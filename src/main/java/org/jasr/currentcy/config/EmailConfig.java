@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
-class EmailConfig {
+public class EmailConfig {
 
     @Value("${MAIL_USERNAME}")
     private String username;

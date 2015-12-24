@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 @Configuration
 @PropertySource("classpath:application.properties")
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class) , useDefaultFilters = false)
-class WebMvcConfig extends WebMvcConfigurationSupport {
+public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     private static final String RESOURCES_LOCATION = "/template/";
     private static final String RESOURCES_HANDLER  = RESOURCES_LOCATION + "**";

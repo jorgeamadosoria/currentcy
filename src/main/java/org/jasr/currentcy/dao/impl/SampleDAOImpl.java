@@ -1,8 +1,6 @@
 package org.jasr.currentcy.dao.impl;
 
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Resource;
 

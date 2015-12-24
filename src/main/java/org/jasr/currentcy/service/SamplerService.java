@@ -1,7 +1,6 @@
 package org.jasr.currentcy.service;
 
 import java.util.List;
-import java.util.Locale;
 
 import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
