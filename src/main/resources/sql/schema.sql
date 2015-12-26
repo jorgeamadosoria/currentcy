@@ -20,8 +20,8 @@ CREATE TABLE snapshot (
 CREATE TABLE samples (
   id INTEGER IDENTITY,
   code VARCHAR(6) NOT NULL,
-  currency varchar(4) default 'USD' NOT NULL,
   buy DOUBLE DEFAULT '0' NOT NULL,
   sell DOUBLE DEFAULT '0' NOT NULL,
-  date DATETIME NOT NULL
+  date DATETIME NOT NULL,
+  currency varchar(4) default 'USD' NOT NULL
 );
