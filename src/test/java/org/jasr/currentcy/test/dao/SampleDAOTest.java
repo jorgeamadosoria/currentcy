@@ -4,17 +4,15 @@ import org.jasr.currentcy.dao.SampleDAO;
 import org.jasr.currentcy.test.utils.JUnitBaseTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SampleDAOTest extends JUnitBaseTest {
 
     @Autowired
-    private SampleDAO sampleDAOMock;
+    private SampleDAO sampleDAO;
 
     @Before
     public void setUp() {
-        Mockito.reset(sampleDAOMock);
         super.setUp();
     }
 

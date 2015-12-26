@@ -1,9 +1,9 @@
 package org.jasr.currentcy.test.utils;
 
 import org.jasr.currentcy.config.ApplicationConfig;
-import org.jasr.currentcy.test.config.DatasourceConfig;
-import org.jasr.currentcy.config.EmailConfig;
 import org.jasr.currentcy.config.PersistenceConfig;
+import org.jasr.currentcy.test.config.DatasourceConfig;
+import org.jasr.currentcy.test.config.EmailConfig;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

@@ -18,14 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:sql.properties")
 public class PersistenceConfig {
 
-    @Value("${OPENSHIFT_MYSQL_DB_HOST}")
-    private String host;
-    @Value("${OPENSHIFT_MYSQL_DB_PORT}")
-    private String port;
-    @Value("${OPENSHIFT_MYSQL_DB_USERNAME}")
-    private String username;
-    @Value("${OPENSHIFT_MYSQL_DB_PASSWORD}")
-    private String password;
+
     
     @Resource
     private DataSource dataSource;
