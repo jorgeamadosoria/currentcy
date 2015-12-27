@@ -121,6 +121,30 @@ var currentcy = {
 		});
 	},
 
+	snapshotdetails: function(snapshot){
+		$("#snapshot-container")
+		.loadTemplate(
+				"dist/templates/snapshot-details.html",
+				snapshot,
+				{
+					
+					afterInsert : function(elem) {
+						var src = $(elem).find(
+								".panel-default")
+								.attr("id");
+						$(elem)
+								.find("#code")
+								.attr(
+										"src",
+										"dist/logos/"
+												+ src);
+						$(elem).find("#snapshot-link").attr("href","javascript:snapshot('"+src+"')");
+					},
+					error : function(e) {
+						alert(e);
+					}
+				});
+	},
 	snapshot : function() {
 		$
 				.get(
@@ -173,36 +197,46 @@ var currentcy = {
 
 							
 							
-							$("#trend-options-container").loadTemplate(
-									"dist/templates/trendoption.html", data, {
-										success : currentcy.flot
-									});
+							
+							
+							
+		$("#ticker")
+		.loadTemplate(
+				"dist/templates/snapshot.html",
+				data,
+				{
+					afterInsert : function(elem) {
+						var src = $(elem).find(
+								".panel-default")
+								.attr("id");
+						$(elem)
+								.find("#code")
+								.attr(
+										"src",
+										"dist/logos/"
+												+ src);
+						$(elem).find("#snapshot-link").attr("href","javascript:snapshot('"+src+"')");
+					},
+					error : function(e) {
+						alert(e);
+					},
+					success: function(e){
+						$('#ticker').bxSlider({
+							  minSlides: 4,
+							  maxSlides: 10,
+							  slideWidth:300,
+							  slideMargin: 2,
+							  ticker: true,
+							  tickerHover:true,
+							  speed: 100000,
+							  infiniteLoop:true
+							});
+					}
+				});
 
-							
-							$("#snapshot-container")
-									.loadTemplate(
-											"dist/templates/snapshot.html",
-											data,
-											{
-												
-												afterInsert : function(elem) {
-													var src = $(elem).find(
-															".panel-default")
-															.attr("id");
-													$(elem)
-															.find("#code")
-															.attr(
-																	"src",
-																	"dist/logos/"
-																			+ src);
-												},
-												error : function(e) {
-													alert(e);
-												}
-											});
-							
-							
-						});
+		
+});
+		
 		
 
 	},

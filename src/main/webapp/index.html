@@ -129,11 +129,12 @@
 							target="_top">
 							<input type="hidden" name="cmd" value="_s-xclick"> <input
 								type="hidden" name="hosted_button_id" value="K7GMMVL54MFAA">
-
 						</form></li>
 				</ul></li>
 		</ul>
+		
 	</nav>
+	<ul id="ticker"></ul>
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-6">
@@ -196,8 +197,6 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<select id="trend-options-container" class="form-control"></select>
-								<!-- /.panel-heading -->
 								<div class="panel-body">
 									<div class="text-center flot-chart">
 										<span id="flot-chart-loading"
@@ -244,6 +243,7 @@
 	<script src="dist/js/jquery.min.js"></script>
 	<script src="dist/js/store.min.js"></script>
 
+	<script src="dist/js/jquery.bxslider.min.js"></script>
 	<script src="dist/js/jquery.loadTemplate-1.4.4.js"></script>
 	<script src="dist/js/jquery.i18n.properties.js"></script>
 	<!-- Bootstrap Core JavaScript -->
@@ -319,8 +319,6 @@
 			});
 
 			currentcy.snapshot();
-
-			$("#trend-options-container").change(currentcy.flot);
 
 			$("#amount").val("");
 			$("#amount").on("input", currentcy.calculate);
