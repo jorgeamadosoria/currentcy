@@ -132,7 +132,7 @@
 						</form></li>
 				</ul></li>
 		</ul>
-		
+
 	</nav>
 	<ul id="ticker"></ul>
 	<div id="page-wrapper">
@@ -141,15 +141,37 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-exchange fa-fw"></i>&nbsp;<span
-							id="msg-current-rates"></span><span
+							id="msg-current-rate"></span><span
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
 					<div class="panel-body">
-						<div class="row" id="snapshot-container"></div>
+						<div id="snapshot-container"></div>
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-line-chart fa-fw"></i>&nbsp;<span id="msg-trend"></span><span
+							class="pull-right badge clickable"><i
+							class="glyphicon glyphicon-chevron-up"></i></span>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="panel-body">
+								<div class="text-center flot-chart">
+									<span id="flot-chart-loading"
+										class="fa-5x fa text-muted fa-spinner fa-spin"></span>
+									<div class="flot-chart-content" id="flot-line-chart"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -158,86 +180,40 @@
 							class="pull-right badge clickable"><i
 							class="glyphicon glyphicon-chevron-up"></i></span>
 					</div>
-					<!-- /.panel-heading -->
 					<div class="panel-body">
-
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="form-group">
-									<input id="amount" placeholder="Amount to exchange"
-										class="form-control">
-								</div>
-								<div class="table-responsive">
-									<table id="calcs" class="table table-bordered table-hover table-striped">
-										<thead>
-											<tr>
-												<th class="text-center"><i class="fa fa-line-chart"></i></th>
-												<th class="text-center" id="table-exchange"></th>
-												<th class="text-center small" id="table-average"></th>
-												<th class="text-center small" id="table-buy"></th>
-												<th class="text-center small" id="table-sell"></th>
-											</tr>
-										</thead>
-										<tbody id="calc-container">
-										</tbody>
-									</table>
-								</div>
-							</div>
+						<div class="form-group">
+							<input id="amount" placeholder="Amount to exchange"
+								class="form-control">
 						</div>
+						<div id="calc-container"></div>
 					</div>
 				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<i class="fa fa-bar-chart-o fa-fw"></i><span id="msg-trend"></span><span
-							class="pull-right badge clickable"><i
-							class="glyphicon glyphicon-chevron-up"></i></span>
-
-					</div>
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="panel-body">
-									<div class="text-center flot-chart">
-										<span id="flot-chart-loading"
-											class="fa-5x fa text-muted fa-spinner fa-spin"></span>
-										<div class="flot-chart-content" id="flot-line-chart"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			</div>
+			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-envelope fa-fw"></i><span id="subscribe"></span>
 					</div>
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<div id="subscribe-group" class="input-group">
+							<div id="subscribe-group" class="input-group">
 
-									<input id="email" name="email" class="form-control"
-										type="email"
-										placeholder="Input your email address to receive updates" />
-									<span class="input-group-btn">
-										<button id="subscribe" class="btn btn-primary" type="submit">
+								<input id="email" name="email" class="form-control" type="email"
+									placeholder="Input your email address to receive updates" /> <span
+									class="input-group-btn">
+									<button id="subscribe" class="btn btn-primary" type="submit">
 
-										</button>
+									</button>
 
-									</span>
-								</div>
-								<div class="text-center hidden" id="subscribe-loading">
-									<span class="fa-5x fa text-muted fa-spinner fa-spin"></span>
-								</div>
+								</span>
 							</div>
-						</div>
+							<div class="text-center hidden" id="subscribe-loading">
+								<span class="fa-5x fa text-muted fa-spinner fa-spin"></span>
+							</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<!-- jQuery -->
 	<script src="dist/js/jquery.min.js"></script>

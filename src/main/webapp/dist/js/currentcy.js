@@ -12,6 +12,14 @@ var currentcy = {
 	setCurrency : function(cur) {
 		store.set('currency',cur);
 	},
+	
+	getSelected : function() {
+		return store.get('selected');
+	},
+
+	setSelected : function(exchange) {
+		store.set('selected',exchange);
+	},
 
 	getLocale : function() {
 		if (!store.get('locale'))
@@ -116,12 +124,14 @@ var currentcy = {
 				$("#msg-trend").html($.i18n.prop('msg.trend'));
 				$("#subscribe").html($.i18n.prop('msg.subscribe'));
 				$("button#subscribe").html($.i18n.prop('msg.subscribe'));
-				$("#msg-current-rates").html($.i18n.prop('msg.current.rates'));
+				$("#msg-current-rate").html($.i18n.prop('msg.current.rate'));
 			}
 		});
 	},
 
-	snapshotdetails: function(snapshot){
+	snapshotdetails: function(snapshotId){
+		var snapshot = store.get(snapshotId);
+		currentcy.setSelected(snapshot);
 		$("#snapshot-container")
 		.loadTemplate(
 				"dist/templates/snapshot-details.html",
@@ -138,12 +148,14 @@ var currentcy = {
 										"src",
 										"dist/logos/"
 												+ src);
-						$(elem).find("#snapshot-link").attr("href","javascript:snapshot('"+src+"')");
+						
 					},
 					error : function(e) {
 						alert(e);
 					}
 				});
+		
+		currentcy.flot();
 	},
 	snapshot : function() {
 		$
@@ -153,6 +165,10 @@ var currentcy = {
 							var bestBuy = null;
 							var sellBuy = null;
 							for(var snapshot of data){
+								if (!currentcy.getSelected()){
+									currentcy.setSelected(snapshot);
+								}
+								store.set(snapshot.code,snapshot);
 								if (snapshot.bestBuy){
 									bestBuy = snapshot;
 								}
@@ -160,10 +176,10 @@ var currentcy = {
 									bestSell = snapshot;
 								}
 							}
-							
+							currentcy.snapshotdetails(currentcy.getSelected().code);
 							
 							$("#calc-container").loadTemplate(
-									"dist/templates/calcrow.html", data,{
+									"dist/templates/calcrow.html", currentcy.getSelected(),{
 										beforeInsert : function(elem) {
 											$("tr#"+bestBuy.code).addClass("success");
 											var trend = $(elem).find(
@@ -194,11 +210,6 @@ var currentcy = {
 																"fa-question-circle");
 										}
 									});
-
-							
-							
-							
-							
 							
 		$("#ticker")
 		.loadTemplate(
@@ -215,7 +226,7 @@ var currentcy = {
 										"src",
 										"dist/logos/"
 												+ src);
-						$(elem).find("#snapshot-link").attr("href","javascript:snapshot('"+src+"')");
+						$(elem).find("#snapshot-link").attr("href","javascript:currentcy.snapshotdetails('"+src+"')");
 					},
 					error : function(e) {
 						alert(e);
@@ -237,13 +248,12 @@ var currentcy = {
 		
 });
 		
-		
 
 	},
 
 	flot : function() {
 
-		var source = $("#trend-options-container").val();
+		var source = currentcy.getSelected().code;
 
 		var offset = 0;
 		$.ajax({
