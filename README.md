@@ -8,11 +8,16 @@ A list of supported exchanges can be seen here listed alphabetically:
 <li>Banco Central del Uruguay  http://www.bcu.gub.uy</li>
 <li>Banco República  http://www.brou.com.uy</li>
 <li>Cambio 18  http://www.cambio18.com</li>
+<li>Cambio Aspen  http://www.aspen.com.uy</li>
 <li>Cambio SIR http://www.cambiosir.com.uy</li>
 <li>Cotización Dólar Uruguay  http://uy.cotizacion-dolar.com</li>
 <li>Currency.wiki  http://currency.wiki</li>
+<li>Gales SA http://www.gales.com.uy/home/</li>
 <li>Google Finance https://www.google.com</li>
+<li>Intercambio Idel SA http://www.intercambio.com.uy</li>
 <li>Indumex  http://www.indumex.com</li>
+<li>Nixus Servicios Financieros  http://www.nixus.com.uy</li>
+<li>Cambio Regul SA  http://www.cambioregul.com/portal/hgxpp001.aspx</li>
 <li>Yahoo http://finance.yahoo.com</li>
 </ul>
 
