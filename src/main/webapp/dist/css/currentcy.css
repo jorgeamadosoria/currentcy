@@ -1,4 +1,3 @@
-body { padding-top: 70px; }
 
 #code {
 	height: 100px;
@@ -15,4 +14,22 @@ body { padding-top: 70px; }
 
 .nav-2x-icon {
 	vertical-align: middle;
+}
+
+.vcenter {
+	padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.vcenter2 {
+	padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.img-bordered {
+ outline: 1px solid orange;
+}
+	
+body {
+	padding-top:70px
 }

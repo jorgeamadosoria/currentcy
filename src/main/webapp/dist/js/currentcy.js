@@ -38,6 +38,16 @@ var currentcy = {
 		}
 		return true;
 	},
+	
+	clearCalculate:function(){
+		$("#amount").val('');
+					$("#buy-amount").text(
+							"$ 0");
+					$("#avg-amount").text(
+					"$ 0");
+					$("#sell-amount").text(
+					"$ 0");
+	},
 
 	preventLetter : function(e) {
 		if (e.shiftKey === true) {
@@ -56,8 +66,8 @@ var currentcy = {
 	},
 
 	calculate : function(ele) {
-
 		var e = $("#amount").val();
+
 		if (isNaN(e)) {
 			ele.preventDefault();
 			return false;
@@ -65,27 +75,23 @@ var currentcy = {
 			var amount = $("#amount").val();
 			var format = '$ 0,0';
 			var value = numeral(amount);
-			$("#calc-container tr").map(
-					function(index, el) {
-						$(el).find("#buy-amount").text(
+			
+						$("#buy-amount").text(
 								numeral(
 										Math.floor(amount
-												* $(el).find("#buy").text()))
+												* currentcy.getSelected().buyValue))
 										.format(format));
-						$(el).find("#avg-amount").text(
+						$("#avg-amount").text(
 								numeral(
 										Math.floor(amount
-												* $(el).find("#avg").text()))
+												* currentcy.getSelected().avgValue))
 										.format(format));
-						$(el).find("#sell-amount").text(
+						$("#sell-amount").text(
 								numeral(
 										Math.floor(amount
-												* $(el).find("#sell").text()))
+												* currentcy.getSelected().sellValue))
 										.format(format));
-					});
-		}
-		return true;
-	},
+	}},
 
 	initLanguage : function() {
 
@@ -116,11 +122,6 @@ var currentcy = {
 				$("#author-email").html($.i18n.prop('msg.author.email'));
 				$("#contact-me").html($.i18n.prop('msg.contact.me'));
 				$("#kudos").html($.i18n.prop('msg.kudos'));
-				$("#table-trend").html($.i18n.prop('msg.table.trend'));
-				$("#table-exchange").html($.i18n.prop('msg.table.exchange'));
-				$("#table-average").html($.i18n.prop('msg.table.average'));
-				$("#table-buy").html($.i18n.prop('msg.table.buy'));
-				$("#table-sell").html($.i18n.prop('msg.table.sell'));
 				$("#msg-trend").html($.i18n.prop('msg.trend'));
 				$("#subscribe").html($.i18n.prop('msg.subscribe'));
 				$("button#subscribe").html($.i18n.prop('msg.subscribe'));
@@ -154,7 +155,7 @@ var currentcy = {
 						alert(e);
 					}
 				});
-		
+		currentcy.clearCalculate();
 		currentcy.flot();
 	},
 	snapshot : function() {
@@ -178,38 +179,31 @@ var currentcy = {
 							}
 							currentcy.snapshotdetails(currentcy.getSelected().code);
 							
-							$("#calc-container").loadTemplate(
-									"dist/templates/calcrow.html", currentcy.getSelected(),{
-										beforeInsert : function(elem) {
-											$("tr#"+bestBuy.code).addClass("success");
-											var trend = $(elem).find(
-													"#trend").text();
-											$(elem).find("#trend")
+											var trend = currentcy.getSelected().trend;
+											$("#calc-container").find("#trend")
 													.empty();
 
 											if (trend == '<')
-												$(elem)
+												$("#calc-container")
 														.find("#trend")
 														.toggleClass(
 																"text-danger fa-arrow-circle-up");
 											if (trend == '-')
-												$(elem)
+												$("#calc-container")
 														.find("#trend")
 														.toggleClass(
 																"text-primary fa-minus-circle");
 											if (trend == '>')
-												$(elem)
+												$("#calc-container")
 														.find("#trend")
 														.toggleClass(
 																"text-success fa-arrow-circle-down");
 
 											if (trend == 'x')
-												$(elem)
+												$("#calc-container")
 														.find("#trend")
 														.toggleClass(
 																"fa-question-circle");
-										}
-									});
 							
 		$("#ticker")
 		.loadTemplate(
@@ -239,8 +233,11 @@ var currentcy = {
 							  slideMargin: 2,
 							  ticker: true,
 							  tickerHover:true,
+							  useCSS: false, // to allow tickerHover
 							  speed: 100000,
-							  infiniteLoop:true
+							  pager: true,
+							  infiniteLoop:true,
+							  controls:true
 							});
 					}
 				});
@@ -271,9 +268,8 @@ var currentcy = {
 				for (var i = 0; i < data.samples.length; i++) {
 					buy.push([ i, data.samples[i].buyValue ]);
 					sell.push([ i, data.samples[i].sellValue ]);
-					dates.push([ i, data.samples[i].date ]);
+					dates.push([ i, data.samples[i].trendDate ]);
 				}
-
 				var options = {
 					series : {
 						lines : {
