@@ -33,7 +33,7 @@ var currentcy = {
 
 	checkLocalStore : function() {
 		if (!store.enabled) {
-			alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.')
+			alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
 			return false;
 		}
 		return true;
@@ -78,18 +78,15 @@ var currentcy = {
 			
 						$("#buy-amount").text(
 								numeral(
-										Math.floor(amount
-												* currentcy.getSelected().buyValue))
+										Math.floor(amount* currentcy.getSelected().buyValue))
 										.format(format));
 						$("#avg-amount").text(
 								numeral(
-										Math.floor(amount
-												* currentcy.getSelected().avgValue))
+										Math.floor(amount* currentcy.getSelected().avgValue))
 										.format(format));
 						$("#sell-amount").text(
 								numeral(
-										Math.floor(amount
-												* currentcy.getSelected().sellValue))
+										Math.floor(amount* currentcy.getSelected().sellValue))
 										.format(format));
 	}},
 
@@ -114,6 +111,7 @@ var currentcy = {
 				$("#github").html($.i18n.prop('msg.github'));
 				$("#paypal").html($.i18n.prop('msg.paypal'));
 				$("#msg-language").html($.i18n.prop('msg.language'));
+				$("#swagger").html($.i18n.prop('msg.swagger'));
 				$("#about").html($.i18n.prop('msg.about'));
 				$("#exchange-rate").html($.i18n.prop('msg.exchange.rate'));
 				$("#author").html($.i18n.prop('msg.author'));
@@ -135,7 +133,7 @@ var currentcy = {
 		currentcy.setSelected(snapshot);
 		$("#snapshot-container")
 		.loadTemplate(
-				"dist/templates/snapshot-details.html",
+				"dist/templates/snapshot-details.template",
 				snapshot,
 				{
 					
@@ -147,8 +145,7 @@ var currentcy = {
 								.find("#code")
 								.attr(
 										"src",
-										"dist/logos/"
-												+ src);
+										"dist/logos/"+ src);
 						
 					},
 					error : function(e) {
@@ -207,7 +204,7 @@ var currentcy = {
 							
 		$("#ticker")
 		.loadTemplate(
-				"dist/templates/snapshot.html",
+				"dist/templates/snapshot.template",
 				data,
 				{
 					afterInsert : function(elem) {
@@ -218,8 +215,7 @@ var currentcy = {
 								.find("#code")
 								.attr(
 										"src",
-										"dist/logos/"
-												+ src);
+										"dist/logos/"+ src);
 						$(elem).find("#snapshot-link").attr("href","javascript:currentcy.snapshotdetails('"+src+"')");
 					},
 					error : function(e) {
