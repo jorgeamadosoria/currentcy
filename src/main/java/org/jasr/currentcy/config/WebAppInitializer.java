@@ -15,12 +15,12 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] {ApplicationConfig.class, DatasourceConfig.class,PersistenceConfig.class,EmailConfig.class,SwaggerConfig.class};
+        return new Class<?>[] {ApplicationConfig.class, DatasourceConfig.class,PersistenceConfig.class,EmailConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] {WebMvcConfig.class};
+        return new Class<?>[] {WebMvcConfig.class,SwaggerConfig.class};
     }
 
     @Override

@@ -49,11 +49,6 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
-        registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-   
-      registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     @Override
@@ -65,6 +60,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
      * Handles favicon.ico requests assuring no <code>404 Not Found</code> error is returned.
      */
     @Controller
+    @ApiIgnore
     static class FaviconController {
         @RequestMapping("favicon.ico")
         String favicon() {

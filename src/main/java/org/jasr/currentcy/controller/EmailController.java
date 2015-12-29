@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.mangofactory.swagger.annotations.ApiIgnore;
 
 @Controller
+@ApiIgnore
 public class EmailController {
 	
     @Resource

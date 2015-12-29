@@ -29,13 +29,13 @@ public class HomeController {
     @Resource
     private EmailService emailService;
     
-    @ApiOperation(value = "snapshot")
+    @ApiOperation(value = "snapshot",notes="Returns the latest sample taken for each registered exchange.")
 	@RequestMapping(value = "/snapshot", method = RequestMethod.GET)
 	public List<Sample> snapshot(Principal principal,@ApiParam(name="currency", value="The currency on which the snapshot is taken", required=true)@RequestParam Currencies currency) {
 		return samplerService.getSnapshot(currency);
 	}
 	
-    @ApiOperation(value = "samples")
+    @ApiOperation(value = "samples",notes="Returns a series of the latest samples taken for the given exchange.")
 	@RequestMapping(value = "/{source}/samples", method = RequestMethod.GET)
     public Trend samples(Principal principal,@ApiParam(name="source", value="the exchange from which the sample is taken", required=true)@PathVariable String source,@ApiParam(name="currency", value="The currency on which the sample is expressed", required=true)@RequestParam Currencies currency) {
         

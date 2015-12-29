@@ -17,21 +17,20 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
 
-//    @Bean //Don't forget the @Bean annotation
-//    public SwaggerSpringMvcPlugin customImplementation(){
-//       return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-//             .apiInfo(apiInfo())
-//             .includePatterns(".*");
-//    }
+    @Bean
+    public SwaggerSpringMvcPlugin customImplementation(){
+       return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
+             .apiInfo(apiInfo());
+    }
 
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
-                "News API",
-                "Mobile applications and beyond!",
-                "https://helloreverb.com/terms/",
-                "matt@raibledesigns.com",
-                "Apache 2.0",
-                "http://www.apache.org/licenses/LICENSE-2.0.html"
+                "Currentcy Rest API",
+                "Exchange rates showcase for Uruguayan pesos against USD and EUR",
+                "https://currentcy-jasr.rhcloud.com",
+                "darksoul.uci@gmail.com",
+                "LGPL 2.1",
+                "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html"
         );
         return apiInfo;
     }
