@@ -146,6 +146,28 @@ var currentcy = {
 								.attr(
 										"src",
 										"dist/logos/"+ src);
+						var trend = snapshot.trend;
+						if (trend == '<')
+							$(elem)
+									.find("#trend")
+									.toggleClass(
+											"text-danger fa-arrow-circle-up");
+						if (trend == '-')
+							$(elem)
+									.find("#trend")
+									.toggleClass(
+											"text-primary fa-minus-circle");
+						if (trend == '>')
+							$(elem)
+									.find("#trend")
+									.toggleClass(
+											"text-success fa-arrow-circle-down");
+
+						if (trend == 'x')
+							$(elem)
+									.find("#trend")
+									.toggleClass(
+											"fa-question-circle");
 						
 					},
 					error : function(e) {
@@ -180,27 +202,7 @@ var currentcy = {
 											$("#calc-container").find("#trend")
 													.empty();
 
-											if (trend == '<')
-												$("#calc-container")
-														.find("#trend")
-														.toggleClass(
-																"text-danger fa-arrow-circle-up");
-											if (trend == '-')
-												$("#calc-container")
-														.find("#trend")
-														.toggleClass(
-																"text-primary fa-minus-circle");
-											if (trend == '>')
-												$("#calc-container")
-														.find("#trend")
-														.toggleClass(
-																"text-success fa-arrow-circle-down");
-
-											if (trend == 'x')
-												$("#calc-container")
-														.find("#trend")
-														.toggleClass(
-																"fa-question-circle");
+											
 							
 		$("#ticker")
 		.loadTemplate(

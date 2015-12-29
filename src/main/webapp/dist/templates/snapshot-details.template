@@ -13,7 +13,7 @@
 						<span
 							data-content="avg" class="text-primary huge" ></span>	
 					<i id="trend"
-								class="fa"></i>
+								class="fa fa-fw fa-3x"></i>
 				</div>
 				
 			</div>
