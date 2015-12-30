@@ -31,6 +31,92 @@ var currentcy = {
 		store.set('locale',locale);
 	},
 
+	
+	init: function(){
+		$(function() {
+            var availableTutorials = [
+               "ActionScript",
+               "Boostrap",
+               "C",
+               "C++",
+            ];
+         });
+		
+		window.addEventListener("awesomplete-selectcomplete", function(e) {
+			currentcy.snapshotdetails(store.get($(e.target).val()));
+		}, false);
+		
+			$("a#paypal-submit").attr("href", "javascript:currentcy.paypalSubmit();");
+			$('.panel-heading span.clickable').on(
+					"click",
+					function(e) {
+						if ($(this).hasClass('panel-collapsed')) {
+							// expand the panel
+							$(this).parents('.panel').find('.panel-body')
+									.slideDown();
+							$(this).removeClass('panel-collapsed');
+							$(this).find('i').removeClass(
+									'glyphicon-chevron-down').addClass(
+									'glyphicon-chevron-up');
+						} else {
+							// collapse the panel
+							$(this).parents('.panel').find('.panel-body')
+									.slideUp();
+							$(this).addClass('panel-collapsed');
+							$(this).find('i').removeClass(
+									'glyphicon-chevron-up').addClass(
+									'glyphicon-chevron-down');
+						}
+					});
+
+			$('button#subscribe').on("click", function(e) {
+
+				$.ajax({
+					url : "email/subscribe",
+					method : "POST",
+					data : {
+						"email" : $("input#email").val()
+					},
+					beforeSend : function(data) {
+						$("#subscribe-group").toggleClass("hidden");
+						$("#subscribe-loading").toggleClass("hidden");
+					},
+					success : function(data) {
+						$("#subscribe-group").toggleClass("hidden");
+						$("#subscribe-loading").toggleClass("hidden");
+						$("input#email").val('');
+					}
+				});
+			});
+
+			$('.lang_link').on("click", function(e) {
+				currentcy.setLocale($(this).data('lang'));
+				currentcy.initLanguage($(this).data('lang'));
+			});
+
+			$('.currency_link').on("click", function(e) {
+				currentcy.setCurrency($(this).data('currency'));
+				currentcy.snapshot();
+			});
+
+			$('#paypal-submit').on("click", function(e) {
+				$('#paypal-form').submit();
+			});
+
+			currentcy.snapshot();
+
+			$("#amount").val("");
+			$("#amount").on("input", currentcy.calculate);
+			$("#amount").on("keypress", currentcy.preventLetter);
+
+			$("#" + currentcy.getCurrency()).addClass("active");
+			$("#" + currentcy.getLocale()).addClass("active");
+
+			currentcy.initLanguage();
+
+	},
+	
+	
 	checkLocalStore : function() {
 		if (!store.enabled) {
 			alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
@@ -89,7 +175,11 @@ var currentcy = {
 										Math.floor(amount* currentcy.getSelected().sellValue))
 										.format(format));
 	}},
-
+	
+	paypalSubmit: function() {
+		$("form#paypal-form").submit();
+	},
+	
 	initLanguage : function() {
 
 		var lang = currentcy.getLocale();
@@ -111,6 +201,7 @@ var currentcy = {
 				$("#github").html($.i18n.prop('msg.github'));
 				$("#paypal").html($.i18n.prop('msg.paypal'));
 				$("#msg-language").html($.i18n.prop('msg.language'));
+				$("#exchange-input").attr('placeholder',$.i18n.prop('exchange.placeholder'));
 				$("#swagger").html($.i18n.prop('msg.swagger'));
 				$("#about").html($.i18n.prop('msg.about'));
 				$("#exchange-rate").html($.i18n.prop('msg.exchange.rate'));
@@ -127,7 +218,7 @@ var currentcy = {
 			}
 		});
 	},
-
+	
 	snapshotdetails: function(snapshotId){
 		var snapshot = store.get(snapshotId);
 		currentcy.setSelected(snapshot);
@@ -177,6 +268,39 @@ var currentcy = {
 		currentcy.clearCalculate();
 		currentcy.flot();
 	},
+	
+	accentMap : {
+		      "&aacute;": "á",
+		      "&eacute;": "é",
+		      "&iacute;": "í",
+		      "&oacute;": "ó",
+		      "&uacute;": "ú"
+		    },
+		    
+	normalize : function( term ) {
+			str = term;
+		      for ( var obj in currentcy.accentMap ) {
+		        str = str.replace(new RegExp(obj,"g"),currentcy.accentMap[ obj ]);
+		      }
+		      return str;
+	},
+	
+	registerAccentFolding : function(exchangeNames){
+		
+		$(function() {
+		    $( "#exchange-input" ).autocomplete({
+		    	select: function( event, ui ) {currentcy.snapshotdetails(ui.item.value); $( "#exchange-input" ).val(ui.item.label); return false;},
+		      source: function( request, response ) {
+		        var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
+		        response( $.grep( exchangeNames, function( value ) {
+		          value = value.label || value.value || value;
+		          return matcher.test( value ) || matcher.test( currentcy.normalize( value ) );
+		        }) );
+		      }
+		    });
+		  });
+	},
+	
 	snapshot : function() {
 		$
 				.get(
@@ -184,18 +308,24 @@ var currentcy = {
 						function(data) {
 							var bestBuy = null;
 							var sellBuy = null;
+							var exchangeNames = Array();
 							for(var snapshot of data){
 								if (!currentcy.getSelected()){
 									currentcy.setSelected(snapshot);
 								}
-								store.set(snapshot.code,snapshot);
 								if (snapshot.bestBuy){
 									bestBuy = snapshot;
 								}
 								if (snapshot.bestSell){
 									bestSell = snapshot;
 								}
+								
+								var exch = {label:currentcy.normalize(snapshot.name),value:snapshot.code};
+								exchangeNames.push(exch);
 							}
+							
+							currentcy.registerAccentFolding(exchangeNames);
+							
 							currentcy.snapshotdetails(currentcy.getSelected().code);
 							
 											var trend = currentcy.getSelected().trend;
@@ -224,19 +354,18 @@ var currentcy = {
 						alert(e);
 					},
 					success: function(e){
-						$('#ticker').bxSlider({
+						store.set('ticker',$('#ticker').bxSlider({
 							  minSlides: 4,
 							  maxSlides: 10,
 							  slideWidth:300,
 							  slideMargin: 2,
 							  ticker: true,
-							  tickerHover:true,
 							  useCSS: false, // to allow tickerHover
 							  speed: 100000,
 							  pager: true,
 							  infiniteLoop:true,
 							  controls:true
-							});
+							}));
 					}
 				});
 

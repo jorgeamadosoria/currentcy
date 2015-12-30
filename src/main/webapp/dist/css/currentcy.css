@@ -16,20 +16,27 @@
 	vertical-align: middle;
 }
 
-.vcenter {
+.padding-top-10 {
+	padding-top: 10px;
+}
+.vcenter10 {
+	padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.vcenter20 {
 	padding-top: 20px;
   padding-bottom: 20px;
 }
 
-.vcenter2 {
+.vcenter15 {
 	padding-top: 15px;
   padding-bottom: 15px;
 }
 
-.img-bordered {
- outline: 1px solid orange;
+.border1 {
+ border: 1px solid orange;
 }
-	
-body {
-	padding-top:70px
+.border2 {
+ border: 1px solid green;
 }

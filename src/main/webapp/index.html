@@ -14,10 +14,12 @@
 <!-- Bootstrap Core CSS -->
 <link href="dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="dist/css/bootstrap-social.css" rel="stylesheet">
+<link href="dist/css/jquery-ui.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
 <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 <link href="dist/css/currentcy.css" rel="stylesheet">
+<link href="dist/css/awesomplete.css" rel="stylesheet">
 
 
 <!-- Custom Fonts -->
@@ -31,21 +33,27 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js',
+			'ga');
 
-  ga('create', 'UA-71819305-1', 'auto');
-  ga('send', 'pageview');
-
+	ga('create', 'UA-71819305-1', 'auto');
+	ga('send', 'pageview');
 </script>
 </head>
 
 <body>
 
 	<!-- Navigation -->
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+	<nav class="navbar navbar-default " role="navigation"
 		style="margin-bottom: 0">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="index.html"><span id="title"></span>
@@ -129,9 +137,8 @@
 							id="github"></span>
 					</a></li>
 					<li class="divider"></li>
-					<li><a target="new"
-						href="dist/swagger">
-							<i class="fa fa-list-ol fa-fw fa-2x nav-2x-icon"></i><span
+					<li><a target="new" href="dist/swagger"> <i
+							class="fa fa-list-ol fa-fw fa-2x nav-2x-icon"></i><span
 							id="swagger"></span>
 					</a></li>
 					<li class="divider"></li>
@@ -147,8 +154,11 @@
 						</form></li>
 				</ul></li>
 		</ul>
-
-	</nav>
+		<span class="pull-right padding-top-10"> <input
+			type="text" id="exchange-input"
+			class="form-control">
+		</span>
+	</nav>		
 	<ul id="ticker"></ul>
 	<div id="page-wrapper">
 		<div class="row">
@@ -163,10 +173,10 @@
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-lg-2 vcenter">
+									<div class="col-lg-2 vcenter20">
 										<span id="msg-calculator"></span>
 									</div>
-									<div class="col-lg-3 vcenter2">
+									<div class="col-lg-3 vcenter15">
 										<div class="form-group">
 											<input id="amount" class="form-control">
 										</div>
@@ -225,8 +235,8 @@
 
 	<!-- jQuery -->
 	<script src="dist/js/jquery.min.js"></script>
+	<script src="dist/js/jquery-ui.min.js"></script>
 	<script src="dist/js/store.min.js"></script>
-
 	<script src="dist/js/jquery.bxslider.min.js"></script>
 	<script src="dist/js/jquery.loadTemplate-1.4.4.js"></script>
 	<script src="dist/js/jquery.i18n.properties.js"></script>
@@ -241,84 +251,7 @@
 	<script src="dist/js/numeral.min.js"></script>
 	<script src="dist/js/currentcy.js"></script>
 	<script type="text/javascript">
-		function paypalSubmit() {
-			$("form#paypal-form").submit();
-		};
-		jQuery(function($) {
-			$("a#paypal-submit").attr("href", "javascript:paypalSubmit();");
-			$('.panel-heading span.clickable').on(
-					"click",
-					function(e) {
-						if ($(this).hasClass('panel-collapsed')) {
-							// expand the panel
-							$(this).parents('.panel').find('.panel-body')
-									.slideDown();
-							$(this).removeClass('panel-collapsed');
-							$(this).find('i').removeClass(
-									'glyphicon-chevron-down').addClass(
-									'glyphicon-chevron-up');
-						} else {
-							// collapse the panel
-							$(this).parents('.panel').find('.panel-body')
-									.slideUp();
-							$(this).addClass('panel-collapsed');
-							$(this).find('i').removeClass(
-									'glyphicon-chevron-up').addClass(
-									'glyphicon-chevron-down');
-						}
-					});
-
-			$('button#subscribe').on("click", function(e) {
-
-				$.ajax({
-					url : "email/subscribe",
-					method : "POST",
-					data : {
-						"email" : $("input#email").val()
-					},
-					beforeSend : function(data) {
-						$("#subscribe-group").toggleClass("hidden");
-						$("#subscribe-loading").toggleClass("hidden");
-					},
-					success : function(data) {
-						$("#subscribe-group").toggleClass("hidden");
-						$("#subscribe-loading").toggleClass("hidden");
-						$("input#email").val('');
-					}
-				});
-			});
-
-			$('.lang_link').on("click", function(e) {
-				currentcy.setLocale($(this).data('lang'));
-				currentcy.initLanguage($(this).data('lang'));
-			});
-
-			$('.currency_link').on("click", function(e) {
-				currentcy.setCurrency($(this).data('currency'));
-				currentcy.snapshot();
-			});
-
-			$('#paypal-submit').on("click", function(e) {
-				$('#paypal-form').submit();
-			});
-
-			currentcy.snapshot();
-
-			$("#amount").val("");
-			$("#amount").on("input", currentcy.calculate);
-			$("#amount").on("keypress", currentcy.preventLetter);
-
-			$("#" + currentcy.getCurrency()).addClass("active");
-			$("#" + currentcy.getLocale()).addClass("active");
-			// 			//default initialization values
-			// 			currentcy.setCurrency('usd');
-			// 			currentcy.setLocale($.i18n.browserLang());
-
-			//initial i18n values
-			currentcy.initLanguage();
-
-		});
+		currentcy.init();
 	</script>
 </body>
-
 </html>
