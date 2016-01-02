@@ -7,6 +7,7 @@
 	<version>0.6.0-SNAPSHOT</version>
 	<name>currentcy</name>
 	<properties>
+		<skipTests>false</skipTests>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
@@ -62,12 +63,12 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
-	<dependency>
-            <groupId>com.mangofactory</groupId>
-            <artifactId>swagger-springmvc</artifactId>
-            <version>${swagger-springmvc.version}</version>
-</dependency>
-	<!-- HyperSQL DB -->
+		<dependency>
+			<groupId>com.mangofactory</groupId>
+			<artifactId>swagger-springmvc</artifactId>
+			<version>${swagger-springmvc.version}</version>
+		</dependency>
+		<!-- HyperSQL DB -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
@@ -115,7 +116,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
+			<artifactId>mockito-core</artifactId>
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -280,6 +281,14 @@
 				<finalName>currentcy</finalName>
 
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.19</version>
+						<configuration>
+							<skipTests>${skipTests}</skipTests>
+						</configuration>
+					</plugin>
 					<!-- Eclipse project -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>

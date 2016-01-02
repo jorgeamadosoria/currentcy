@@ -1,22 +1,17 @@
 package org.jasr.currentcy.test.controller;
 
 
-import org.jasr.currentcy.controller.HomeController;
 import org.jasr.currentcy.test.utils.JUnitBaseTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class HomeControllerTest extends JUnitBaseTest{
 
-    @Autowired
-    private HomeController        homeControllerMock;
 
     @Before
     public void setUp() {
-        Mockito.reset(homeControllerMock);
+ //       Mockito.reset(homeControllerMock);
 
         super.setUp();
     }
