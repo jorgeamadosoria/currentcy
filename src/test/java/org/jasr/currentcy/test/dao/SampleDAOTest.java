@@ -13,7 +13,10 @@ public class SampleDAOTest extends JUnitBaseTest {
     public void setUp() {
         super.setUp();
     }
-
+//    public void saveSnapshot(List<Sample> samples,Currencies currency);
+//    public Trend getLatestSamples(String source,Currencies currency);
+//    
+//    public List<Sample> getSnapshot(Currencies currency);
     @Test
     public void samples() throws Exception {
 
