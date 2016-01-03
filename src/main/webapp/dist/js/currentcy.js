@@ -33,18 +33,6 @@ var currentcy = {
 
 	
 	init: function(){
-		$(function() {
-            var availableTutorials = [
-               "ActionScript",
-               "Boostrap",
-               "C",
-               "C++",
-            ];
-         });
-		
-		window.addEventListener("awesomplete-selectcomplete", function(e) {
-			currentcy.snapshotdetails(store.get($(e.target).val()));
-		}, false);
 		
 			$("a#paypal-submit").attr("href", "javascript:currentcy.paypalSubmit();");
 			$('.panel-heading span.clickable').on(
@@ -220,6 +208,9 @@ var currentcy = {
 	},
 	
 	snapshotdetails: function(snapshotId){
+		for (var i = 0; i < localStorage.length; i++){
+			console.log(localStorage.key(i));
+		}
 		var snapshot = store.get(snapshotId);
 		currentcy.setSelected(snapshot);
 		$("#snapshot-container")
@@ -289,6 +280,7 @@ var currentcy = {
 		
 		$(function() {
 		    $( "#exchange-input" ).autocomplete({
+		    	minLength: 0,
 		    	select: function( event, ui ) {currentcy.snapshotdetails(ui.item.value); $( "#exchange-input" ).val(ui.item.label); return false;},
 		      source: function( request, response ) {
 		        var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
@@ -297,6 +289,8 @@ var currentcy = {
 		          return matcher.test( value ) || matcher.test( currentcy.normalize( value ) );
 		        }) );
 		      }
+		    }).focus(function(){
+		        $(this).autocomplete("search",$(this).val());
 		    });
 		  });
 	},

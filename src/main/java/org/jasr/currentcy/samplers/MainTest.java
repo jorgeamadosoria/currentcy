@@ -8,7 +8,7 @@ public class MainTest {
     public static void main(String[] args) {
 
         SamplerBase[] samplers = new SamplerBase[] { 
-                 new Delta()};
+                 new Fortex()};
 
         for (SamplerBase sampler : samplers) {
             System.out.println(sampler.getName());
