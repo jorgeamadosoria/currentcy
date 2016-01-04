@@ -33,6 +33,9 @@ var currentcy = {
 
 	
 	init: function(){
+		for(var i=0;i < localStorage.length;i++){
+			console.log(localStorage.key(i));
+		}
 		
 			$("a#paypal-submit").attr("href", "javascript:currentcy.paypalSubmit();");
 			$('.panel-heading span.clickable').on(
@@ -314,6 +317,7 @@ var currentcy = {
 									bestSell = snapshot;
 								}
 								
+								store.set(snapshot.code,snapshot);
 								var exch = {label:currentcy.normalize(snapshot.name),value:snapshot.code};
 								exchangeNames.push(exch);
 							}

@@ -36,10 +36,15 @@ public class AbitabCambilex extends SamplerBase {
 
     @Override
     public String getUrl() {
-        return "http://www.cambilex.com.uy/abitabinter/macros/cotizacion/innovanet/VerCotizaciones.jsp";
+        return "http://www.cambilex.com.uy";
     }
 
     @Override
+	public String getUrlByCurrency(Currencies currency) {
+        return "http://www.cambilex.com.uy/abitabinter/macros/cotizacion/innovanet/VerCotizaciones.jsp";
+	}
+
+	@Override
     public String getName() {
         return "Abitab(Cambilex)";
     }
