@@ -39,25 +39,41 @@ public class SamplerServiceImpl implements SamplerService {
         return samplerDAO.getLatestSamples(source, currency);
     }
 
+    /**
+     * Scheduled method to take samples from all registered exchanges. It executes once every hour. each sampler is executed once
+     * for each currency. It also checks changes on the samples, send emails and save the recently taken snapshot.
+     */
     @Scheduled(fixedRate = 3600000)
     private void takeSnapshot() {
-        List<Sample> samples = new ArrayList<Sample>();
-        boolean isChanged = false;
+        List<Sample> samples = new ArrayList<>();
+        List<Sample> changes = new ArrayList<>();
         for (Currencies currency : Currencies.values()) {
             for (SamplerBase sampler : samplers) {
                 samples.add(sampler.sample(currency));
-                System.out.printf("%s - %s sampled at %s\n", currency.code,sampler.getCode(), new Date().toString());
+                System.out.printf("%s - %s sampled at %s\n", currency.code, sampler.getCode(), new Date().toString());
             }
 
-            isChanged |= isChange(samples, currency);
+            changes(changes, samples, currency);
             samplerDAO.saveSnapshot(samples, currency);
             samples.clear();
+            // async method
+            emailService.sendUpdateEmails(currency, changes);
         }
-        if (isChanged)
-            emailService.sendUpdateEmails();
     }
 
-    private boolean isChange(List<Sample> samples, Currencies currency) {
+    /**
+     * This method determines which samples hold changes from the latest snapshot in the database, and stores then in the out
+     * parameter changes.
+     * 
+     * @param changes
+     *            the out parameter for this method. It holds the samples that are proved to have modifications from the samples
+     *            in the latest snapshot of all exchanges
+     * @param samples
+     *            the recently taken samples, not yet committed to database
+     * @param currency
+     *            the currency on which to test changes on these samples.
+     */
+    private void changes(List<Sample> changes, List<Sample> samples, Currencies currency) {
         List<Sample> snapshots = samplerDAO.getSnapshot(currency);
 
         for (Sample sample1 : snapshots) {
@@ -69,10 +85,8 @@ public class SamplerServiceImpl implements SamplerService {
             }
             // if all samplers are different, then there is change.
             if (!result)
-                return true;
+                changes.add(sample1);
         }
-        // result never is true, there is no change.
-        return false;
     }
 
 }

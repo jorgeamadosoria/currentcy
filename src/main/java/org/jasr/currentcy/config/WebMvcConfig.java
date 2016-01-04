@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.stereotype.Controller;
@@ -18,14 +17,16 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import com.mangofactory.swagger.annotations.ApiIgnore;
 
+/**
+ * Web configuration for Spring MVC, including component scan for web components such as controllers.
+ *
+ */
 @Configuration
-@PropertySource("classpath:application.properties")
 @ComponentScan(basePackageClasses = Application.class, includeFilters = @Filter(Controller.class) , useDefaultFilters = false)
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     private static final String RESOURCES_LOCATION = "/template/";
     private static final String RESOURCES_HANDLER  = RESOURCES_LOCATION + "**";
-
 
     @Override
     protected void addFormatters(FormatterRegistry registry) {

@@ -6,21 +6,26 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * The center of the Spring MVC configuration. This substitutes web.xml and the two main .xml files that are usually found in all
+ * Spring MVC applications
+ *
+ */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/"};
+        return new String[] { "/" };
     }
-    
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] {ApplicationConfig.class, DatasourceConfig.class,PersistenceConfig.class,EmailConfig.class};
+        return new Class<?>[] { ApplicationConfig.class, DatasourceConfig.class, PersistenceConfig.class, EmailConfig.class };
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] {WebMvcConfig.class,SwaggerConfig.class};
+        return new Class<?>[] { WebMvcConfig.class, SwaggerConfig.class };
     }
 
     @Override
@@ -28,7 +33,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
-        return new Filter[] {characterEncodingFilter};
+        return new Filter[] { characterEncodingFilter };
     }
 
     @Override

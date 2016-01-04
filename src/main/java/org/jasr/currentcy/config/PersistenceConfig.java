@@ -12,13 +12,16 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Persistence configuration in the immediately superior level to Datasource configuration. This includes Flyway and Spring JDBC
+ * configuration and transaction managers
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:sql.properties")
 public class PersistenceConfig {
 
-
-    
     @Resource
     private DataSource dataSource;
 
@@ -31,8 +34,6 @@ public class PersistenceConfig {
         flyway.migrate();
         return flyway;
     }
-    
-   
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
