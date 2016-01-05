@@ -12,20 +12,29 @@ import org.jasr.currentcy.domain.Email;
  */
 public interface EmailDAO {
     /**
-     * Stores an email address for subscription to notifications. If the email doesn't exist, a token is generated and returned.
-     * If it exists, the previously generated token is returned.
+     * Stores an email address for subscription to notifications for a specific exchange. If the email doesn't exist, a token is
+     * generated and returned. If it exists, the previously generated token is returned.
      * 
      * @return the token corresponding to the newly created or pre-existing email address
      */
-	public String subscribeEmail(String email);
-	
+    public String subscribeEmail(String code, String email);
+
     public void registerEmail(String token);
 
+    /**
+     * Unregisters the email address associated to this token. Notice that one email address can have several tokens associated to
+     * it, one for each exchange the user has subscribed to. Any of this tokens can be used to remove all the users subscriptions
+     * in one call to this method
+     * 
+     * @param token
+     *            a token associated to an email address
+     */
     public void unregisterEmail(String token);
 
     public String tokenByEmail(String email);
-    
+
     public String emailByToken(String token);
+
     /**
      * Gets a list of email addresses for users subscribed to changes on the rates of the exchange identified by the code
      * specified.
@@ -34,5 +43,5 @@ public interface EmailDAO {
      *            the code of the exchange with the modified rates
      */
     public List<Email> getEmailsForNotification(String code);
-    
+
 }

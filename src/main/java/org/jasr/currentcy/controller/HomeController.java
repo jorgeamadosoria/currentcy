@@ -65,9 +65,9 @@ public class HomeController {
      */
     @ApiOperation(value = "subscribe", notes = "Subscribe an email address to notifications from the system")
     @RequestMapping(value = "/email/subscribe", method = RequestMethod.POST)
-    public void subscribe(
+    public void subscribe(@ApiParam(name = "code", value = "The code of the exchange from which to receive notifications", required = true) @RequestParam String code,
             @ApiParam(name = "email", value = "The email address to subscribe to the application", required = true) @RequestParam String email) {
-        emailService.subscribeEmail(email);
+        emailService.subscribeEmail(code,email);
 
     }
 

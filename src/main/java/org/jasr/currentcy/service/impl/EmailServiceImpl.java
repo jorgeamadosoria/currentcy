@@ -86,8 +86,8 @@ public class EmailServiceImpl implements EmailService {
 
     
     @Override
-    public void subscribeEmail(String email) {
-        String token = emailDAO.subscribeEmail(email);
+    public void subscribeEmail(String code,String email) {
+        String token = emailDAO.subscribeEmail(code,email);
         sendRegisterEmail(email, token);
     }
 

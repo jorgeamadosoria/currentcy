@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `currentcy`.`email` (
   `active` INT(11) NOT NULL DEFAULT '0',
   `token` VARCHAR(255) NOT NULL,
   `code` VARCHAR(6) NOT NULL;
-  PRIMARY KEY (`email`),
+  PRIMARY KEY (`email`,`code`),
   UNIQUE INDEX `token_UNIQUE` (`token` ASC))
 ENGINE = MEMORY
 DEFAULT CHARACTER SET = utf8;

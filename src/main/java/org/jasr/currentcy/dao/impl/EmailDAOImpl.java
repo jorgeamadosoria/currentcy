@@ -42,11 +42,11 @@ public class EmailDAOImpl implements EmailDAO {
 
     
     @Override
-    public String subscribeEmail(String email) {
+    public String subscribeEmail(String code,String email) {
 
         String token = null;
 
-        boolean emailExists = template.queryForObject(env.getProperty("email.exists"), Boolean.class, email);
+        boolean emailExists = template.queryForObject(env.getProperty("email.exists"), Boolean.class, email,code);
         if (!emailExists) {
 
             do {
@@ -54,7 +54,7 @@ public class EmailDAOImpl implements EmailDAO {
             }
             while (template.queryForObject(env.getProperty("token.exists"), Boolean.class, token));
 
-            template.update(env.getProperty("save.email"), email, token);
+            template.update(env.getProperty("save.email"), email, token,code);
         }
         else
             return tokenByEmail(email);
@@ -69,7 +69,8 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public void unregisterEmail(String token) {
-        template.update(env.getProperty("delete.email"), token);
+        String email = emailByToken(token) ;
+        template.update(env.getProperty("delete.email"), email);
     }
 
     @Override

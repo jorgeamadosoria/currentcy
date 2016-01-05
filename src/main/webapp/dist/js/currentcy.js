@@ -1,8 +1,18 @@
 var currentcy = {
 
+	// Variables
 	defaultCurrency: 'usd',
 	defaultLocale : 'en',
-		
+	// Map for accent folding for the exchange search
+	accentMap : {
+	      "&aacute;": "á",
+	      "&eacute;": "é",
+	      "&iacute;": "í",
+	      "&oacute;": "ó",
+	      "&uacute;": "ú"
+	    },
+	
+	// Getters / Setters
 	getCurrency : function() {
 		if (!store.get('currency'))
 			currentcy.setCurrency(currentcy.defaultCurrency);
@@ -30,118 +40,54 @@ var currentcy = {
 	setLocale : function(locale) {
 		store.set('locale',locale);
 	},
-
+	// ---------------------------------------
 	
-	init: function(){
-		for(var i=0;i < localStorage.length;i++){
-			console.log(localStorage.key(i));
-		}
-		
-			$("a#paypal-submit").attr("href", "javascript:currentcy.paypalSubmit();");
-			$('.panel-heading span.clickable').on(
-					"click",
-					function(e) {
-						if ($(this).hasClass('panel-collapsed')) {
-							// expand the panel
-							$(this).parents('.panel').find('.panel-body')
-									.slideDown();
-							$(this).removeClass('panel-collapsed');
-							$(this).find('i').removeClass(
-									'glyphicon-chevron-down').addClass(
-									'glyphicon-chevron-up');
-						} else {
-							// collapse the panel
-							$(this).parents('.panel').find('.panel-body')
-									.slideUp();
-							$(this).addClass('panel-collapsed');
-							$(this).find('i').removeClass(
-									'glyphicon-chevron-up').addClass(
-									'glyphicon-chevron-down');
-						}
-					});
-
-			$('button#subscribe').on("click", function(e) {
-
-				$.ajax({
-					url : "email/subscribe",
-					method : "POST",
-					data : {
-						"email" : $("input#email").val()
-					},
-					beforeSend : function(data) {
-						$("#subscribe-group").toggleClass("hidden");
-						$("#subscribe-loading").toggleClass("hidden");
-					},
-					success : function(data) {
-						$("#subscribe-group").toggleClass("hidden");
-						$("#subscribe-loading").toggleClass("hidden");
-						$("input#email").val('');
-					}
-				});
-			});
-
-			$('.lang_link').on("click", function(e) {
-				currentcy.setLocale($(this).data('lang'));
-				currentcy.initLanguage($(this).data('lang'));
-			});
-
-			$('.currency_link').on("click", function(e) {
-				currentcy.setCurrency($(this).data('currency'));
-				currentcy.snapshot();
-			});
-
-			$('#paypal-submit').on("click", function(e) {
-				$('#paypal-form').submit();
-			});
-
-			currentcy.snapshot();
-
-			$("#amount").val("");
-			$("#amount").on("input", currentcy.calculate);
-			$("#amount").on("keypress", currentcy.preventLetter);
-
-			$("#" + currentcy.getCurrency()).addClass("active");
-			$("#" + currentcy.getLocale()).addClass("active");
-
-			currentcy.initLanguage();
-
+	// Event Handlers
+	
+	// Language handler for locale menu
+	changeLanguage: function(e) {
+		currentcy.setLocale($(this).data('lang'));
+		currentcy.initLanguage($(this).data('lang'));
 	},
 	
-	
-	checkLocalStore : function() {
-		if (!store.enabled) {
-			alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
-			return false;
-		}
-		return true;
+	changeCurrency: function(e) {
+		currentcy.setCurrency($(this).data('currency'));
+		currentcy.snapshot();
 	},
 	
-	clearCalculate:function(){
-		$("#amount").val('');
-					$("#buy-amount").text(
-							"$ 0");
-					$("#avg-amount").text(
-					"$ 0");
-					$("#sell-amount").text(
-					"$ 0");
+	subscribeButton: function(e) {
+		$.ajax({
+			url : "email/subscribe",
+			method : "POST",
+			data : {
+				"email" : $("input#email").val(),
+				"code" : currentcy.getSelected().code
+			},
+			beforeSend : function(data) {
+				$("#subscribe-group").toggleClass("hidden");
+				$("#subscribe-loading").toggleClass("hidden");
+			},
+			success : function(data) {
+				$("#subscribe-group").toggleClass("hidden");
+				$("#subscribe-loading").toggleClass("hidden");
+				$("input#email").val('');
+			}
+		});
 	},
-
+	
+	paypalSubmit: function() {
+		$("#paypal-form").submit();
+	},
+	
+	// To avoid letters and symbols in the input field for amount calculator
 	preventLetter : function(e) {
 		if (e.shiftKey === true) {
-			if (e.which == 9) {
-				return true;
-			}
-			return false;
+			return (e.which == 9);
 		}
-		if (e.which > 57) {
-			return false;
-		}
-		if (e.which == 32) {
-			return false;
-		}
-		return true;
+		
+		return !(e.which > 57 || e.which == 32);
 	},
-
+	
 	calculate : function(ele) {
 		var e = $("#amount").val();
 
@@ -167,10 +113,73 @@ var currentcy = {
 										.format(format));
 	}},
 	
-	paypalSubmit: function() {
-		$("form#paypal-form").submit();
+	snapshotDetailsAfterInsert: function(elem) {
+		var src = $(elem).find(
+				".panel-default")
+				.attr("id");
+		$(elem)
+				.find("#code")
+				.attr(
+						"src",
+						"dist/logos/"+ src);
+		
+		var trend = snapshot.trend;
+		var trendClass = "";
+		if (trend == '<')
+			trendClass="text-danger fa-arrow-circle-up";
+		if (trend == '-')
+			trendClass="text-primary fa-minus-circle";
+		if (trend == '>')
+			trendClass="text-success fa-arrow-circle-down";
+		if (trend == 'x')
+			trendClass="fa-question-circle";
+
+		$(elem).find("#trend").toggleClass(trendClass);
 	},
 	
+	// ----------------------------------------
+	
+	// manually invoked functions
+	
+	// Initial configuration of events, local storage and UI settings for the
+	// first time the user access the page on the session
+	init: function(){
+		
+			// Setting event handlers to page elements
+			$("a#paypal-submit").attr("href", "javascript:currentcy.paypalSubmit();");
+			$('button#subscribe-button').on("click", currentcy.subscribeButton);
+			$('.lang_link').on("click", currentcy.changeLanguage);
+			$('.currency_link').on("click", currentcy.changeCurrency);
+			$('#paypal-submit').on("click", currentcy.paypalSubmit);
+
+			// setting events for the calculator
+			$("#amount").val("");
+			$("#amount").on("input", currentcy.calculate);
+			$("#amount").on("keypress", currentcy.preventLetter);
+
+			// select active currency in nav menu
+			$("#" + currentcy.getCurrency()).addClass("active");
+			// select active locale in nav menu
+			$("#" + currentcy.getLocale()).addClass("active");
+
+			currentcy.snapshot();
+			currentcy.initLanguage();
+
+	},
+	
+	
+	clearCalculate:function(){
+		$("#amount").val('');
+					$("#buy-amount").text(
+							"$ 0");
+					$("#avg-amount").text(
+					"$ 0");
+					$("#sell-amount").text(
+					"$ 0");
+	},
+
+	// Initiate current message properties to translate the page to selected
+	// locale
 	initLanguage : function() {
 
 		var lang = currentcy.getLocale();
@@ -193,6 +202,7 @@ var currentcy = {
 				$("#paypal").html($.i18n.prop('msg.paypal'));
 				$("#msg-language").html($.i18n.prop('msg.language'));
 				$("#exchange-input").attr('placeholder',$.i18n.prop('exchange.placeholder'));
+				$("#email").attr('placeholder',$.i18n.prop('subscribe.placeholder'));
 				$("#swagger").html($.i18n.prop('msg.swagger'));
 				$("#about").html($.i18n.prop('msg.about'));
 				$("#exchange-rate").html($.i18n.prop('msg.exchange.rate'));
@@ -210,10 +220,10 @@ var currentcy = {
 		});
 	},
 	
+	// function show snapshot details for the selected exchange. This will
+	// become the selected exchange for all subsequent requests to the page by
+	// the user.
 	snapshotdetails: function(snapshotId){
-		for (var i = 0; i < localStorage.length; i++){
-			console.log(localStorage.key(i));
-		}
 		var snapshot = store.get(snapshotId);
 		currentcy.setSelected(snapshot);
 		$("#snapshot-container")
@@ -221,55 +231,13 @@ var currentcy = {
 				"dist/templates/snapshot-details.template",
 				snapshot,
 				{
-					
-					afterInsert : function(elem) {
-						var src = $(elem).find(
-								".panel-default")
-								.attr("id");
-						$(elem)
-								.find("#code")
-								.attr(
-										"src",
-										"dist/logos/"+ src);
-						var trend = snapshot.trend;
-						if (trend == '<')
-							$(elem)
-									.find("#trend")
-									.toggleClass(
-											"text-danger fa-arrow-circle-up");
-						if (trend == '-')
-							$(elem)
-									.find("#trend")
-									.toggleClass(
-											"text-primary fa-minus-circle");
-						if (trend == '>')
-							$(elem)
-									.find("#trend")
-									.toggleClass(
-											"text-success fa-arrow-circle-down");
-
-						if (trend == 'x')
-							$(elem)
-									.find("#trend")
-									.toggleClass(
-											"fa-question-circle");
-						
-					},
-					error : function(e) {
-						alert(e);
-					}
+					afterInsert : currentcy.snapshotDetailsAfterInsert
 				});
 		currentcy.clearCalculate();
 		currentcy.flot();
 	},
 	
-	accentMap : {
-		      "&aacute;": "á",
-		      "&eacute;": "é",
-		      "&iacute;": "í",
-		      "&oacute;": "ó",
-		      "&uacute;": "ú"
-		    },
+	
 		    
 	normalize : function( term ) {
 			str = term;
@@ -279,11 +247,18 @@ var currentcy = {
 		      return str;
 	},
 	
+	// register accent folding for exchange search using jquery UI autocomplete.
+	// It matches accents according to the accentMap. ExchangeNames is the
+	// complete list of all exchanges and their codes to be used as label and
+	// values for each entry for jquery autocomplete UI, respectively.
 	registerAccentFolding : function(exchangeNames){
 		
 		$(function() {
 		    $( "#exchange-input" ).autocomplete({
 		    	minLength: 0,
+		    	// ui.item represents the selected exchange on the autocomplete
+				// element. Value is the value to be used, and label is the
+				// value to show on the UI
 		    	select: function( event, ui ) {currentcy.snapshotdetails(ui.item.value); $( "#exchange-input" ).val(ui.item.label); return false;},
 		      source: function( request, response ) {
 		        var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
@@ -298,81 +273,80 @@ var currentcy = {
 		  });
 	},
 	
+	// takes the latest snapshot for each exchange
 	snapshot : function() {
-		$
-				.get(
-						'snapshot?currency=' + currentcy.getCurrency(),
-						function(data) {
-							var bestBuy = null;
-							var sellBuy = null;
-							var exchangeNames = Array();
-							for(var snapshot of data){
-								if (!currentcy.getSelected()){
-									currentcy.setSelected(snapshot);
-								}
-								if (snapshot.bestBuy){
-									bestBuy = snapshot;
-								}
-								if (snapshot.bestSell){
-									bestSell = snapshot;
+			$
+					.get(
+							'snapshot?currency=' + currentcy.getCurrency(),
+							function(data) {
+								var bestBuy = null;
+								var sellBuy = null;
+								var exchangeNames = Array();
+								for(var snapshot of data){
+									if (!currentcy.getSelected()){
+										currentcy.setSelected(snapshot);
+									}
+									if (snapshot.bestBuy){
+										bestBuy = snapshot;
+									}
+									if (snapshot.bestSell){
+										bestSell = snapshot;
+									}
+									
+									store.set(snapshot.code,snapshot);
+									var exch = {label:currentcy.normalize(snapshot.name),value:snapshot.code};
+									exchangeNames.push(exch);
 								}
 								
-								store.set(snapshot.code,snapshot);
-								var exch = {label:currentcy.normalize(snapshot.name),value:snapshot.code};
-								exchangeNames.push(exch);
-							}
-							
-							currentcy.registerAccentFolding(exchangeNames);
-							
-							currentcy.snapshotdetails(currentcy.getSelected().code);
-							
-											var trend = currentcy.getSelected().trend;
-											$("#calc-container").find("#trend")
-													.empty();
-
-											
-							
-		$("#ticker")
-		.loadTemplate(
-				"dist/templates/snapshot.template",
-				data,
-				{
-					afterInsert : function(elem) {
-						var src = $(elem).find(
-								".panel-default")
-								.attr("id");
-						$(elem)
-								.find("#code")
-								.attr(
-										"src",
-										"dist/logos/"+ src);
-						$(elem).find("#snapshot-link").attr("href","javascript:currentcy.snapshotdetails('"+src+"')");
-					},
-					error : function(e) {
-						alert(e);
-					},
-					success: function(e){
-						store.set('ticker',$('#ticker').bxSlider({
-							  minSlides: 4,
-							  maxSlides: 10,
-							  slideWidth:300,
-							  slideMargin: 2,
-							  ticker: true,
-							  useCSS: false, // to allow tickerHover
-							  speed: 100000,
-							  pager: true,
-							  infiniteLoop:true,
-							  controls:true
-							}));
-					}
-				});
-
-		
-});
+								currentcy.registerAccentFolding(exchangeNames);
+								
+								currentcy.snapshotdetails(currentcy.getSelected().code);
+								
+								$("#calc-container").find("#trend").empty();
+	
+												
+								
+			$("#ticker")
+			.loadTemplate(
+					"dist/templates/snapshot.template",
+					data,
+					{
+						afterInsert : function(elem) {
+							var src = $(elem).find(
+									".panel-default")
+									.attr("id");
+							$(elem)
+									.find("#code")
+									.attr(
+											"src",
+											"dist/logos/"+ src);
+							$(elem).find("#snapshot-link").attr("href","javascript:currentcy.snapshotdetails('"+src+"')");
+						},
+						success: function(e){
+							store.set('ticker',$('#ticker').bxSlider({
+								  minSlides: 4,
+								  maxSlides: 10,
+								  slideWidth:300,
+								  slideMargin: 2,
+								  ticker: true,
+								  useCSS: false, // to allow tickerHover
+								  speed: 100000,
+								  pager: true,
+								  infiniteLoop:true,
+								  controls:true
+								}));
+						}
+					});
+	
+			
+		});
 		
 
 	},
 
+	// create and configure the flot chart using the currently selected currency
+	// and exchange. This method sends an ajax request for the latest samples
+	// for the current selection and recreate the flot chart to show the trend.
 	flot : function() {
 
 		var source = currentcy.getSelected().code;
@@ -389,12 +363,14 @@ var currentcy = {
 				$("#flot-line-chart").show();
 				var buy = [];
 				var sell = [];
+				//needed for the ticks in the x axis
 				var dates = [];
 				for (var i = 0; i < data.samples.length; i++) {
 					buy.push([ i, data.samples[i].buyValue ]);
 					sell.push([ i, data.samples[i].sellValue ]);
 					dates.push([ i, data.samples[i].trendDate ]);
 				}
+				//options for the flot chart
 				var options = {
 					series : {
 						lines : {
@@ -425,7 +401,7 @@ var currentcy = {
 						}
 					}
 				};
-
+				//actual creation of the flot chart
 				var plotObj = $.plot($("#flot-line-chart"), [ {
 					data : buy,
 					label : source + ' buy value'

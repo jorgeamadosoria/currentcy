@@ -32,7 +32,7 @@ public interface EmailService {
      * Method to send the subscription email to users. If the user has already subscribed, the email will be resent with the same
      * token. Repeating the subscription process has no new effect.
      */
-    public void subscribeEmail(String token);
+    public void subscribeEmail(String code,String email);
 
     public void sendRegisterEmail(String email, String token);
 }
