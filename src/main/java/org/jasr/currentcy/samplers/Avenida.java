@@ -36,9 +36,14 @@ public class Avenida extends SamplerBase {
 
     @Override
     public String getUrl() {
+        return "http://www.avenida.com.uy";
+    }
+    
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
         return "http://www.avenida.com.uy/avenida-cotizaciones-diarias.php";
     }
-
+    
     @Override
     public String getName() {
         return "Avenida S.F.";

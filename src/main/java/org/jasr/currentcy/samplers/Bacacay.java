@@ -33,8 +33,13 @@ public class Bacacay extends SamplerBase {
 
 	@Override
 	public String getUrl() {
-		return "http://www.cambiobacacay.com/cinta/cinta.php";
+		return "http://www.cambiobacacay.com";
 	}
+	
+	@Override
+    public String getUrlByCurrency(Currencies currency) {
+        return "http://www.cambiobacacay.com/cinta/cinta.php";
+    }
 
 	@Override
 	public String getName() {

@@ -36,7 +36,12 @@ public class Regul extends SamplerBase {
 
     @Override
     public String getUrl() {
-        return "http://cambios.instyledm.com/9/cotizaciones.html";
+        return "http://www.cambioregul.com";
+    }
+    
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
+    	return "http://cambios.instyledm.com/9/cotizaciones.html";
     }
     
     @Override

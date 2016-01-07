@@ -33,6 +33,11 @@ public class BROU extends SamplerBase {
 
     @Override
     public String getUrl() {
+        return "http://www.brou.com.uy";
+    }
+    
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
         return "http://www.brou.com.uy/c/portal/render_portlet?p_l_id=123137&p_p_id=ExchangeLarge_WAR_ExchangeRate5121_INSTANCE_P2Af&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_pos=0&p_p_col_count=1&currentURL=%2Fweb%2Fguest%2Finstitucional%2Fcotizaciones";
     }
 

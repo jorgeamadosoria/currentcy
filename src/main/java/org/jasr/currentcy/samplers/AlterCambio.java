@@ -33,8 +33,13 @@ public class AlterCambio extends SamplerBase {
 
 	@Override
 	public String getUrl() {
-		return "http://www.altercambio.com.uy/reclamos/altercambio/Content/Quote.aspx";
+		return "http://www.altercambio.com.uy";
 	}
+	
+	@Override
+    public String getUrlByCurrency(Currencies currency) {
+        return "http://www.altercambio.com.uy/reclamos/altercambio/Content/Quote.aspx";
+    }
 
 	@Override
 	public String getName() {

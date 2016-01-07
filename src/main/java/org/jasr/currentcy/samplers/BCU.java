@@ -37,6 +37,11 @@ public class BCU extends SamplerBase {
 
     @Override
     public String getUrl() {
+        return "http://www.bcu.gub.uy";
+    }
+    
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
         return "http://www.bcu.gub.uy/Estadisticas-e-Indicadores/Paginas/Cotizaciones.aspx";
     }
 

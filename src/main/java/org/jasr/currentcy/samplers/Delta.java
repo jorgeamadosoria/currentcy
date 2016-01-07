@@ -183,6 +183,11 @@ public class Delta extends SamplerBase {
 
     @Override
     public String getUrl() {
+        return "http://deltasf.com.uy";
+    }
+    
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
         return "http://deltasf.com.uy/pizarra/files/Cotizaciones.xml";
     }
 

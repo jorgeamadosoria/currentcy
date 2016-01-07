@@ -33,9 +33,14 @@ public class BBVa extends SamplerBase {
 
     @Override
     public String getUrl() {
-        return "https://bbvanet.bbva.com.uy/WebInst/Cotizaciones";
+        return "https://bbvanet.bbva.com.uy";
     }
 
+    @Override
+    public String getUrlByCurrency(Currencies currency) {
+        return "https://bbvanet.bbva.com.uy/WebInst/Cotizaciones";
+    }
+    
     @Override
     public String getName() {
         return "BBVa";

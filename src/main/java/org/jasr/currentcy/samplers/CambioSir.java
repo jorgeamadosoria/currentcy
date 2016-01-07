@@ -33,8 +33,15 @@ public class CambioSir extends SamplerBase{
 	}
 	@Override
 	public String getUrl() {
-		return "http://www.cambiosir.com.uy/Cotizaciones";	
+		return "http://www.cambiosir.com.uy";	
 	}
+	
+	@Override
+    public String getUrlByCurrency(Currencies currency) {
+        return "http://www.cambiosir.com.uy/Cotizaciones";
+    }
+	
+	
 	@Override
 	public String getName() {
 		return "Cambio SIR";
