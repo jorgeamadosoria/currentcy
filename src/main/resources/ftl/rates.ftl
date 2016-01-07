@@ -335,8 +335,7 @@ background: #970b0e !important;
 <td style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;" align="left" valign="top">
                 <table class="row" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 100%; position: relative; display: block; padding: 0px;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
 <td class="wrapper last" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; position: relative; color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 10px 0px 0px;" align="left" valign="top">
-                          	<#list snapshots as snapshotbycur>
-               					<br/><h1 style="color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 40px; margin: 0; padding: 0;" align="left">${currencies[snapshotbycur_index]}</h1>
+               					<br/><h1 style="color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; text-align: left; line-height: 1.3; word-break: normal; font-size: 40px; margin: 0; padding: 0;" align="left">${currency}</h1>
 		                    <table class="panel callout twelve columns" style="border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; width: 580px; background: #f2f2f2; margin: 0 auto; padding: 10px; border: 1px solid #d9d9d9;" bgcolor="#f2f2f2">
 <thead class="header" style="background: #e7e7e7;"><tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
 <th class="text-pad" style="padding: 0px 10px 5px;">Name</th>
@@ -346,7 +345,6 @@ background: #970b0e !important;
 		                                <th class="text-pad" style="padding: 0px 10px 5px;">Date</th>
 		                            </tr></thead>
 <tbody>
-<#list snapshotbycur as snapshot>
 <tr style="vertical-align: top; text-align: left; padding: 0;" align="left">
 <td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 10px 5px;" align="left" valign="top">${snapshot.name}</td>
 									    <td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 10px 5px;" align="left" valign="top">${snapshot.avg}</td>
@@ -354,10 +352,8 @@ background: #970b0e !important;
 										<td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 10px 5px;" align="left" valign="top">${snapshot.sell}</td>
 										<td class="text-pad" style="word-break: break-word; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #777; font-family: Helvetica, Arial, sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0px 10px 5px;" align="left" valign="top">${snapshot.date}</td>
 		                            </tr>
-</#list>
 		                        </tbody>
 </table>
-</#list>
                     </td>
                   </tr></table>
 </td>

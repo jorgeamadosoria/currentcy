@@ -3,6 +3,11 @@ package org.jasr.currentcy.domain;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Core entity for the system. It represents the values of the buy/sell rates for one exchange, one currency and one moment of
+ * time. Provides some formatting output methods in order to simplify JSON conversion of the entity.
+ *
+ */
 public class Sample {
     private int     id;
     private String  date;
@@ -37,6 +42,10 @@ public class Sample {
      */
     private Locale locale = new Locale("es", "MX");
 
+    /**
+     * The trend symbol is interpreted on the client side
+     * @return
+     */
     public String getTrend() {
 
         if (Math.signum(buyDiff) > 0 && Math.signum(sellDiff) > 0)
@@ -75,10 +84,14 @@ public class Sample {
         this.id = id;
     }
 
+    /**
+     * Formatted to leave out the seconds for the UI
+     * @return
+     */
     public String getDate() {
         return date.substring(0, date.length() - 5);
     }
-    
+
     public String getTrendDate() {
         return date;
     }
@@ -151,6 +164,9 @@ public class Sample {
         this.locale = locale;
     }
 
+    /**
+     * For simmetry, as we have already overwritten the equals method. Default implementation by Eclipse
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -164,6 +180,9 @@ public class Sample {
         return result;
     }
 
+    /**
+     * Comparison includes the samplers code, buyValue and sellValue.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

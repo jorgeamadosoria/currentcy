@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+/**
+ * Datasource configuration for production. Imports connection values from external sources to support Openshift deployment. This
+ * is separated from Persistence Configuration to allow for easier substitution for testing
+ * 
+ */
 @Configuration
 public class DatasourceConfig {
 
@@ -25,9 +30,9 @@ public class DatasourceConfig {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://"+host+":"+port+"/currentcy";
+        String url = "jdbc:mysql://" + host + ":" + port + "/currentcy";
         config.setJdbcUrl(url);
-        config.setUsername(username);	
+        config.setUsername(username);
         config.setPassword(password);
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
