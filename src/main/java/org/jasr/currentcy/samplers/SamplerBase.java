@@ -20,7 +20,7 @@ public abstract class SamplerBase {
     /**
      * Source main page url. This is not necessarily the same page used for data sampling and is used for linking purposes only.
      * 
-     * @return
+     * @return valid url of the main page of the exchange
      */
     public abstract String getUrl();
 
@@ -56,13 +56,14 @@ public abstract class SamplerBase {
     /**
      * Unique readable code to identify this sample and its source. Usually in a 4-6 letter format that references the name of the
      * exchange
+     * @return system assigned code for the exchange
      */
     public abstract String getCode();
 
     /**
-     * Name of the exchange as it is known by humans. Used for labelling purposes on the UI.
+     * Name of the exchange as it is known by humans (fantasy name as registered on the BCU). Used for labelling purposes on the UI.
      * 
-     * @return
+     * @return fantasy name for the exchange 
      */
     public abstract String getName();
 

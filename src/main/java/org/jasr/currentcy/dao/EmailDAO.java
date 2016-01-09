@@ -14,7 +14,8 @@ public interface EmailDAO {
     /**
      * Stores an email address for subscription to notifications for a specific exchange. If the email doesn't exist, a token is
      * generated and returned. If it exists, the previously generated token is returned.
-     * 
+     * @param code for the exchange to subscribe to
+     * @param email the address of the user that wants to subscribe
      * @return the token corresponding to the newly created or pre-existing email address
      */
     public String subscribeEmail(String code, String email);
@@ -41,6 +42,7 @@ public interface EmailDAO {
      * 
      * @param code
      *            the code of the exchange with the modified rates
+     * @return the list of email addresses to send changes to
      */
     public List<Email> getEmailsForNotification(String code);
 

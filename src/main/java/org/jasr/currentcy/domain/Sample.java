@@ -43,8 +43,8 @@ public class Sample {
     private Locale locale = new Locale("es", "MX");
 
     /**
-     * The trend symbol is interpreted on the client side
-     * @return
+     * The trend symbol is interpreted on the client side. The symbol is used to maintain decoupling between client and server.
+     * @return  a symbol to be interpreted on Javascript
      */
     public String getTrend() {
 
@@ -85,8 +85,8 @@ public class Sample {
     }
 
     /**
-     * Formatted to leave out the seconds for the UI
-     * @return
+     * Formatted to leave out the seconds for the UI. It's easier to format on the server side than on the client.
+     * @return a date formatted without seconds and a human readable form.
      */
     public String getDate() {
         return date.substring(0, date.length() - 5);

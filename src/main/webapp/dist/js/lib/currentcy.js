@@ -1,11 +1,32 @@
 define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
-var store = require("store");
+	/**
+	 * Imported module to handle localStorage (AMD-complaint version of store.js)
+	 * @var store 
+	 */
+	var store = require("store");
+	/**
+	 * The main point of entry for all calls for the custom javascript code.
+	 * This object contains everything necessary to work with the client side as
+	 * well as to make the ajax requests to the server side
+	 * 
+	 * @exports currentcy
+	 */
 	var currentcy = {};
 
-	// Variables
+	/**
+	 * default value for currency is US Dollars.
+	 * @var defaultCurrency 
+	 */
 	currentcy.defaultCurrency= 'usd';
+	/**
+	 * default value for locale is English with no country code. 
+	 * @var defaultLocale
+	 */
 	currentcy.defaultLocale = 'en';
-	// Map for accent folding for the exchange search
+	/**
+	 * Map for accent folding for the exchange search
+	 * @var accentMap 
+	 */
 	currentcy.accentMap = {
 	      "&aacute;": "á",
 	      "&eacute;": "é",
@@ -14,31 +35,67 @@ var store = require("store");
 	      "&uacute;": "ú"
 	    };
 
-	// Getters / Setters
-	    currentcy.getCurrency = function() {
+	/**
+	 * Function to get the selected currency for the user. Uses localStorage
+	 * 
+	 * @function getCurrency
+	 * @return the string representing the currency selected
+	 */
+	currentcy.getCurrency = function() {
 		if (!store.get('currency'))
 			currentcy.setCurrency(currentcy.defaultCurrency);
 		return store.get('currency');
 	};
 
+	/**
+	 * Function to set the selected currency for the user. Uses localStorage 
+	 * @function setCurrency
+	 * @param {e} currency to set
+	 */
 	currentcy.setCurrency = function(cur) {
 		store.set('currency',cur);
 	};
 	
+	/**
+	 * Function to get the selected snapshot for the user. Uses localStorage
+	 * 
+	 * @function getSelected
+	 * @return the object representing the snapshot selected
+	 */
 	currentcy.getSelected = function() {
 		return store.get('selected');
 	};
 
+	/**
+	 * Function to set the selected snapshot for the user. Uses localStorage
+	 * 
+	 * @function setSelected
+	 * @param {e}
+	 *            snapshot to set
+	 */
 	currentcy.setSelected = function(exchange) {
 		store.set('selected',exchange);
 	};
-
+	
+	/**
+	 * Function to get the selected locale for the user. Uses localStorage
+	 * 
+	 * @function getLocale
+	 * @return the string representing the locale selected
+	 */
 	currentcy.getLocale = function() {
 		if (!store.get('locale'))
 			currentcy.setLocale(currentcy.defaultLocale);
 		return store.get('locale');
 	};
 
+	/**
+	 * Function to get the selected locale for the user. Uses localStorage
+	 * 
+	 * @function setLocale
+	 * @param {e}
+	 *            locale to set
+	 */
 	currentcy.setLocale = function(locale) {
 		store.set('locale',locale);
 	};
@@ -46,17 +103,37 @@ var store = require("store");
 	
 	// Event Handlers
 	
-	// Language handler for locale menu
+	/**
+	 * Language handler for locale menu. Click event handler
+	 * 
+	 * @callback changeLanguage
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.changeLanguage= function(e) {
 		currentcy.setLocale($(this).data('lang'));
 		currentcy.initLanguage($(this).data('lang'));
 	};
 	
+	/**
+	 * Currency handler for currency menu. Click event handler
+	 * 
+	 * @callback changeCurrency
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.changeCurrency= function(e) {
 		currentcy.setCurrency($(this).data('currency'));
 		currentcy.snapshot();
 	};
 	
+	/**
+	 * Handler for email subscribe button. Click event handler
+	 * 
+	 * @callback subscribeButton
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.subscribeButton= function(e) {
 		$.ajax({
 			url : "email/subscribe",
@@ -77,6 +154,13 @@ var store = require("store");
 		});
 	};
 	
+	/**
+	 * Handler for paypal form submit. Click event handler
+	 * 
+	 * @callback paypalSubmit
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.paypalSubmit= function() {
 		$("#paypal-form").submit();
 	};

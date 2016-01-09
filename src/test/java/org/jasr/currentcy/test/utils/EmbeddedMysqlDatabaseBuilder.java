@@ -95,7 +95,8 @@ public class EmbeddedMysqlDatabaseBuilder {
     /**
      * whether to enable mysql foreign key check
      *
-     * @param foreignKeyCheck
+     * @param foreignKeyCheck whether to check foreign keys when executing dml
+     * @return database instance for testing
      */
     public EmbeddedMysqlDatabaseBuilder setForeignKeyCheck(boolean foreignKeyCheck) {
         this.foreignKeyCheck = foreignKeyCheck;

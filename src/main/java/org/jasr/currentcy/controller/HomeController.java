@@ -61,6 +61,7 @@ public class HomeController {
 
     /**
      * Subscribe an email address to notifications from the system
+     * @param code The code for the exchange to subscribe to
      * @param email The email address to subscribe to the application
      */
     @ApiOperation(value = "subscribe", notes = "Subscribe an email address to notifications from the system")

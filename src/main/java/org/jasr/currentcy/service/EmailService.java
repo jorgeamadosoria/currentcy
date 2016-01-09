@@ -31,6 +31,8 @@ public interface EmailService {
     /**
      * Method to send the subscription email to users. If the user has already subscribed, the email will be resent with the same
      * token. Repeating the subscription process has no new effect.
+     * @param code The code for the exchange to subscribe to
+     * @param email the address of the user that wants to subscribe
      */
     public void subscribeEmail(String code,String email);
 
