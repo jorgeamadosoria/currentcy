@@ -1,61 +1,63 @@
-var currentcy = {
+define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
+var store = require("store");
+	var currentcy = {};
 
 	// Variables
-	defaultCurrency: 'usd',
-	defaultLocale : 'en',
+	currentcy.defaultCurrency= 'usd';
+	currentcy.defaultLocale = 'en';
 	// Map for accent folding for the exchange search
-	accentMap : {
+	currentcy.accentMap = {
 	      "&aacute;": "á",
 	      "&eacute;": "é",
 	      "&iacute;": "í",
 	      "&oacute;": "ó",
 	      "&uacute;": "ú"
-	    },
-	
+	    };
+
 	// Getters / Setters
-	getCurrency : function() {
+	    currentcy.getCurrency = function() {
 		if (!store.get('currency'))
 			currentcy.setCurrency(currentcy.defaultCurrency);
 		return store.get('currency');
-	},
+	};
 
-	setCurrency : function(cur) {
+	currentcy.setCurrency = function(cur) {
 		store.set('currency',cur);
-	},
+	};
 	
-	getSelected : function() {
+	currentcy.getSelected = function() {
 		return store.get('selected');
-	},
+	};
 
-	setSelected : function(exchange) {
+	currentcy.setSelected = function(exchange) {
 		store.set('selected',exchange);
-	},
+	};
 
-	getLocale : function() {
+	currentcy.getLocale = function() {
 		if (!store.get('locale'))
 			currentcy.setLocale(currentcy.defaultLocale);
 		return store.get('locale');
-	},
+	};
 
-	setLocale : function(locale) {
+	currentcy.setLocale = function(locale) {
 		store.set('locale',locale);
-	},
+	};
 	// ---------------------------------------
 	
 	// Event Handlers
 	
 	// Language handler for locale menu
-	changeLanguage: function(e) {
+	currentcy.changeLanguage= function(e) {
 		currentcy.setLocale($(this).data('lang'));
 		currentcy.initLanguage($(this).data('lang'));
-	},
+	};
 	
-	changeCurrency: function(e) {
+	currentcy.changeCurrency= function(e) {
 		currentcy.setCurrency($(this).data('currency'));
 		currentcy.snapshot();
-	},
+	};
 	
-	subscribeButton: function(e) {
+	currentcy.subscribeButton= function(e) {
 		$.ajax({
 			url : "email/subscribe",
 			method : "POST",
@@ -73,22 +75,22 @@ var currentcy = {
 				$("input#email").val('');
 			}
 		});
-	},
+	};
 	
-	paypalSubmit: function() {
+	currentcy.paypalSubmit= function() {
 		$("#paypal-form").submit();
-	},
+	};
 	
 	// To avoid letters and symbols in the input field for amount calculator
-	preventLetter : function(e) {
+	currentcy.preventLetter = function(e) {
 		if (e.shiftKey === true) {
 			return (e.which == 9);
 		}
 		
 		return !(e.which > 57 || e.which == 32);
-	},
+	};
 	
-	calculate : function(ele) {
+	currentcy.calculate = function(ele) {
 		var e = $("#amount").val();
 
 		if (isNaN(e)) {
@@ -111,9 +113,9 @@ var currentcy = {
 								numeral(
 										Math.floor(amount* currentcy.getSelected().sellValue))
 										.format(format));
-	}},
+	}};
 	
-	snapshotDetailsAfterInsert: function(elem) {
+	currentcy.snapshotDetailsAfterInsert= function(elem) {
 		var src = $(elem).find(
 				".panel-default")
 				.attr("id");
@@ -122,8 +124,7 @@ var currentcy = {
 				.attr(
 						"src",
 						"dist/logos/"+ src);
-		
-		var trend = snapshot.trend;
+		var trend = currentcy.getSelected().trend;
 		var trendClass = "";
 		if (trend == '<')
 			trendClass="text-danger fa-arrow-circle-up";
@@ -135,7 +136,7 @@ var currentcy = {
 			trendClass="fa-question-circle";
 
 		$(elem).find("#trend").toggleClass(trendClass);
-	},
+	};
 	
 	// ----------------------------------------
 	
@@ -143,10 +144,10 @@ var currentcy = {
 	
 	// Initial configuration of events, local storage and UI settings for the
 	// first time the user access the page on the session
-	init: function(){
+	currentcy.init= function(){
 		
 			// Setting event handlers to page elements
-			$("a#paypal-submit").attr("href", "javascript:currentcy.paypalSubmit();");
+			$("a#paypal-submit").on("click",currentcy.paypalSubmit);
 			$('button#subscribe-button').on("click", currentcy.subscribeButton);
 			$('.lang_link').on("click", currentcy.changeLanguage);
 			$('.currency_link').on("click", currentcy.changeCurrency);
@@ -165,10 +166,10 @@ var currentcy = {
 			currentcy.snapshot();
 			currentcy.initLanguage();
 
-	},
+	};
 	
 	
-	clearCalculate:function(){
+	currentcy.clearCalculate =function(){
 		$("#amount").val('');
 					$("#buy-amount").text(
 							"$ 0");
@@ -176,11 +177,11 @@ var currentcy = {
 					"$ 0");
 					$("#sell-amount").text(
 					"$ 0");
-	},
+	};
 
 	// Initiate current message properties to translate the page to selected
 	// locale
-	initLanguage : function() {
+	currentcy.initLanguage = function() {
 
 		var lang = currentcy.getLocale();
 		$.i18n.properties({
@@ -218,12 +219,12 @@ var currentcy = {
 				$("#msg-current-rate").html($.i18n.prop('msg.current.rate'));
 			}
 		});
-	},
+	};
 	
 	// function show snapshot details for the selected exchange. This will
 	// become the selected exchange for all subsequent requests to the page by
 	// the user.
-	snapshotdetails: function(snapshotId){
+	currentcy.snapshotdetails= function(snapshotId){
 		var snapshot = store.get(snapshotId);
 		currentcy.setSelected(snapshot);
 		$("#snapshot-container")
@@ -235,23 +236,23 @@ var currentcy = {
 				});
 		currentcy.clearCalculate();
 		currentcy.flot();
-	},
+	};
 	
 	
 		    
-	normalize : function( term ) {
+	currentcy.normalize = function( term ) {
 			str = term;
 		      for ( var obj in currentcy.accentMap ) {
 		        str = str.replace(new RegExp(obj,"g"),currentcy.accentMap[ obj ]);
 		      }
 		      return str;
-	},
+	};
 	
 	// register accent folding for exchange search using jquery UI autocomplete.
 	// It matches accents according to the accentMap. ExchangeNames is the
 	// complete list of all exchanges and their codes to be used as label and
 	// values for each entry for jquery autocomplete UI, respectively.
-	registerAccentFolding : function(exchangeNames){
+	currentcy.registerAccentFolding = function(exchangeNames){
 		
 		$(function() {
 		    $( "#exchange-input" ).autocomplete({
@@ -271,10 +272,10 @@ var currentcy = {
 		        $(this).autocomplete("search",$(this).val());
 		    });
 		  });
-	},
+	};
 	
 	// takes the latest snapshot for each exchange
-	snapshot : function() {
+	currentcy.snapshot = function() {
 			$
 					.get(
 							'snapshot?currency=' + currentcy.getCurrency(),
@@ -305,7 +306,12 @@ var currentcy = {
 								$("#calc-container").find("#trend").empty();
 	
 												
-								
+						
+			$("#ticker").on("click", "li a#snapshot-link", function(event){
+				currentcy.snapshotdetails($(this).find("div").attr("id"));
+				return false;
+			});			
+			
 			$("#ticker")
 			.loadTemplate(
 					"dist/templates/snapshot.template",
@@ -320,7 +326,6 @@ var currentcy = {
 									.attr(
 											"src",
 											"dist/logos/"+ src);
-							$(elem).find("#snapshot-link").attr("href","javascript:currentcy.snapshotdetails('"+src+"')");
 						},
 						success: function(e){
 							store.set('ticker',$('#ticker').bxSlider({
@@ -342,13 +347,12 @@ var currentcy = {
 		});
 		
 
-	},
+	};
 
 	// create and configure the flot chart using the currently selected currency
 	// and exchange. This method sends an ajax request for the latest samples
 	// for the current selection and recreate the flot chart to show the trend.
-	flot : function() {
-
+	currentcy.flot = function() {
 		var source = currentcy.getSelected().code;
 
 		var offset = 0;
@@ -363,14 +367,14 @@ var currentcy = {
 				$("#flot-line-chart").show();
 				var buy = [];
 				var sell = [];
-				//needed for the ticks in the x axis
+				// needed for the ticks in the x axis
 				var dates = [];
 				for (var i = 0; i < data.samples.length; i++) {
 					buy.push([ i, data.samples[i].buyValue ]);
 					sell.push([ i, data.samples[i].sellValue ]);
 					dates.push([ i, data.samples[i].trendDate ]);
 				}
-				//options for the flot chart
+				// options for the flot chart
 				var options = {
 					series : {
 						lines : {
@@ -401,7 +405,7 @@ var currentcy = {
 						}
 					}
 				};
-				//actual creation of the flot chart
+				// actual creation of the flot chart
 				var plotObj = $.plot($("#flot-line-chart"), [ {
 					data : buy,
 					label : source + ' buy value'
@@ -411,6 +415,6 @@ var currentcy = {
 				} ], options);
 			}
 		});
-	}
-
 };
+return currentcy;
+});
