@@ -1,7 +1,9 @@
 define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
 	/**
-	 * Imported module to handle localStorage (AMD-complaint version of store.js)
-	 * @var store 
+	 * Imported module to handle localStorage (AMD-complaint version of
+	 * store.js)
+	 * 
+	 * @var store
 	 */
 	var store = require("store");
 	/**
@@ -15,17 +17,20 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 
 	/**
 	 * default value for currency is US Dollars.
-	 * @var defaultCurrency 
+	 * 
+	 * @var defaultCurrency
 	 */
 	currentcy.defaultCurrency= 'usd';
 	/**
-	 * default value for locale is English with no country code. 
+	 * default value for locale is English with no country code.
+	 * 
 	 * @var defaultLocale
 	 */
 	currentcy.defaultLocale = 'en';
 	/**
 	 * Map for accent folding for the exchange search
-	 * @var accentMap 
+	 * 
+	 * @var accentMap
 	 */
 	currentcy.accentMap = {
 	      "&aacute;": "á",
@@ -48,9 +53,11 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 
 	/**
-	 * Function to set the selected currency for the user. Uses localStorage 
+	 * Function to set the selected currency for the user. Uses localStorage
+	 * 
 	 * @function setCurrency
-	 * @param {e} currency to set
+	 * @param {e}
+	 *            currency to set
 	 */
 	currentcy.setCurrency = function(cur) {
 		store.set('currency',cur);
@@ -165,7 +172,13 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 		$("#paypal-form").submit();
 	};
 	
-	// To avoid letters and symbols in the input field for amount calculator
+	/**
+	 * Handler to avoid letters and symbols in the input field for amount calculator. keypress event handler
+	 * 
+	 * @callback preventLetter
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.preventLetter = function(e) {
 		if (e.shiftKey === true) {
 			return (e.which == 9);
@@ -174,6 +187,14 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 		return !(e.which > 57 || e.which == 32);
 	};
 	
+	/**
+	 * Handler for calculations for the input field for calculations. keychange
+	 * event handler
+	 * 
+	 * @callback calculate
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.calculate = function(ele) {
 		var e = $("#amount").val();
 
@@ -199,12 +220,20 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 										.format(format));
 	}};
 	
+	/**
+	 * Handler for operations to be executed after the snapshot-details template
+	 * is loaded into the page. loadTemplate handler
+	 * 
+	 * @callback snapshotDetailsAfterInsert
+	 * @param {e}
+	 *            event data
+	 */
 	currentcy.snapshotDetailsAfterInsert= function(elem) {
 		var src = $(elem).find(
 				".panel-default")
 				.attr("id");
 		$(elem)
-				.find("#code")
+				.find("#code-details")
 				.attr(
 						"src",
 						"dist/logos/"+ src);
@@ -226,8 +255,12 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	
 	// manually invoked functions
 	
-	// Initial configuration of events, local storage and UI settings for the
-	// first time the user access the page on the session
+	/**
+	 * Initial configuration of events, local storage and UI settings for the
+	 * first time the user access the page on each web session
+	 * 
+	 * @function init
+	 */	
 	currentcy.init= function(){
 		
 			// Setting event handlers to page elements
@@ -252,7 +285,11 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 
 	};
 	
-	
+	/**
+	 * Function to clear all values for the calculator fields
+	 * 
+	 * @function clearCalculate
+	 */	
 	currentcy.clearCalculate =function(){
 		$("#amount").val('');
 					$("#buy-amount").text(
@@ -263,8 +300,12 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 					"$ 0");
 	};
 
-	// Initiate current message properties to translate the page to selected
-	// locale
+	/**
+	 * Initiate current message properties to translate the page to selected
+	 * locale
+	 * 
+	 * @function initLanguage
+	 */	 
 	currentcy.initLanguage = function() {
 
 		var lang = currentcy.getLocale();
@@ -281,6 +322,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 				$("#msg-calculator").html($.i18n.prop('msg.calculator'));
 				$("#msg-currency").html($.i18n.prop('msg.currency'));
 				$("#lemma").html($.i18n.prop('msg.lemma'));
+				$("#docs").html($.i18n.prop('msg.docs'));
 				$("#title").html($.i18n.prop('msg.title'));
 				$("#menu-title").html($.i18n.prop('msg.title'));
 				$("#github").html($.i18n.prop('msg.github'));
@@ -289,6 +331,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 				$("#exchange-input").attr('placeholder',$.i18n.prop('exchange.placeholder'));
 				$("#email").attr('placeholder',$.i18n.prop('subscribe.placeholder'));
 				$("#swagger").html($.i18n.prop('msg.swagger'));
+				$("#jsdocs").html($.i18n.prop('msg.jsdocs'));
+				$("#javadocs").html($.i18n.prop('msg.javadocs'));
 				$("#about").html($.i18n.prop('msg.about'));
 				$("#exchange-rate").html($.i18n.prop('msg.exchange.rate'));
 				$("#author").html($.i18n.prop('msg.author'));
@@ -305,9 +349,15 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 		});
 	};
 	
-	// function show snapshot details for the selected exchange. This will
-	// become the selected exchange for all subsequent requests to the page by
-	// the user.
+	/**
+	 * function show snapshot details for the selected exchange. This will
+	 * become the selected exchange for all subsequent requests to the page by
+	 * the user.
+	 * 
+	 * @param snapshotId
+	 *            the id of the snapshot selected
+	 * @function snapshotdetails
+	 */	 
 	currentcy.snapshotdetails= function(snapshotId){
 		var snapshot = store.get(snapshotId);
 		currentcy.setSelected(snapshot);
@@ -323,7 +373,15 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	
-		    
+	/**
+	 * Replaces accented characters with their unaccented versions according to
+	 * accentMap.
+	 * 
+	 * @param term
+	 *            the input to be normalize
+	 * @function normalize
+	 * @return the input of the function already normalized
+	 */	    
 	currentcy.normalize = function( term ) {
 			str = term;
 		      for ( var obj in currentcy.accentMap ) {
@@ -332,10 +390,15 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 		      return str;
 	};
 	
-	// register accent folding for exchange search using jquery UI autocomplete.
-	// It matches accents according to the accentMap. ExchangeNames is the
-	// complete list of all exchanges and their codes to be used as label and
-	// values for each entry for jquery autocomplete UI, respectively.
+	/**
+	 * Registers jquery UI autocomplete with accent folding. It matches accents
+	 * according to the accentMap. ExchangeNames is to be used as label and
+	 * values for each entry for jquery autocomplete UI, respectively.
+	 * 
+	 * @param exchangeNames
+	 *            the complete list of all exchanges and their codes
+	 * @function registerAccentFolding
+	 */
 	currentcy.registerAccentFolding = function(exchangeNames){
 		
 		$(function() {
@@ -358,7 +421,12 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 		  });
 	};
 	
-	// takes the latest snapshot for each exchange
+	/**
+	 * Takes the lastest snapshot for each exchange in the system. Sends an ajax
+	 * request to get this data, and also uses localStorage for it.
+	 * 
+	 * @function snapshot
+	 */
 	currentcy.snapshot = function() {
 			$
 					.get(
@@ -413,7 +481,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 						},
 						success: function(e){
 							store.set('ticker',$('#ticker').bxSlider({
-								  minSlides: 4,
+								  minSlides: 8,
 								  maxSlides: 10,
 								  slideWidth:300,
 								  slideMargin: 2,
@@ -433,9 +501,13 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 
 	};
 
-	// create and configure the flot chart using the currently selected currency
-	// and exchange. This method sends an ajax request for the latest samples
-	// for the current selection and recreate the flot chart to show the trend.
+	/**
+	 * Create and configure the flot chart using the currently selected currency
+	 * and exchange. This method sends an ajax request for the latest samples
+	 * for the current selection and recreate the flot chart to show the trend.
+	 * 
+	 * @function flot
+	 */
 	currentcy.flot = function() {
 		var source = currentcy.getSelected().code;
 

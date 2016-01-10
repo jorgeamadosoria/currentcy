@@ -1,5 +1,18 @@
+.row.no-pad {
+  margin-right:0;
+  margin-left:0;
+}
+.row.no-pad > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
 
 #code {
+	height: 50px;
+	width: 50px
+}
+
+#code-details {
 	height: 100px;
 	width: 100px
 }

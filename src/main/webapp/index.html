@@ -128,28 +128,49 @@
 										id="author-email"></span></em> </span> <span class="clearfix" id="kudos"></span>
 							</div>
 					</a></li>
-					<li class="divider"></li>
-					<li><a target="new"
-						href="https://github.com/jorgeamadosoria/currentcy#currentcy">
-							<i class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span
-							id="github"></span>
+
+
+					<li><a href="#">
+							<div>
+								<strong id="contact-me"></strong> <span
+									class="pull-right text-muted"><em><span
+										id="author-email"></span></em> </span> <span class="clearfix" id="kudos"></span>
+							</div>
 					</a></li>
 					<li class="divider"></li>
-					<li><a target="new" href="dist/swagger"> <i
-							class="fa fa-list-ol fa-fw fa-2x nav-2x-icon"></i><span
-							id="swagger"></span>
-					</a></li>
+					<li>
+						<div class="row no-pad">
+							 <span
+								class="col-md-3 col-md-offset-1"><a target="new"
+								href="dist/swagger"> <i class="fa fa-list-ol"></i><span
+									id="swagger"></span>
+							</a></span><span class="col-md-3 col-md-offset-1"> <a target="new"
+								href="docs/jsdocs/"> <i class="fa fa-list-ol"></i><span
+									id="jsdocs"></span>
+							</a></span><span class="col-md-3 col-md-offset-1"> <a target="new"
+								href="docs/javadocs/"> <i class="fa fa-list-ol"></i><span
+									id="javadocs"></span>
+							</a></span>
+						</div>
+					</li>
+
+
 					<li class="divider"></li>
-					<li><a id="paypal-submit" href="#"> <i
-							class="fa fa-paypal fa-fw fa-2x nav-2x-icon"></i><span
-							id="paypal"></span>
-					</a>
-						<form id="paypal-form"
-							action="https://www.paypal.com/cgi-bin/webscr" method="post"
-							target="_top">
-							<input type="hidden" name="cmd" value="_s-xclick"> <input
-								type="hidden" name="hosted_button_id" value="K7GMMVL54MFAA">
-						</form></li>
+					<li><span><a target="new"
+							href="https://github.com/jorgeamadosoria/currentcy#currentcy">
+								<i class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span
+								id="github"></span>
+						</a><a id="paypal-submit" href="#"> <i
+								class="fa fa-paypal fa-fw fa-2x nav-2x-icon"></i><span
+								id="paypal"></span>
+						</a></span><span>
+							<form id="paypal-form"
+								action="https://www.paypal.com/cgi-bin/webscr" method="post"
+								target="_top">
+								<input type="hidden" name="cmd" value="_s-xclick"> <input
+									type="hidden" name="hosted_button_id" value="K7GMMVL54MFAA">
+							</form>
+					</span></li>
 				</ul></li>
 		</ul>
 		<span class="pull-right padding-top-10"> <input type="text"
@@ -197,7 +218,8 @@
 								<input id="email" name="email" class="form-control" type="email"
 									placeholder="Input your email address to receive updates" /> <span
 									class="input-group-btn">
-									<button id="subscribe-button" class="btn btn-primary" type="submit">
+									<button id="subscribe-button" class="btn btn-primary"
+										type="submit">
 										<i class="fa fa-envelope fa-fw"></i><span id="subscribe"></span>
 									</button>
 								</span>

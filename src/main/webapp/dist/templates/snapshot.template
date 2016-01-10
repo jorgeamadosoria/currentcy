@@ -7,12 +7,12 @@
 					<img id="code" class="img-rounded"/>
 				</div>
 				<div class="col-xs-offset-1 col-xs-5">
-					<div class="medium">
+					<div class="tiny">
 						<span data-content="sell" class="text-success" ></span>&nbsp;/&nbsp;<span
 							data-content="buy" class="text-danger" ></span>
 					</div>
 						<span
-							data-content="avg" class="text-primary huge" ></span>	
+							data-content="avg" class="text-primary medium" ></span>	
 				</div>
 			</div>
 		</div>

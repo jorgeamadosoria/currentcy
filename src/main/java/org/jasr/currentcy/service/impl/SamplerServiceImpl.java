@@ -14,6 +14,8 @@ import org.jasr.currentcy.samplers.SamplerBase;
 import org.jasr.currentcy.service.EmailService;
 import org.jasr.currentcy.service.SamplerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +23,13 @@ import org.springframework.stereotype.Service;
 public class SamplerServiceImpl implements SamplerService {
 
     @Resource
-    private SampleDAO         samplerDAO;
+    private SampleDAO             samplerDAO;
 
     @Resource
-    private EmailService      emailService;
+    private EmailService          emailService;
 
     @Autowired
-    private List<SamplerBase> samplers;
+    private List<SamplerBase>     samplers;
 
     @Override
     public List<Sample> getSnapshot(Currencies currency) {
@@ -56,7 +58,6 @@ public class SamplerServiceImpl implements SamplerService {
             changes(changes, samples, currency);
             samplerDAO.saveSnapshot(samples, currency);
             samples.clear();
-            // async method
             emailService.sendUpdateEmails(currency, changes);
         }
     }
