@@ -14,8 +14,6 @@ import org.jasr.currentcy.samplers.SamplerBase;
 import org.jasr.currentcy.service.EmailService;
 import org.jasr.currentcy.service.SamplerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +28,7 @@ public class SamplerServiceImpl implements SamplerService {
 
     @Autowired
     private List<SamplerBase>     samplers;
-
+    
     @Override
     public List<Sample> getSnapshot(Currencies currency) {
         return samplerDAO.getSnapshot(currency);
@@ -45,7 +43,7 @@ public class SamplerServiceImpl implements SamplerService {
      * Scheduled method to take samples from all registered exchanges. It executes once every hour. each sampler is executed once
      * for each currency. It also checks changes on the samples, send emails and save the recently taken snapshot.
      */
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(fixedRate = 600000)
     private void takeSnapshot() {
         List<Sample> samples = new ArrayList<>();
         List<Sample> changes = new ArrayList<>();
