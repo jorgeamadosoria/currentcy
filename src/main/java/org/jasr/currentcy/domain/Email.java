@@ -1,7 +1,7 @@
 package org.jasr.currentcy.domain;
 
 /**
- * Domain instance created to better handle notifications on the system. Each instance cotains an user email address and secret, unique
+ * Domain instance created to better handle email notifications on the system. Each instance contains an user email address and secret, unique
  * token assigned to this address upon subscription
  */
 public class Email {
