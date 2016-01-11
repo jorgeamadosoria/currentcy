@@ -26,7 +26,8 @@ import com.wordnik.swagger.annotations.ApiParam;
  * 
  */
 @RestController
-@Api(value = "currentcy", description = "Operations pertaining to samples and snapshots from currency exchanges")
+@Api(value = "web", description = "Operations pertaining to samples and snapshots from currency exchanges")
+@RequestMapping(value = "/web")
 public class HomeController {
 
     @Resource

@@ -15,5 +15,7 @@ public interface SamplerService {
 
     public List<Sample> getSnapshot(Currencies currency);
 
+    public List<Sample> getChangesSnapshot(Currencies currency);
+
     public Trend getLatestSamples(String source, Currencies currency);
 }

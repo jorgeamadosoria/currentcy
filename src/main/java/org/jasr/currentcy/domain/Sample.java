@@ -3,11 +3,14 @@ package org.jasr.currentcy.domain;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import com.wordnik.swagger.annotations.ApiModel;
+
 /**
  * Core entity for the system. It represents the values of the buy/sell rates for one exchange, one currency and one moment of
  * time. Provides some formatting output methods in order to simplify JSON conversion of the entity.
  *
  */
+@ApiModel(value = "Sample", description = "Core entity for the system. It represents the values of the buy/sell rates for one exchange, one currency and one moment of time")
 public class Sample {
     private int     id;
     private String  date;
@@ -44,7 +47,8 @@ public class Sample {
 
     /**
      * The trend symbol is interpreted on the client side. The symbol is used to maintain decoupling between client and server.
-     * @return  a symbol to be interpreted on Javascript
+     * 
+     * @return a symbol to be interpreted on Javascript
      */
     public String getTrend() {
 
@@ -86,6 +90,7 @@ public class Sample {
 
     /**
      * Formatted to leave out the seconds for the UI. It's easier to format on the server side than on the client.
+     * 
      * @return a date formatted without seconds and a human readable form.
      */
     public String getDate() {

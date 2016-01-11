@@ -24,11 +24,11 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     @Bean
     public SwaggerSpringMvcPlugin customImplementation() {
-        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig).apiInfo(apiInfo());
+        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig).apiInfo(webApiInfo());
     }
 
-    private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Currentcy Rest API", "Exchange rates showcase for Uruguayan pesos against USD and EUR",
+    private ApiInfo webApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("Currentcy Rest API", "Server side rest endpoints for the exchange showcase for Uruguayan pesos against USD and EUR",
                 "https://currentcy-jasr.rhcloud.com", "darksoul.uci@gmail.com", "LGPL 2.1",
                 "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html");
         return apiInfo;

@@ -143,7 +143,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 */
 	currentcy.subscribeButton= function(e) {
 		$.ajax({
-			url : "email/subscribe",
+			url : "web/email/subscribe",
 			method : "POST",
 			data : {
 				"email" : $("input#email").val(),
@@ -350,7 +350,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	/**
-	 * function show snapshot details for the selected exchange. This will
+	 * function to show snapshot details for the selected exchange. This will
 	 * become the selected exchange for all subsequent requests to the page by
 	 * the user.
 	 * 
@@ -359,9 +359,43 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @function snapshotdetails
 	 */	 
 	currentcy.snapshotdetails= function(snapshotId){
+		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId);
+	};
+	
+	/**
+	 * function to show snapshot details for the exchange with the best buy prices. 
+	 * 
+	 * @param snapshotId
+	 *            the id of the snapshot selected
+	 * @function snapshotdetails
+	 */	 
+	currentcy.bestBuy= function(snapshotId){
+		currentcy.selectSnapshotTemplate("#best-buy-snapshot",snapshotId);
+	};
+	
+	/**
+	 * function to show snapshot details for the exchange with the best sell prices. 
+	 * 
+	 * @param snapshotId
+	 *            the id of the snapshot selected
+	 * @function snapshotdetails
+	 */	 
+	currentcy.bestSell= function(snapshotId){
+		currentcy.selectSnapshotTemplate("#best-sell-snapshot",snapshotId);
+	};
+	
+	/**
+	 * function to show snapshot details for a selected exchange and DOM element. 
+	 * 
+	 * @param containerId
+	 *            the id of the DOM element to host the template
+	 * @param snapshotId
+	 *            the id of a snapshot
+	 * @function selectSnapshotTemplate
+	 */	 
+	currentcy.selectSnapshotTemplate= function(containerId,snapshotId){
 		var snapshot = store.get(snapshotId);
-		currentcy.setSelected(snapshot);
-		$("#snapshot-container")
+		$(containerId)
 		.loadTemplate(
 				"dist/templates/snapshot-details.template",
 				snapshot,
@@ -430,7 +464,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	currentcy.snapshot = function() {
 			$
 					.get(
-							'snapshot?currency=' + currentcy.getCurrency(),
+							'web/snapshot?currency=' + currentcy.getCurrency(),
 							function(data) {
 								var bestBuy = null;
 								var sellBuy = null;
@@ -454,7 +488,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 								currentcy.registerAccentFolding(exchangeNames);
 								
 								currentcy.snapshotdetails(currentcy.getSelected().code);
-								
+								currentcy.bestBuy(bestBuy.code);
+								currentcy.bestSell(bestSell.code);
 								$("#calc-container").find("#trend").empty();
 	
 												
@@ -513,7 +548,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 
 		var offset = 0;
 		$.ajax({
-			url : source + "/samples?currency=" + currentcy.getCurrency(),
+			url : "web/" + source + "/samples?currency=" + currentcy.getCurrency(),
 			beforeSend : function(data) {
 				$("#flot-chart-loading").show();
 				$("#flot-line-chart").hide();

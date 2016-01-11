@@ -25,4 +25,10 @@ public interface SampleDAO {
 	 * @return the latest sample for each exchange and the specified currency
 	 */
 	public List<Sample> getSnapshot(Currencies currency);
+	/**
+     * A list of the latest samples for the specified currency and each exchange with changes on their values since the last sampling.
+     * @param currency currency to get samples for.
+     * @return the latest sample for each exchange with differences
+     */
+    public List<Sample> getChangesSnapshot(Currencies currency);
 }

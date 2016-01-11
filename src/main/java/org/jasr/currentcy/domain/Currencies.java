@@ -2,9 +2,12 @@ package org.jasr.currentcy.domain;
 
 import java.util.Currency;
 import java.util.Locale;
+
+import com.wordnik.swagger.annotations.ApiModel;
 /**
  * Supported currencies for the system
  */
+@ApiModel(value="Currency",description="Supported currencies for the system")
 public enum Currencies {
 	USD(0, Locale.US), EUR(1, Locale.GERMANY);
 

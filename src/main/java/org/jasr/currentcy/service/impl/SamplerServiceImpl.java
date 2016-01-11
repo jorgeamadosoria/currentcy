@@ -33,6 +33,11 @@ public class SamplerServiceImpl implements SamplerService {
     public List<Sample> getSnapshot(Currencies currency) {
         return samplerDAO.getSnapshot(currency);
     }
+    
+    @Override
+    public List<Sample> getChangesSnapshot(Currencies currency) {
+        return samplerDAO.getChangesSnapshot(currency);
+    }
 
     @Override
     public Trend getLatestSamples(String source, Currencies currency) {
