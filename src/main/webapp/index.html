@@ -140,8 +140,7 @@
 					<li class="divider"></li>
 					<li>
 						<div class="row no-pad">
-							 <span
-								class="col-md-3 col-md-offset-1"><a target="new"
+							<span class="col-md-3 col-md-offset-1"><a target="new"
 								href="dist/swagger"> <i class="fa fa-list-ol"></i><span
 									id="swagger"></span>
 							</a></span><span class="col-md-3 col-md-offset-1"> <a target="new"
@@ -161,7 +160,7 @@
 								<i class="fa fa-github fa-fw fa-2x nav-2x-icon"></i><span
 								id="github"></span>
 						</a><a id="paypal-submit" href="#"> <i
-								class="fa fa-paypal fa-fw fa-2x nav-2x-icon"></i><span
+								class="fa fa-cc-paypal fa-fw fa-2x nav-2x-icon"></i><span
 								id="paypal"></span>
 						</a></span><span>
 							<form id="paypal-form"
@@ -188,76 +187,8 @@
 					</div>
 					<div class="panel-body">
 						<div id="snapshot-container"></div>
-						<div class="panel panel-default">
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-lg-2 vcenter20">
-										<span id="msg-calculator"></span>
-									</div>
-									<div class="col-lg-3 vcenter15">
-										<div class="form-group">
-											<input id="amount" class="form-control">
-										</div>
-									</div>
-									<div id="calc-container" class="col-lg-7">
-										<span class="text-primary huge" id="avg-amount">$ 0</span>
-									</div>
-									<div id="calc-container" class="col-lg-12">
-										<div class="medium">
-											<span class="text-success" id="sell-amount">$ 0</span>&nbsp;/&nbsp;<span
-												class="text-danger" id="buy-amount">$ 0</span>
-										</div>
-									</div>
-
-								</div>
-							</div>
-
-						</div>
-						<div class="panel panel-default">
-							<div id="subscribe-group" class="input-group">
-								<input id="email" name="email" class="form-control" type="email"
-									placeholder="Input your email address to receive updates" /> <span
-									class="input-group-btn">
-									<button id="subscribe-button" class="btn btn-primary"
-										type="submit">
-										<i class="fa fa-envelope fa-fw"></i><span id="subscribe"></span>
-									</button>
-								</span>
-							</div>
-							<div class="text-center hidden" id="subscribe-loading">
-								<span class="fa-5x fa text-muted fa-spinner fa-spin"></span>
-							</div>
-						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="row">
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<i class="fa fa-exchange fa-fw"></i>&nbsp;<span
-							id="msg-current-rate"></span>
-					</div>
-					<div class="panel-body">
-						<div id="best-buy-snapshot"></div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<i class="fa fa-exchange fa-fw"></i>&nbsp;<span
-							id="msg-current-rate"></span>
-					</div>
-					<div class="panel-body">
-						<div id="best-sell-snapshot"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-			</div>
-			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<i class="fa fa-line-chart fa-fw"></i>&nbsp;<span id="msg-trend"></span>
@@ -275,6 +206,75 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6">
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-exchange fa-fw"></i>&nbsp;<span id="msg-best-buy"></span>
+						</div>
+						<div class="panel-body">
+							<div id="best-buy-snapshot"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-exchange fa-fw"></i>&nbsp;<span
+								id="msg-best-sell"></span>
+						</div>
+						<div class="panel-body">
+							<div id="best-sell-snapshot"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-envelope fa-fw"></i>&nbsp;<span
+								id="msg-subscribe"></span>
+						</div>
+						<div class="panel-body">
+							<div id="subscribe-group" class="input-group">
+								<input id="email" name="email" class="form-control" type="email"
+									placeholder="Input your email address to receive updates" /> <span
+									class="input-group-btn">
+									<button id="subscribe-button" class="btn btn-primary"
+										type="submit">
+										<i class="fa fa-envelope fa-fw"></i><span id="subscribe"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+						<div class="text-center hidden" id="subscribe-loading">
+							<span class="fa-5x fa text-muted fa-spinner fa-spin"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-calculator fa-fw"></i>&nbsp;<span
+								id="msg-calculator"></span>
+						</div>
+						<div class="panel-body">
+							<div class="col-lg-3 vcenter20">
+								<div class="form-group">
+									<input id="amount" class="form-control">
+								</div>
+							</div>
+							<div class="col-lg-9 text-center">
+								<span class="text-primary huge" id="avg-amount">$ 0</span>
+								<div id="calc-container" class="medium">
+									<span class="text-success" id="sell-amount">$ 0</span>&nbsp;/&nbsp;<span
+										class="text-danger" id="buy-amount">$ 0</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 	<script data-main="dist/js/app" src="dist/js/lib/require.js"></script>

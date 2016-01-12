@@ -251,6 +251,26 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 		$(elem).find("#trend").toggleClass(trendClass);
 	};
 	
+	/**
+	 * Handler for operations to be executed after the snapshot-details template
+	 * is loaded into the page. loadTemplate handler
+	 * 
+	 * @callback snapshotDetailsAfterInsert
+	 * @param {e}
+	 *            event data
+	 */
+	currentcy.snapshotBestAfterInsert= function(elem) {
+		var src = $(elem).find(
+				".panel-default")
+				.attr("id");
+		$(elem)
+				.find("#code-details")
+				.attr(
+						"src",
+						"dist/logos/"+ src);
+		$(elem).find("#trend").hide();
+	};
+	
 	// ----------------------------------------
 	
 	// manually invoked functions
@@ -343,8 +363,11 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 				$("#kudos").html($.i18n.prop('msg.kudos'));
 				$("#msg-trend").html($.i18n.prop('msg.trend'));
 				$("#subscribe").html($.i18n.prop('msg.subscribe'));
+				$("#msg-subscribe").html($.i18n.prop('msg.subscribe'));
 				$("button#subscribe").html($.i18n.prop('msg.subscribe'));
 				$("#msg-current-rate").html($.i18n.prop('msg.current.rate'));
+				$("#msg-best-buy").html($.i18n.prop('msg.best.buy'));
+				$("#msg-best-sell").html($.i18n.prop('msg.best.sell'));
 			}
 		});
 	};
@@ -359,7 +382,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @function snapshotdetails
 	 */	 
 	currentcy.snapshotdetails= function(snapshotId){
-		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId);
+		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId,currentcy.snapshotDetailsAfterInsert);
 	};
 	
 	/**
@@ -370,7 +393,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @function snapshotdetails
 	 */	 
 	currentcy.bestBuy= function(snapshotId){
-		currentcy.selectSnapshotTemplate("#best-buy-snapshot",snapshotId);
+		currentcy.selectSnapshotTemplate("#best-buy-snapshot",snapshotId,currentcy.snapshotBestAfterInsert);
 	};
 	
 	/**
@@ -381,7 +404,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @function snapshotdetails
 	 */	 
 	currentcy.bestSell= function(snapshotId){
-		currentcy.selectSnapshotTemplate("#best-sell-snapshot",snapshotId);
+		currentcy.selectSnapshotTemplate("#best-sell-snapshot",snapshotId,currentcy.snapshotBestAfterInsert);
 	};
 	
 	/**
@@ -393,14 +416,14 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 *            the id of a snapshot
 	 * @function selectSnapshotTemplate
 	 */	 
-	currentcy.selectSnapshotTemplate= function(containerId,snapshotId){
+	currentcy.selectSnapshotTemplate= function(containerId,snapshotId,callback){
 		var snapshot = store.get(snapshotId);
 		$(containerId)
 		.loadTemplate(
 				"dist/templates/snapshot-details.template",
 				snapshot,
 				{
-					afterInsert : currentcy.snapshotDetailsAfterInsert
+					afterInsert : callback
 				});
 		currentcy.clearCalculate();
 		currentcy.flot();
