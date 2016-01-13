@@ -37,7 +37,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	      "&eacute;": "é",
 	      "&iacute;": "í",
 	      "&oacute;": "ó",
-	      "&uacute;": "ú"
+	      "&uacute;": "ú",
+	      "&ntilde;": "ñ"
 	    };
 
 	/**
@@ -456,6 +457,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	currentcy.normalize = function( term ) {
 			str = term;
 		      for ( var obj in currentcy.accentMap ) {
+		    	  console.log(obj);
 		        str = str.replace(new RegExp(obj,"g"),currentcy.accentMap[ obj ]);
 		      }
 		      return str;

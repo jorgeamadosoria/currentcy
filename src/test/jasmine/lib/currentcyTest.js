@@ -1,19 +1,24 @@
 define(['currentcy','jasmine-boot'], function(currentcy,jasmineBoot){
+	
+	
+	setUpHtml()
+	
+	
 describe("normalize", function() {
 
 	it("normalize", function() {
-		expect(currentcy.normalize('áéíóúñ')).toEqual("aeioun");
+		expect(currentcy.normalize('&aacute;&eacute;&iacute;&oacute;&uacute;&ntilde;')).toEqual("áéíóúñ");
 		expect(currentcy.normalize('aeioun')).toEqual("aeioun");
 	});
 });
 });
-// describe("calculate", function() {
-//
-// it("calculate", function() {
-// expect(currentcy.calculate()).toEqual("Hello world!");
-// });
-//
-// });
+ describe("calculate", function() {
+
+ it("calculate", function() {
+ expect(currentcy.calculate()).toEqual("Hello world!");
+ });
+
+ });
 //
 // describe("clearCalculate", function() {
 //
