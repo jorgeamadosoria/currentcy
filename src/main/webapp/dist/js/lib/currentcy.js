@@ -119,7 +119,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 */
 	currentcy.changeLanguage= function(e) {
 		currentcy.setLocale($(this).data('lang'));
-		currentcy.initLanguage($(this).data('lang'));
+		currentcy.initLanguage();
 	};
 	
 	/**
@@ -173,7 +173,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	/**
-	 * Handler to avoid letters and symbols in the input field for amount calculator. keypress event handler
+	 * Handler to avoid letters and symbols in the input field for amount
+	 * calculator. keypress event handler
 	 * 
 	 * @callback preventLetter
 	 * @param {e}
@@ -253,9 +254,9 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	
 	/**
 	 * Handler for operations to be executed after the snapshot-details template
-	 * is loaded into the page. loadTemplate handler
+	 * is loaded into the page for best buy/sell highlights. loadTemplate handler
 	 * 
-	 * @callback snapshotDetailsAfterInsert
+	 * @callback snapshotBestAfterInsert
 	 * @param {e}
 	 *            event data
 	 */
@@ -269,6 +270,13 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 						"src",
 						"dist/logos/"+ src);
 		$(elem).find("#trend").hide();
+		var link = $(elem).find("a#snapshot-details-link");
+		link.removeAttr("target");
+		link.attr("href","#")
+		link.on("click", function(event){
+			currentcy.snapshotdetails($(this).find("div").attr("id"));
+			return false;
+		});
 	};
 	
 	// ----------------------------------------
@@ -334,7 +342,6 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 			mode : 'map',
 			language : lang,
 			callback : function() {
-				// alert($.i18n.prop('msg.lemma'));
 				$("#msg-en").html($.i18n.prop('msg.en'));
 				$("#msg-es-cu").html($.i18n.prop('msg.es.cu'));
 				$("#msg-es-uy").html($.i18n.prop('msg.es.uy'));
@@ -382,11 +389,13 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @function snapshotdetails
 	 */	 
 	currentcy.snapshotdetails= function(snapshotId){
+		currentcy.setSelected(store.get(snapshotId));
 		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId,currentcy.snapshotDetailsAfterInsert);
 	};
 	
 	/**
-	 * function to show snapshot details for the exchange with the best buy prices. 
+	 * function to show snapshot details for the exchange with the best buy
+	 * prices.
 	 * 
 	 * @param snapshotId
 	 *            the id of the snapshot selected
@@ -394,10 +403,12 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 */	 
 	currentcy.bestBuy= function(snapshotId){
 		currentcy.selectSnapshotTemplate("#best-buy-snapshot",snapshotId,currentcy.snapshotBestAfterInsert);
+		
 	};
 	
 	/**
-	 * function to show snapshot details for the exchange with the best sell prices. 
+	 * function to show snapshot details for the exchange with the best sell
+	 * prices.
 	 * 
 	 * @param snapshotId
 	 *            the id of the snapshot selected
@@ -408,12 +419,15 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	/**
-	 * function to show snapshot details for a selected exchange and DOM element. 
+	 * function to show snapshot details for a selected exchange and DOM
+	 * element.
 	 * 
 	 * @param containerId
 	 *            the id of the DOM element to host the template
 	 * @param snapshotId
 	 *            the id of a snapshot
+	 * @param callback
+	 *            the function to apply after inserting the template to the document
 	 * @function selectSnapshotTemplate
 	 */	 
 	currentcy.selectSnapshotTemplate= function(containerId,snapshotId,callback){
@@ -479,7 +493,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	/**
-	 * Takes the lastest snapshot for each exchange in the system. Sends an ajax
+	 * Takes the latest snapshot for each exchange in the system. Sends an ajax
 	 * request to get this data, and also uses localStorage for it.
 	 * 
 	 * @function snapshot
@@ -515,43 +529,42 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 								currentcy.bestSell(bestSell.code);
 								$("#calc-container").find("#trend").empty();
 	
-												
+								$("#ticker").on("click", "li a#snapshot-link", function(event){
+									currentcy.snapshotdetails($(this).find("div").attr("id"));
+									return false;
+								});									
 						
-			$("#ticker").on("click", "li a#snapshot-link", function(event){
-				currentcy.snapshotdetails($(this).find("div").attr("id"));
-				return false;
-			});			
 			
-			$("#ticker")
-			.loadTemplate(
-					"dist/templates/snapshot.template",
-					data,
-					{
-						afterInsert : function(elem) {
-							var src = $(elem).find(
-									".panel-default")
-									.attr("id");
-							$(elem)
-									.find("#code")
-									.attr(
-											"src",
-											"dist/logos/"+ src);
-						},
-						success: function(e){
-							store.set('ticker',$('#ticker').bxSlider({
-								  minSlides: 8,
-								  maxSlides: 10,
-								  slideWidth:300,
-								  slideMargin: 2,
-								  ticker: true,
-								  useCSS: false, // to allow tickerHover
-								  speed: 100000,
-								  pager: true,
-								  infiniteLoop:true,
-								  controls:true
-								}));
-						}
-					});
+								$("#ticker")
+								.loadTemplate(
+										"dist/templates/snapshot.template",
+										data,
+										{
+											afterInsert : function(elem) {
+												var src = $(elem).find(
+														".panel-default")
+														.attr("id");
+												$(elem)
+														.find("#code")
+														.attr(
+																"src",
+																"dist/logos/"+ src);
+											},
+											success: function(e){
+												store.set('ticker',$('#ticker').bxSlider({
+													  minSlides: 8,
+													  maxSlides: 10,
+													  slideWidth:300,
+													  slideMargin: 2,
+													  ticker: true,
+													  useCSS: false, // to allow tickerHover
+													  speed: 100000,
+													  pager: true,
+													  infiniteLoop:true,
+													  controls:true
+													}));
+											}
+										});
 	
 			
 		});
