@@ -33,7 +33,7 @@ public class BBVa extends SamplerBase {
 
     @Override
     public String getUrl() {
-        return "https://bbvanet.bbva.com.uy";
+        return "https://www.bbva.com.uy/Inicio/Personas/";
     }
 
     @Override
