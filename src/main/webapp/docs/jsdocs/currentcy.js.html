@@ -201,7 +201,8 @@
 	};
 	
 	/**
-	 * Handler to avoid letters and symbols in the input field for amount calculator. keypress event handler
+	 * Handler to avoid letters and symbols in the input field for amount
+	 * calculator. keypress event handler
 	 * 
 	 * @callback preventLetter
 	 * @param {e}
@@ -277,6 +278,33 @@
 			trendClass="fa-question-circle";
 
 		$(elem).find("#trend").toggleClass(trendClass);
+	};
+	
+	/**
+	 * Handler for operations to be executed after the snapshot-details template
+	 * is loaded into the page for best buy/sell highlights. loadTemplate handler
+	 * 
+	 * @callback snapshotBestAfterInsert
+	 * @param {e}
+	 *            event data
+	 */
+	currentcy.snapshotBestAfterInsert= function(elem) {
+		var src = $(elem).find(
+				".panel-default")
+				.attr("id");
+		$(elem)
+				.find("#code-details")
+				.attr(
+						"src",
+						"dist/logos/"+ src);
+		$(elem).find("#trend").hide();
+		var link = $(elem).find("a#snapshot-details-link");
+		link.removeAttr("target");
+		link.attr("href","#")
+		link.on("click", function(event){
+			currentcy.snapshotdetails($(this).find("div").attr("id"));
+			return false;
+		});
 	};
 	
 	// ----------------------------------------
@@ -371,8 +399,11 @@
 				$("#kudos").html($.i18n.prop('msg.kudos'));
 				$("#msg-trend").html($.i18n.prop('msg.trend'));
 				$("#subscribe").html($.i18n.prop('msg.subscribe'));
+				$("#msg-subscribe").html($.i18n.prop('msg.subscribe'));
 				$("button#subscribe").html($.i18n.prop('msg.subscribe'));
 				$("#msg-current-rate").html($.i18n.prop('msg.current.rate'));
+				$("#msg-best-buy").html($.i18n.prop('msg.best.buy'));
+				$("#msg-best-sell").html($.i18n.prop('msg.best.sell'));
 			}
 		});
 	};
@@ -387,48 +418,55 @@
 	 * @function snapshotdetails
 	 */	 
 	currentcy.snapshotdetails= function(snapshotId){
-		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId);
+		currentcy.setSelected(store.get(snapshotId));
+		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId,currentcy.snapshotDetailsAfterInsert);
 	};
 	
 	/**
-	 * function to show snapshot details for the exchange with the best buy prices. 
+	 * function to show snapshot details for the exchange with the best buy
+	 * prices.
 	 * 
 	 * @param snapshotId
 	 *            the id of the snapshot selected
 	 * @function snapshotdetails
 	 */	 
 	currentcy.bestBuy= function(snapshotId){
-		currentcy.selectSnapshotTemplate("#best-buy-snapshot",snapshotId);
+		currentcy.selectSnapshotTemplate("#best-buy-snapshot",snapshotId,currentcy.snapshotBestAfterInsert);
+		
 	};
 	
 	/**
-	 * function to show snapshot details for the exchange with the best sell prices. 
+	 * function to show snapshot details for the exchange with the best sell
+	 * prices.
 	 * 
 	 * @param snapshotId
 	 *            the id of the snapshot selected
 	 * @function snapshotdetails
 	 */	 
 	currentcy.bestSell= function(snapshotId){
-		currentcy.selectSnapshotTemplate("#best-sell-snapshot",snapshotId);
+		currentcy.selectSnapshotTemplate("#best-sell-snapshot",snapshotId,currentcy.snapshotBestAfterInsert);
 	};
 	
 	/**
-	 * function to show snapshot details for a selected exchange and DOM element. 
+	 * function to show snapshot details for a selected exchange and DOM
+	 * element.
 	 * 
 	 * @param containerId
 	 *            the id of the DOM element to host the template
 	 * @param snapshotId
 	 *            the id of a snapshot
+	 * @param callback
+	 *            the function to apply after inserting the template to the document
 	 * @function selectSnapshotTemplate
 	 */	 
-	currentcy.selectSnapshotTemplate= function(containerId,snapshotId){
+	currentcy.selectSnapshotTemplate= function(containerId,snapshotId,callback){
 		var snapshot = store.get(snapshotId);
 		$(containerId)
 		.loadTemplate(
 				"dist/templates/snapshot-details.template",
 				snapshot,
 				{
-					afterInsert : currentcy.snapshotDetailsAfterInsert
+					afterInsert : callback
 				});
 		currentcy.clearCalculate();
 		currentcy.flot();
@@ -484,7 +522,7 @@
 	};
 	
 	/**
-	 * Takes the lastest snapshot for each exchange in the system. Sends an ajax
+	 * Takes the latest snapshot for each exchange in the system. Sends an ajax
 	 * request to get this data, and also uses localStorage for it.
 	 * 
 	 * @function snapshot
@@ -520,43 +558,42 @@
 								currentcy.bestSell(bestSell.code);
 								$("#calc-container").find("#trend").empty();
 	
-												
+								$("#ticker").on("click", "li a#snapshot-link", function(event){
+									currentcy.snapshotdetails($(this).find("div").attr("id"));
+									return false;
+								});									
 						
-			$("#ticker").on("click", "li a#snapshot-link", function(event){
-				currentcy.snapshotdetails($(this).find("div").attr("id"));
-				return false;
-			});			
 			
-			$("#ticker")
-			.loadTemplate(
-					"dist/templates/snapshot.template",
-					data,
-					{
-						afterInsert : function(elem) {
-							var src = $(elem).find(
-									".panel-default")
-									.attr("id");
-							$(elem)
-									.find("#code")
-									.attr(
-											"src",
-											"dist/logos/"+ src);
-						},
-						success: function(e){
-							store.set('ticker',$('#ticker').bxSlider({
-								  minSlides: 8,
-								  maxSlides: 10,
-								  slideWidth:300,
-								  slideMargin: 2,
-								  ticker: true,
-								  useCSS: false, // to allow tickerHover
-								  speed: 100000,
-								  pager: true,
-								  infiniteLoop:true,
-								  controls:true
-								}));
-						}
-					});
+								$("#ticker")
+								.loadTemplate(
+										"dist/templates/snapshot.template",
+										data,
+										{
+											afterInsert : function(elem) {
+												var src = $(elem).find(
+														".panel-default")
+														.attr("id");
+												$(elem)
+														.find("#code")
+														.attr(
+																"src",
+																"dist/logos/"+ src);
+											},
+											success: function(e){
+												store.set('ticker',$('#ticker').bxSlider({
+													  minSlides: 8,
+													  maxSlides: 10,
+													  slideWidth:300,
+													  slideMargin: 2,
+													  ticker: true,
+													  useCSS: false, // to allow tickerHover
+													  speed: 100000,
+													  pager: true,
+													  infiniteLoop:true,
+													  controls:true
+													}));
+											}
+										});
 	
 			
 		});
@@ -653,7 +690,7 @@ return currentcy;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 11 2016 18:09:10 GMT-0300 (Montevideo Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jan 12 2016 10:22:00 GMT-0300 (Montevideo Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

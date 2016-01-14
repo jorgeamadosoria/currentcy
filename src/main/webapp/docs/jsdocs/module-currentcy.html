@@ -378,7 +378,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line288">line 288</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line316">line 316</a>
     </li></ul></dd>
     
 
@@ -460,7 +460,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line539">line 539</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line576">line 576</a>
     </li></ul></dd>
     
 
@@ -818,7 +818,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line258">line 258</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line286">line 286</a>
     </li></ul></dd>
     
 
@@ -900,7 +900,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line303">line 303</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line331">line 331</a>
     </li></ul></dd>
     
 
@@ -1026,7 +1026,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line410">line 410</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line448">line 448</a>
     </li></ul></dd>
     
 
@@ -1162,7 +1162,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line427">line 427</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line465">line 465</a>
     </li></ul></dd>
     
 
@@ -1193,14 +1193,14 @@
 
     
 
-    <h4 class="name" id="~selectSnapshotTemplate"><span class="type-signature">(inner) </span>selectSnapshotTemplate<span class="signature">(containerId, snapshotId)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~selectSnapshotTemplate"><span class="type-signature">(inner) </span>selectSnapshotTemplate<span class="signature">(containerId, snapshotId, callback)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 <div class="description">
-    function to show snapshot details for a selected exchange and DOM element.
+    function to show snapshot details for a selected exchange and DOMelement.
 </div>
 
 
@@ -1269,6 +1269,24 @@
         </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the function to apply after inserting the template to the document</td>
+        </tr>
+
+    
     </tbody>
 </table>
 
@@ -1306,7 +1324,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line387">line 387</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line422">line 422</a>
     </li></ul></dd>
     
 
@@ -1737,7 +1755,7 @@
 
 
 <div class="description">
-    Takes the lastest snapshot for each exchange in the system. Sends an ajaxrequest to get this data, and also uses localStorage for it.
+    Takes the latest snapshot for each exchange in the system. Sends an ajaxrequest to get this data, and also uses localStorage for it.
 </div>
 
 
@@ -1781,7 +1799,133 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line458">line 458</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line496">line 496</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~snapshotdetails"><span class="type-signature">(inner) </span>snapshotdetails<span class="signature">(snapshotId)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    function to show snapshot details for the exchange with the best buyprices.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>snapshotId</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the id of the snapshot selected</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line397">line 397</a>
     </li></ul></dd>
     
 
@@ -1907,7 +2051,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line352">line 352</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line383">line 383</a>
     </li></ul></dd>
     
 
@@ -1945,7 +2089,7 @@
 
 
 <div class="description">
-    function to show snapshot details for the exchange with the best buy prices.
+    function to show snapshot details for the exchange with the best sellprices.
 </div>
 
 
@@ -2033,133 +2177,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line365">line 365</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~snapshotdetails"><span class="type-signature">(inner) </span>snapshotdetails<span class="signature">(snapshotId)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    function to show snapshot details for the exchange with the best sell prices.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>snapshotId</code></td>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the id of the snapshot selected</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line376">line 376</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line410">line 410</a>
     </li></ul></dd>
     
 
@@ -2296,7 +2314,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line190">line 190</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line191">line 191</a>
     </li></ul></dd>
     
 
@@ -2727,7 +2745,7 @@
 
 
 <div class="description">
-    Handler to avoid letters and symbols in the input field for amount calculator. keypress event handler
+    Handler to avoid letters and symbols in the input field for amountcalculator. keypress event handler
 </div>
 
 
@@ -2821,6 +2839,137 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line175">line 175</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+                
+
+    
+
+    <h4 class="name" id="~snapshotBestAfterInsert"><span class="type-signature"></span>snapshotBestAfterInsert<span class="signature">(event)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Handler for operations to be executed after the snapshot-details templateis loaded into the page for best buy/sell highlights. loadTemplate handler
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">e</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">data</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line255">line 255</a>
     </li></ul></dd>
     
 
@@ -2951,7 +3100,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line223">line 223</a>
+        <a href="currentcy.js.html">currentcy.js</a>, <a href="currentcy.js.html#line224">line 224</a>
     </li></ul></dd>
     
 
@@ -3128,7 +3277,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Jan 11 2016 18:09:10 GMT-0300 (Montevideo Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jan 12 2016 10:22:00 GMT-0300 (Montevideo Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

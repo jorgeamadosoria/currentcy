@@ -1,4 +1,5 @@
-<a data-href="url" target="_blank" href="#">
+<span>
+<a id="snapshot-details-link" data-href="url" target="_blank" href="#">
 	<div data-id="code" class="panel panel-default">
 		<div class="panel-heading">
 			<div class="row">
@@ -25,3 +26,4 @@
 		</div>
 	</div>
 </a>
+</span>
