@@ -31,6 +31,8 @@ public class SamplerRowMapper extends BeanPropertyRowMapper<Sample> {
         Sample sample = super.mapRow(arg0, arg1);
         sample.setBestBuy(arg0.getBoolean("best_buy"));
         sample.setBestSell(arg0.getBoolean("best_sell"));
+        if (samplers.get(sample.getCode()) == null)
+        	return null;
         sample.setUrl(samplers.get(sample.getCode()).getUrl());
         sample.setName(samplers.get(sample.getCode()).getName());
         return sample;
