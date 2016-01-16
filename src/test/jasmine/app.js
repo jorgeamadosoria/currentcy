@@ -20,6 +20,7 @@ requirejs.config({
 		jasmine : "test/jasmine/lib/jasmine-2.4.1/jasmine",
 		"jasmine-html" : "test/jasmine/lib/jasmine-2.4.1/jasmine-html",
 		"jasmine-boot" : "test/jasmine/lib/jasmine-2.4.1/boot",
+		"jasmine-jquery" : "test/jasmine/lib/jasmine-2.4.1/jasmine-query.js"
 	},
 	"shim" : {
 		"websocket" : "websocket",
@@ -34,12 +35,11 @@ requirejs.config({
 		"jquery.flot.tooltip.min" : [ "jquery", "jquery.flot" ],
 		"jquery.flot.tickrotor" : [ "jquery", "jquery.flot" ],
 		"jasmine-html" : [ 'jasmine' ],
-		"jasmine-boot" : [ 'jasmine', 'jasmine-html' ]
+		"jasmine-boot" : [ 'jasmine', 'jasmine-html' ],
+		"jasmine-jquery" : [ "jasmine", "jquery" ]
 	}
 });
 
-require([ 'jasmine-boot', 'currentcy',"currentcyTest" ], function(currentcy) {
-	
-	// trigger Jasmine
-	window.onload();
+require(['currentcy','jquery','jasmine-boot',"currentcyTest" ], function(currentcy,$) {
+		window.onload();
 });

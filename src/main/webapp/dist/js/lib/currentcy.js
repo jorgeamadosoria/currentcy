@@ -16,6 +16,13 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	var currentcy = {};
 
 	/**
+	 * default value for bundlePath. It's best to separate this from initLanguage to ease testing 
+	 * 
+	 * @var bundlePath
+	 */
+	currentcy.bundlePath = 'dist/bundle/';
+	
+	/**
 	 * default value for currency is US Dollars.
 	 * 
 	 * @var defaultCurrency
@@ -120,7 +127,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 */
 	currentcy.changeLanguage= function(e) {
 		currentcy.setLocale($(this).data('lang'));
-		currentcy.initLanguage();
+		currentcy.initLanguage(currentcy.bundlePath);
 	};
 	
 	/**
@@ -193,33 +200,53 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * Handler for calculations for the input field for calculations. keychange
 	 * event handler
 	 * 
-	 * @callback calculate
+	 * @callback calculateEvent
 	 * @param {e}
 	 *            event data
+	 * @return false if the input is not valid, to prevent event bubbling
 	 */
-	currentcy.calculate = function(ele) {
-		var e = $("#amount").val();
+	currentcy.calculateEvent = function(ele) {
+		var calculations = currentcy.calculate($("#amount").val());
+		
+		if (calculations == false){
+			rele.preventDefault();
+			return false;
+		}
+		$("#buy-amount").text(calculations.buyAmount);
+		$("#avg-amount").text(calculations.avgAmount);
+		$("#sell-amount").text(calculations.sellAmount);
+	};
+	
+	/**
+	 * Internal function for calculations.
+	 * 
+	 * @function calculate
+	 * @param {e}
+	 *            event data
+	 * @return false if the input is not valid, an object with the calculation results otherwise
+	 */
+	currentcy.calculate = function(value) {
+		var e = value;
 
 		if (isNaN(e)) {
-			ele.preventDefault();
 			return false;
 		} else {
-			var amount = $("#amount").val();
+			var amount = value;
 			var format = '$ 0,0';
 			var value = numeral(amount);
-			
-						$("#buy-amount").text(
-								numeral(
+			var returnObject = {};
+			returnObject.buyAmount = numeral(
 										Math.floor(amount* currentcy.getSelected().buyValue))
-										.format(format));
-						$("#avg-amount").text(
+										.format(format);
+			returnObject.avgAmount = (
 								numeral(
 										Math.floor(amount* currentcy.getSelected().avgValue))
 										.format(format));
-						$("#sell-amount").text(
+			returnObject.sellAmount = (
 								numeral(
 										Math.floor(amount* currentcy.getSelected().sellValue))
 										.format(format));
+						return returnObject;
 	}};
 	
 	/**
@@ -255,7 +282,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	
 	/**
 	 * Handler for operations to be executed after the snapshot-details template
-	 * is loaded into the page for best buy/sell highlights. loadTemplate handler
+	 * is loaded into the page for best buy/sell highlights. loadTemplate
+	 * handler
 	 * 
 	 * @callback snapshotBestAfterInsert
 	 * @param {e}
@@ -301,7 +329,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 
 			// setting events for the calculator
 			$("#amount").val("");
-			$("#amount").on("input", currentcy.calculate);
+			$("#amount").on("input", currentcy.calculateEvent);
 			$("#amount").on("keypress", currentcy.preventLetter);
 
 			// select active currency in nav menu
@@ -310,7 +338,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 			$("#" + currentcy.getLocale()).addClass("active");
 
 			currentcy.snapshot();
-			currentcy.initLanguage();
+			currentcy.initLanguage(currentcy.bundlePath);
 
 	};
 	
@@ -335,11 +363,11 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * 
 	 * @function initLanguage
 	 */	 
-	currentcy.initLanguage = function() {
+	currentcy.initLanguage = function(bundlePath) {
 
 		var lang = currentcy.getLocale();
 		$.i18n.properties({
-			path : 'dist/bundle/',
+			path : bundlePath,
 			mode : 'map',
 			language : lang,
 			callback : function() {
@@ -428,7 +456,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @param snapshotId
 	 *            the id of a snapshot
 	 * @param callback
-	 *            the function to apply after inserting the template to the document
+	 *            the function to apply after inserting the template to the
+	 *            document
 	 * @function selectSnapshotTemplate
 	 */	 
 	currentcy.selectSnapshotTemplate= function(containerId,snapshotId,callback){
@@ -457,7 +486,6 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	currentcy.normalize = function( term ) {
 			str = term;
 		      for ( var obj in currentcy.accentMap ) {
-		    	  console.log(obj);
 		        str = str.replace(new RegExp(obj,"g"),currentcy.accentMap[ obj ]);
 		      }
 		      return str;
@@ -553,18 +581,20 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 																"dist/logos/"+ src);
 											},
 											success: function(e){
-												store.set('ticker',$('#ticker').bxSlider({
+												$('#ticker').bxSlider({
 													  minSlides: 8,
 													  maxSlides: 10,
 													  slideWidth:300,
 													  slideMargin: 2,
 													  ticker: true,
-													  useCSS: false, // to allow tickerHover
+													  useCSS: false, // to
+																		// allow
+																		// tickerHover
 													  speed: 100000,
 													  pager: true,
 													  infiniteLoop:true,
 													  controls:true
-													}));
+													});
 											}
 										});
 	

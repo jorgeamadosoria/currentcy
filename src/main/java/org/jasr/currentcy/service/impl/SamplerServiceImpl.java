@@ -21,19 +21,19 @@ import org.springframework.stereotype.Service;
 public class SamplerServiceImpl implements SamplerService {
 
     @Resource
-    private SampleDAO             samplerDAO;
+    private SampleDAO         samplerDAO;
 
     @Resource
-    private EmailService          emailService;
+    private EmailService      emailService;
 
     @Autowired
-    private List<SamplerBase>     samplers;
-    
+    private List<SamplerBase> samplers;
+
     @Override
     public List<Sample> getSnapshot(Currencies currency) {
         return samplerDAO.getSnapshot(currency);
     }
-    
+
     @Override
     public List<Sample> getChangesSnapshot(Currencies currency) {
         return samplerDAO.getChangesSnapshot(currency);
@@ -54,8 +54,14 @@ public class SamplerServiceImpl implements SamplerService {
         List<Sample> changes = new ArrayList<>();
         for (Currencies currency : Currencies.values()) {
             for (SamplerBase sampler : samplers) {
-                samples.add(sampler.sample(currency));
-                System.out.printf("%s - %s sampled at %s\n", currency.code, sampler.getCode(), new Date().toString());
+                Sample sample = sampler.sample(currency);
+                if (sample != null) {
+                    samples.add(sample);
+                    System.out.printf("%s - %s sampled at %s\n", currency.code, sampler.getCode(), new Date().toString());
+                }
+                else
+                    System.out.printf("%s - %s can't be sampled at this time: %s\n", currency.code, sampler.getCode(),
+                            new Date().toString());
             }
 
             changes(changes, samples, currency);

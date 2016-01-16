@@ -88,11 +88,9 @@ public abstract class SamplerBase {
             sample.setCode(getCode());
             sample = doSample(doc, sample, currency);
         }
-        catch (SocketTimeoutException e) {
-            e.printStackTrace();
-        }
         catch (Exception e) {
             e.printStackTrace();
+            sample = null;
         }
         return sample;
     }
