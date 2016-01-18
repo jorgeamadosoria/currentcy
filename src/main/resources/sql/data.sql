@@ -1,4 +1,4 @@
-INSERT INTO email VALUES ('darksoul.uci@gmail.com',0,'66iaubi4pokesg8dpdt5a7ks59');
+INSERT INTO email VALUES ('darksoul.uci@gmail.com',0,'66iaubi4pokesg8dpdt5a7ks59','Abit');
 
 
 INSERT INTO samples VALUES 

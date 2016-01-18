@@ -3,9 +3,11 @@ package org.jasr.currentcy.test.config;
 import org.jasr.currentcy.test.utils.MockJavaMailSender;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class EmailConfig {
 
     @Bean
