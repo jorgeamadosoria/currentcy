@@ -16,7 +16,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	var currentcy = {};
 
 	/**
-	 * default value for bundlePath. It's best to separate this from initLanguage to ease testing 
+	 * default value for bundlePath. It's best to separate this from
+	 * initLanguage to ease testing
 	 * 
 	 * @var bundlePath
 	 */
@@ -223,7 +224,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * @function calculate
 	 * @param {e}
 	 *            event data
-	 * @return false if the input is not valid, an object with the calculation results otherwise
+	 * @return false if the input is not valid, an object with the calculation
+	 *         results otherwise
 	 */
 	currentcy.calculate = function(value) {
 		var e = value;
@@ -523,6 +525,38 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	/**
+	 * Takes the latest snapshot for each exchange in the system and sets up all
+	 * exchanges on local storage, as well as selecting bestBuy and bestSell
+	 * 
+	 * @function setUpSnapshotData
+	 * @param all returned data for the latest snapshot from the server
+	 */
+	currentcy.setUpSnapshotData=function(data){
+		var bestBuy = null;
+		var sellBuy = null;
+		var exchangeNames = Array();
+		for(var snapshot of data){
+			if (!currentcy.getSelected()){
+				currentcy.setSelected(snapshot);
+			}
+			if (snapshot.bestBuy){
+				bestBuy = snapshot;
+			}
+			if (snapshot.bestSell){
+				bestSell = snapshot;
+			}
+			
+			store.set(snapshot.code,snapshot);
+			var exch = {label:currentcy.normalize(snapshot.name),value:snapshot.code};
+			exchangeNames.push(exch);
+		}
+		
+		currentcy.registerAccentFolding(exchangeNames);
+		
+		return {bestBuy:bestBuy,bestSell:bestSell};
+	};
+	
+	/**
 	 * Takes the latest snapshot for each exchange in the system. Sends an ajax
 	 * request to get this data, and also uses localStorage for it.
 	 * 
@@ -533,30 +567,13 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 					.get(
 							'web/snapshot?currency=' + currentcy.getCurrency(),
 							function(data) {
-								var bestBuy = null;
-								var sellBuy = null;
-								var exchangeNames = Array();
-								for(var snapshot of data){
-									if (!currentcy.getSelected()){
-										currentcy.setSelected(snapshot);
-									}
-									if (snapshot.bestBuy){
-										bestBuy = snapshot;
-									}
-									if (snapshot.bestSell){
-										bestSell = snapshot;
-									}
-									
-									store.set(snapshot.code,snapshot);
-									var exch = {label:currentcy.normalize(snapshot.name),value:snapshot.code};
-									exchangeNames.push(exch);
-								}
 								
-								currentcy.registerAccentFolding(exchangeNames);
-								
+								var best = currentcy.setUpSnapshotData(data);
+								//template assigning
 								currentcy.snapshotdetails(currentcy.getSelected().code);
-								currentcy.bestBuy(bestBuy.code);
-								currentcy.bestSell(bestSell.code);
+								currentcy.bestBuy(best.bestBuy.code);
+								currentcy.bestSell(best.bestSell.code);
+								
 								$("#calc-container").find("#trend").empty();
 	
 								$("#ticker").on("click", "li a#snapshot-link", function(event){
@@ -587,6 +604,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 													  slideWidth:300,
 													  slideMargin: 2,
 													  ticker: true,
+													  tickerHover: true,
 													  useCSS: false, // to
 																		// allow
 																		// tickerHover
