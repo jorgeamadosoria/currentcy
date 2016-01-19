@@ -2,6 +2,7 @@ package org.jasr.currentcy.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.domain.Currencies;
@@ -35,6 +36,7 @@ public class HomeController {
     @Resource
     private EmailService   emailService;
 
+    
     /**
      * Returns the latest sample taken for each registered exchange.
      * @param currency the currency on which the snapshot is taken

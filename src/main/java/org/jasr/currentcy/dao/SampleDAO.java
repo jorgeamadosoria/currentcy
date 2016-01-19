@@ -2,6 +2,7 @@ package org.jasr.currentcy.dao;
 
 import java.util.List;
 
+import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
@@ -30,5 +31,5 @@ public interface SampleDAO {
      * @param currency currency to get samples for.
      * @return the latest sample for each exchange with differences
      */
-    public List<Sample> getChangesSnapshot(Currencies currency);
+    public List<BaseSample> getChangesSnapshot(Currencies currency);
 }

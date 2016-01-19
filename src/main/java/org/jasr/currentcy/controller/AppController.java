@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jasr.currentcy.domain.AppConfig;
+import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
-import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
 import org.jasr.currentcy.samplers.SamplerBase;
 import org.jasr.currentcy.service.SamplerService;
@@ -81,7 +81,7 @@ public class AppController {
      */
     @ApiOperation(value = "snapshot", notes = "Returns the latest sample taken for each exchange with differences.")
     @RequestMapping(value = "/snapshot", method = RequestMethod.GET)
-    public List<Sample> snapshot(
+    public List<BaseSample> snapshot(
             @ApiParam(name = "currency", value = "The currency on which the snapshot is taken", required = true) @RequestParam Currencies currency) {
         return samplerService.getChangesSnapshot(currency);
     }

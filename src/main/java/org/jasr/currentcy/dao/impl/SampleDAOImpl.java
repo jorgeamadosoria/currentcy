@@ -5,9 +5,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.dao.SampleDAO;
+import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
+import org.jasr.currentcy.utils.BaseSamplerRowMapper;
 import org.jasr.currentcy.utils.SamplerRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -26,6 +28,8 @@ public class SampleDAOImpl implements SampleDAO {
     private JdbcTemplate     template;
     @Resource
     private SamplerRowMapper rowMapper;
+    @Resource
+    private BaseSamplerRowMapper baseRowMapper;
 
     private static final int TREND_LIMIT = 30;
 
@@ -53,9 +57,9 @@ public class SampleDAOImpl implements SampleDAO {
     }
 
     @Override
-    public List<Sample> getChangesSnapshot(Currencies currency) {
+    public List<BaseSample> getChangesSnapshot(Currencies currency) {
         return template.query(env.getProperty("select.changes.snapshot"),
-                new Object[] { currency.code, currency.code, currency.code }, rowMapper);
+                new Object[] { currency.code, currency.code, currency.code }, baseRowMapper);
     }
 
     @Override

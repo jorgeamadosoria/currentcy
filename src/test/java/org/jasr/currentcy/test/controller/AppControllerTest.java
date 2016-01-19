@@ -25,7 +25,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MvcResult;
 
-public class HomeControllerTest extends JUnitBaseTest {
+public class AppControllerTest extends JUnitBaseTest {
 
     @Mock
     protected SampleDAO      samplerDaoMock;

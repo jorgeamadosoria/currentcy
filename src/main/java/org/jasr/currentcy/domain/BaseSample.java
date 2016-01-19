@@ -6,13 +6,37 @@ import java.util.Locale;
 import com.wordnik.swagger.annotations.ApiModel;
 
 /**
- * Core entity for the system. It represents the values of the buy/sell rates for one exchange, one currency and one moment of
- * time. Provides some formatting output methods in order to simplify JSON conversion of the entity.
- *
+ * Core entity for the app. It represents a subset of the data in Sample for usage on mobiles.
+ * {@link org.jasr.currentcy.service.impl.Sample}
  */
-@ApiModel(value = "Sample", description = "Core entity for the system. It represents the values of the buy/sell rates for one exchange, one currency and one moment of time")
-public class Sample extends BaseSample{
-    private int     id;
+@ApiModel(value = "BaseSample", description = "Core entity for the app. It represents a subset of the data in Sample for usage on mobiles")
+public class BaseSample {
+    protected String  date;
+    protected double  sellValue;
+    protected double  buyValue;
+    protected double  buyDiff;
+    protected double  sellDiff;
+    protected String  code;
+    protected String  url;
+    protected String  name;
+    protected boolean bestBuy  = true;
+    protected boolean bestSell = true;
+
+    public boolean isBestBuy() {
+        return bestBuy;
+    }
+
+    public void setBestBuy(boolean bestBuy) {
+        this.bestBuy = bestBuy;
+    }
+
+    public boolean isBestSell() {
+        return bestSell;
+    }
+
+    public void setBestSell(boolean bestSell) {
+        this.bestSell = bestSell;
+    }
 
     /**
      * Must be Mexico in order to use the peso symbol. Uruguay (UY) uses a weird NU$ symbol.
@@ -39,31 +63,78 @@ public class Sample extends BaseSample{
         return (buyValue + sellValue) / 2d;
     }
 
-    public String getAvg() {
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        return currencyFormatter.format((buyValue + sellValue) / 2d);
-    }
 
-    public String getBuy() {
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        return currencyFormatter.format(buyValue);
-    }
-
-    public String getSell() {
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        return currencyFormatter.format(sellValue);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    /**
+     * Formatted to leave out the seconds for the UI. It's easier to format on the server side than on the client.
+     * 
+     * @return a date formatted without seconds and a human readable form.
+     */
+    public String getDate() {
+        return date.substring(0, date.length() - 5);
     }
 
     public String getTrendDate() {
         return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public double getSellValue() {
+        return sellValue;
+    }
+
+    public void setSellValue(double sellValue) {
+        this.sellValue = sellValue;
+    }
+
+    public double getBuyValue() {
+        return buyValue;
+    }
+
+    public void setBuyValue(double buyValue) {
+        this.buyValue = buyValue;
+    }
+
+    public double getBuyDiff() {
+        return buyDiff;
+    }
+
+    public void setBuyDiff(double buyDiff) {
+        this.buyDiff = buyDiff;
+    }
+
+    public double getSellDiff() {
+        return sellDiff;
+    }
+
+    public void setSellDiff(double sellDiff) {
+        this.sellDiff = sellDiff;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Locale getLocale() {
@@ -101,7 +172,7 @@ public class Sample extends BaseSample{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Sample other = (Sample) obj;
+        BaseSample other = (BaseSample) obj;
         if (Double.doubleToLongBits(buyValue) != Double.doubleToLongBits(other.buyValue))
             return false;
         if (code == null) {
