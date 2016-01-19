@@ -2,6 +2,7 @@ package org.jasr.currentcy.config;
 
 import javax.sql.DataSource;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,4 +43,14 @@ public class DatasourceConfig {
         return new HikariDataSource(config);
     }
 
+    @Bean(initMethod = "migrate")
+    Flyway flyway() {
+        Flyway flyway = new Flyway();
+        flyway.setBaselineOnMigrate(true);
+        flyway.setLocations("classpath:sql/");
+        flyway.setDataSource(dataSource());
+        flyway.setSchemas("currentcy");
+        flyway.migrate();
+        return flyway;
+    }
 }

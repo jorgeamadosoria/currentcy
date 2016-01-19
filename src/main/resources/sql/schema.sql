@@ -1,7 +1,8 @@
 SET MODE MySQL;
 SET IGNORECASE TRUE;
+create SCHEMA currentcy;
 
-CREATE TABLE email (
+CREATE TABLE `currentcy`.email (
   email VARCHAR(100) NOT NULL,
   active INT(11) NOT NULL DEFAULT '0',
   token VARCHAR(255) NOT NULL,
@@ -10,7 +11,7 @@ CREATE TABLE email (
   UNIQUE INDEX token_UNIQUE (token ASC)
  );
  
- CREATE TABLE samples (
+ CREATE TABLE `currentcy`.samples (
   id INT(11) NOT NULL AUTO_INCREMENT,
   code VARCHAR(6) NOT NULL,
   buy DOUBLE NOT NULL DEFAULT '0',
@@ -21,7 +22,7 @@ CREATE TABLE email (
   UNIQUE INDEX id_UNIQUE (id ASC));
 
   
-CREATE TABLE snapshot (
+CREATE TABLE `currentcy`.snapshot (
   code VARCHAR(6) NOT NULL,
   buy DOUBLE NOT NULL DEFAULT '0',
   sell DOUBLE NOT NULL DEFAULT '0',

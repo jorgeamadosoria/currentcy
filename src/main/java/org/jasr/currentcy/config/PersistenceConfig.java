@@ -25,16 +25,6 @@ public class PersistenceConfig {
     @Resource
     private DataSource dataSource;
 
-    @Bean(initMethod = "migrate")
-    Flyway flyway() {
-        Flyway flyway = new Flyway();
-        flyway.setBaselineOnMigrate(true);
-        flyway.setLocations("classpath:sql/");
-        flyway.setDataSource(dataSource);
-        flyway.migrate();
-        return flyway;
-    }
-
     @Bean
     public JdbcTemplate jdbcTemplate() {
         JdbcTemplate bean = new JdbcTemplate(dataSource);
