@@ -1,16 +1,1 @@
-org.jasr.currentcy
-org.jasr.currentcy.config
-org.jasr.currentcy.controller
-org.jasr.currentcy.dao
-org.jasr.currentcy.dao.impl
 org.jasr.currentcy.domain
-org.jasr.currentcy.samplers
-org.jasr.currentcy.service
-org.jasr.currentcy.service.impl
-org.jasr.currentcy.test.config
-org.jasr.currentcy.test.controller
-org.jasr.currentcy.test.dao
-org.jasr.currentcy.test.samplers
-org.jasr.currentcy.test.service
-org.jasr.currentcy.test.utils
-org.jasr.currentcy.utils
