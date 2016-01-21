@@ -1,4 +1,5 @@
 define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
+	
 	/**
 	 * Imported module to handle localStorage (AMD-complaint version of
 	 * store.js)
@@ -127,7 +128,12 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 *            event data
 	 */
 	currentcy.changeLanguage= function(e) {
-		currentcy.setLocale($(this).data('lang'));
+		
+		var lang = $(this).data('lang');
+		if (typeof lang !== 'string'){
+			lang = navigator.language || navigator.userLanguage;
+		}
+		currentcy.setLocale(lang);
 		currentcy.initLanguage(currentcy.bundlePath);
 	};
 	

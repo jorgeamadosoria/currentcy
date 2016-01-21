@@ -7,6 +7,12 @@
   padding-left:0;
 }
 
+
+  .best .huge {
+     font-size: 40px;
+  }
+
+
 .ui-autocomplete {
     max-height: 600px;
     overflow-y: auto;   /* prevent horizontal scrollbar */
