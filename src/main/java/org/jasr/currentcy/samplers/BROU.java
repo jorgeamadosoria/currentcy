@@ -8,15 +8,15 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 @Component("BROU")
-public class BROU extends SamplerBase {
+public class BROU extends SimpleJSoupSampler {
 
     @Override
     public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {
         double buyValue = 0;
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
-            buyValue = Double.parseDouble(doc.select("#exchangeRatesLarge tr.odd").eq(0).select(".buy").text().trim());
-            sellValue = Double.parseDouble(doc.select("#exchangeRatesLarge tr.odd").eq(0).select(".sale").text().trim());
+            buyValue = Double.parseDouble(doc.select("#exchangeRatesLarge tr.odd:eq(0)").select(".buy").text().trim());
+            sellValue = Double.parseDouble(doc.select("#exchangeRatesLarge tr.odd:eq(0)").select(".sale").text().trim());
         }
         if (currency.equals(Currencies.EUR)) {
             buyValue = Double.parseDouble(doc.select("#exchangeRatesLarge tr.odd").eq(1).select(".buy").text().trim());
@@ -27,9 +27,6 @@ public class BROU extends SamplerBase {
         return sample;
     }
 
-    public String getCode() {
-        return "BROU";
-    }
 
     @Override
     public String getUrl() {

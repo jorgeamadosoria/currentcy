@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 @Component("BBVa")
-public class BBVa extends SamplerBase {
+public class BBVa extends SimpleJSoupSampler {
 
     @Override
     public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {
@@ -16,19 +16,15 @@ public class BBVa extends SamplerBase {
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
             buyValue = Double.parseDouble(doc.select("tbody tr").eq(1).select("td").eq(1).text().trim());
-            sellValue = Double.parseDouble(doc.select("tbody tr").eq(1).select("td").eq(2).text().trim());
+            sellValue = Double.parseDouble(doc.select("tbody tr").eq(1).select("td:eq(2)").text().trim());
         }
         if (currency.equals(Currencies.EUR)) {
-            buyValue = Double.parseDouble(doc.select("tbody tr").eq(0).select("td").eq(1).text().trim());
-            sellValue = Double.parseDouble(doc.select("tbody tr").eq(0).select("td").eq(2).text().trim());
+            buyValue = Double.parseDouble(doc.select("tbody tr:eq(0)").select("td").eq(1).text().trim());
+            sellValue = Double.parseDouble(doc.select("tbody tr:eq(0)").select("td:eq(2)").text().trim());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
         return sample;
-    }
-
-    public String getCode() {
-        return "BBVa";
     }
 
     @Override

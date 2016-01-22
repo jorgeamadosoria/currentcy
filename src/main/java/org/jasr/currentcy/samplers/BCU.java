@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 @Component("BCU")
-public class BCU extends SamplerBase {
+public class BCU extends SimpleJSoupSampler {
 
     @Override
     public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {
@@ -16,23 +16,19 @@ public class BCU extends SamplerBase {
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
             buyValue = Double
-                    .parseDouble(doc.select(".Cotizaciones tr").eq(1).select("td").eq(2).text().replace(",", ".").trim());
+                    .parseDouble(doc.select(".Cotizaciones tr").eq(1).select("td:eq(2)").text().replace(",", ".").trim());
             sellValue = Double
-                    .parseDouble(doc.select(".Cotizaciones tr").eq(1).select("td").eq(2).text().replace(",", ".").trim());
+                    .parseDouble(doc.select(".Cotizaciones tr").eq(1).select("td:eq(2)").text().replace(",", ".").trim());
         }
         if (currency.equals(Currencies.EUR)) {
             buyValue = Double
-                    .parseDouble(doc.select(".Cotizaciones tr").eq(3).select("td").eq(2).text().replace(",", ".").trim());
+                    .parseDouble(doc.select(".Cotizaciones tr:eq(3)").select("td:eq(2)").text().replace(",", ".").trim());
             sellValue = Double
-                    .parseDouble(doc.select(".Cotizaciones tr").eq(3).select("td").eq(2).text().replace(",", ".").trim());
+                    .parseDouble(doc.select(".Cotizaciones tr:eq(3)").select("td:eq(2)").text().replace(",", ".").trim());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
         return sample;
-    }
-
-    public String getCode() {
-        return "BCU";
     }
 
     @Override

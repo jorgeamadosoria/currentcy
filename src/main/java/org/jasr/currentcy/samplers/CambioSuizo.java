@@ -30,10 +30,6 @@ public class CambioSuizo extends SamplerBase {
         return sample;
     }
 
-    public String getCode() {
-        return "CSuizo";
-    }
-
     @Override
     public String getUrl() {
         return "http://www.cambiosuizo.com.uy/";

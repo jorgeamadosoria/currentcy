@@ -33,13 +33,8 @@ public class YahooFinance extends SamplerBase {
         return sample;
     }
 
-    public String getCode() {
-        return "YHOO";
-    }
-
-    @Override
-    public String getUrl() {
-        return "http://finance.yahoo.com";
+    public YahooFinance() {
+        super("http://finance.yahoo.com","Yahoo! Finance");
     }
 
     @Override
@@ -48,8 +43,4 @@ public class YahooFinance extends SamplerBase {
                 + "UYU=X&t=5d&l=on&z=m&q=l&c=#{%22allowChartStacking%22:true}";
     }
 
-    @Override
-    public String getName() {
-        return "Yahoo! Finance";
-    }
 }

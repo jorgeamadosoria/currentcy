@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 @Component("Gales")
-public class GalesSA extends SamplerBase {
+public class GalesSA extends SimpleJSoupSampler {
 
     public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {
         double buyValue = 0;
@@ -28,10 +28,6 @@ public class GalesSA extends SamplerBase {
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
         return sample;
-    }
-
-    public String getCode() {
-        return "Gales";
     }
 
     @Override

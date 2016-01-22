@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 @Component("Monex")
-public class Monex extends SamplerBase {
+public class Monex extends SimpleJSoupSampler {
 
     
     @Override

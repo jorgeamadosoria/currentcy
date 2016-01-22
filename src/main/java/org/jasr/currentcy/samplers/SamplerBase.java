@@ -1,12 +1,12 @@
 package org.jasr.currentcy.samplers;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 
 import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Component;
 
 /**
  * Base class for all samplers. A sampler is the main unit for information collecting. Each sampler recover information from one
@@ -15,14 +15,45 @@ import org.jsoup.nodes.Document;
  * 
  */
 public abstract class SamplerBase {
-    private int id;
+
+    public SamplerBase(String url, String name) {
+        this.url = url;
+        this.name = name;
+        //ONly works with Samplers annotated with Components, which are all of them, ideally
+        this.code = this.getClass().getAnnotation(Component.class).value();
+    }
 
     /**
-     * Source main page url. This is not necessarily the same page used for data sampling and is used for linking purposes only.
+     * Name of the exchange as it is known by humans (fantasy name as registered on the BCU). Used for labeling purposes on the
+     * UI.
      * 
-     * @return valid url of the main page of the exchange
      */
-    public abstract String getUrl();
+    private String name;
+    /**
+     * Source main page url. This is not necessarily the same page used for data sampling and is used for linking purposes only.
+     */
+    private String url;
+    /**
+     * Unique readable code to identify this sample and its source. Usually in a 4-6 letter format that references the name of the
+     * exchange
+     * 
+     */
+    private String code;
+
+    /**
+     * User agent string to mock Firefox detection in order to bypass DDoS detection through false positives
+     */
+    private String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0";
+
+    private int    id;
+
+    public String getUrl() {
+        return url;
+    };
+
+    public String getName() {
+        return name;
+    };
 
     /**
      * Specifies timeout for sampling from sources. -1 for default timeout. Other values are expressed in milliseconds
@@ -53,19 +84,9 @@ public abstract class SamplerBase {
         this.id = id;
     }
 
-    /**
-     * Unique readable code to identify this sample and its source. Usually in a 4-6 letter format that references the name of the
-     * exchange
-     * @return system assigned code for the exchange
-     */
-    public abstract String getCode();
-
-    /**
-     * Name of the exchange as it is known by humans (fantasy name as registered on the BCU). Used for labelling purposes on the UI.
-     * 
-     * @return fantasy name for the exchange 
-     */
-    public abstract String getName();
+    public String getCode() {
+        return code;
+    }
 
     /**
      * Method to do the actual sampling of the source using the specified currency. This is the core method of the sampler and
@@ -81,9 +102,9 @@ public abstract class SamplerBase {
             int timeout = timeout();
             Document doc = null;
             if (timeout != -1)
-                doc = Jsoup.connect(getUrlByCurrency(currency)).timeout(timeout()).get();
+                doc = Jsoup.connect(getUrlByCurrency(currency)).userAgent(userAgent).timeout(timeout()).get();
             else
-                doc = Jsoup.connect(getUrlByCurrency(currency)).get();
+                doc = Jsoup.connect(getUrlByCurrency(currency)).userAgent(userAgent).get();
             sample = new Sample();
             sample.setCode(getCode());
             sample = doSample(doc, sample, currency);
@@ -99,11 +120,16 @@ public abstract class SamplerBase {
      * Actual sampling. This method is intended to be defined on child class, as each source is different. Usually this method
      * contains the jsoup parsing with css selectors
      * 
-     * @param doc the Jsoup document sampled from the exchange source, containing the full html or text content from which to sample data 
-     * @param sample The previously created Sample object to be populated with currency data
-     * @param currency the currency to sample
-     * @return  A fully populated Sample object with currency data for this exchange
-     * @throws IOException This exception is handled on the {@link org.jasr.currentcy.samplers.SamplerBase#sample(Currencies)}
+     * @param doc
+     *            the Jsoup document sampled from the exchange source, containing the full html or text content from which to
+     *            sample data
+     * @param sample
+     *            The previously created Sample object to be populated with currency data
+     * @param currency
+     *            the currency to sample
+     * @return A fully populated Sample object with currency data for this exchange
+     * @throws IOException
+     *             This exception is handled on the {@link org.jasr.currentcy.samplers.SamplerBase#sample(Currencies)}
      */
     public abstract Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException;
 }

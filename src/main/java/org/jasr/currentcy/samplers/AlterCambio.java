@@ -15,35 +15,25 @@ public class AlterCambio extends SamplerBase {
 		double buyValue = 0;
 		double sellValue = 0;
 		if (currency.equals(Currencies.USD)) {
-			buyValue = Double.parseDouble(doc.select("table.cuadrosLeft tr").eq(0).select("td").eq(2).text().replace(",",".").trim());
-			sellValue = Double.parseDouble(doc.select("table.cuadrosLeft tr").eq(0).select("td").eq(3).text().replace(",",".").trim());
+			buyValue = Double.parseDouble(doc.select("table.cuadrosLeft tr:eq(0)").select("td:eq(2)").text().replace(",",".").trim());
+			sellValue = Double.parseDouble(doc.select("table.cuadrosLeft tr:eq(0)").select("td:eq(3)").text().replace(",",".").trim());
 		}
 		if (currency.equals(Currencies.EUR)) {
-			buyValue = Double.parseDouble(doc.select("table.cuadrosLeft tr").eq(3).select("td").eq(2).text().replace(",",".").trim());
-			sellValue = Double.parseDouble(doc.select("table.cuadrosLeft tr").eq(3).select("td").eq(3).text().replace(",",".").trim());
+			buyValue = Double.parseDouble(doc.select("table.cuadrosLeft tr:eq(3)").select("td:eq(2)").text().replace(",",".").trim());
+			sellValue = Double.parseDouble(doc.select("table.cuadrosLeft tr:eq(3)").select("td:eq(3)").text().replace(",",".").trim());
 		}
 		sample.setBuyValue(buyValue);
 		sample.setSellValue(sellValue);
 		return sample;
 	}
 
-	public String getCode() {
-		return "AltC";
-	}
-
-	@Override
-	public String getUrl() {
-		return "http://www.altercambio.com.uy";
+	public AlterCambio() {
+		super("http://www.altercambio.com.uy", "Altercambio SA");
 	}
 	
 	@Override
     public String getUrlByCurrency(Currencies currency) {
         return "http://www.altercambio.com.uy/reclamos/altercambio/Content/Quote.aspx";
     }
-
-	@Override
-	public String getName() {
-		return "Altercambio SA";
-	}
 
 }

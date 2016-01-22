@@ -30,9 +30,6 @@ public class Avenida extends SamplerBase {
         return sample;
     }
 
-    public String getCode() {
-        return "AVE";
-    }
 
     @Override
     public String getUrl() {

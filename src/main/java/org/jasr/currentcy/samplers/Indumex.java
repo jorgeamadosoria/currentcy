@@ -16,27 +16,24 @@ public class Indumex extends SamplerBase {
         if (currency.equals(Currencies.USD)) {
             buyValue = Double.parseDouble(
                     doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Dolar)").get(0)
-                            .parent().select("td").eq(2).text().replace(",", ".").trim());
+                            .parent().select("td:eq(2)").text().replace(",", ".").trim());
             sellValue = Double.parseDouble(
                     doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Dolar)").get(0)
-                            .parent().select("td").eq(3).text().replace(",", ".").trim());
+                            .parent().select("td:eq(3)").text().replace(",", ".").trim());
         }
         if (currency.equals(Currencies.EUR)) {
             buyValue = Double.parseDouble(
                     doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Euro)").get(0)
-                            .parent().select("td").eq(2).text().replace(",", ".").trim());
+                            .parent().select("td:eq(2)").text().replace(",", ".").trim());
             sellValue = Double.parseDouble(
                     doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Euro)").get(0)
-                            .parent().select("td").eq(3).text().replace(",", ".").trim());
+                            .parent().select("td:eq(3)").text().replace(",", ".").trim());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
         return sample;
     }
 
-    public String getCode() {
-        return "Indx";
-    }
 
     @Override
     public String getUrl() {

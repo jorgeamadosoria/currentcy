@@ -26,9 +26,7 @@ public class Cambio18 extends SamplerBase{
         return sample;
 	    
 	}
-	public String getCode(){
-		return "C18";
-	}
+
 	@Override
 	public String getUrl() {
 		return "http://www.cambio18.com/";	

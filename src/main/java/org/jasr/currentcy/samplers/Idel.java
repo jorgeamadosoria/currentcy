@@ -30,10 +30,6 @@ public class Idel extends SamplerBase {
         return sample;
     }
 
-    public String getCode() {
-        return "Idel";
-    }
-
     @Override
     public String getUrl() {
         return "http://www.intercambio.com.uy";

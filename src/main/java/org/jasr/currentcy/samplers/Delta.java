@@ -177,13 +177,8 @@ public class Delta extends SamplerBase {
         return sample;
     }
 
-    public String getCode() {
-        return "Delta";
-    }
-
-    @Override
-    public String getUrl() {
-        return "http://deltasf.com.uy";
+    public Delta() {
+        super("http://deltasf.com.uy","Delta S.F.");
     }
     
     @Override
@@ -191,8 +186,4 @@ public class Delta extends SamplerBase {
         return "http://deltasf.com.uy/pizarra/files/Cotizaciones.xml";
     }
 
-    @Override
-    public String getName() {
-        return "Delta S.F.";
-    }
 }
