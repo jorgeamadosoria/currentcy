@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.jasr.currentcy.dao.SampleDAO;
 import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
+import org.jasr.currentcy.domain.CurrencySnapshot;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
 import org.jasr.currentcy.samplers.SamplerBase;
@@ -33,6 +34,11 @@ public class SamplerServiceImpl implements SamplerService {
     @Override
     public List<Sample> getSnapshot(Currencies currency) {
         return samplerDAO.getSnapshot(currency);
+    }
+    
+    @Override
+    public List<CurrencySnapshot> getCurrencySnapshot() {
+        return samplerDAO.getCurrencySnapshot();
     }
 
     @Override

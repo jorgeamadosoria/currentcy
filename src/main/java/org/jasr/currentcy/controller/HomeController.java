@@ -2,10 +2,10 @@ package org.jasr.currentcy.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.jasr.currentcy.domain.Currencies;
+import org.jasr.currentcy.domain.CurrencySnapshot;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
 import org.jasr.currentcy.service.EmailService;
@@ -36,6 +36,16 @@ public class HomeController {
     @Resource
     private EmailService   emailService;
 
+    
+    /**
+     * Returns the latest sample taken for each registered exchange with all currencies available
+     * @return list values for all currencies for each exchange snapshot 
+     */
+    @ApiOperation(value = "currencySnapshot", notes = "Returns the latest sample taken for each registered exchange with all currencies available")
+    @RequestMapping(value = "/currencySnapshot", method = RequestMethod.GET)
+    public List<CurrencySnapshot> currencySnapshot() {
+        return samplerService.getCurrencySnapshot();
+    }
     
     /**
      * Returns the latest sample taken for each registered exchange.

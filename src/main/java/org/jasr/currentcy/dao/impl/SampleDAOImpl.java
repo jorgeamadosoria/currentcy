@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.jasr.currentcy.dao.SampleDAO;
 import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
+import org.jasr.currentcy.domain.CurrencySnapshot;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
 import org.jasr.currentcy.utils.BaseSamplerRowMapper;
@@ -62,6 +63,12 @@ public class SampleDAOImpl implements SampleDAO {
                 new Object[] { currency.code, currency.code, currency.code }, baseRowMapper);
     }
 
+    @Override
+    public List<CurrencySnapshot> getCurrencySnapshot() {
+        return template.query(env.getProperty("select.currency.snapshot"), new BeanPropertyRowMapper<CurrencySnapshot>(CurrencySnapshot.class));
+    }
+    
+    
     @Override
     public void saveSnapshot(List<Sample> samples, Currencies currency) {
         String cur = currency.code;

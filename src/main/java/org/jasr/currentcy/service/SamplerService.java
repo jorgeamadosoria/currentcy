@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
+import org.jasr.currentcy.domain.CurrencySnapshot;
 import org.jasr.currentcy.domain.Sample;
 import org.jasr.currentcy.domain.Trend;
 
@@ -19,4 +20,6 @@ public interface SamplerService {
     public List<BaseSample> getChangesSnapshot(Currencies currency);
 
     public Trend getLatestSamples(String source, Currencies currency);
+
+    public List<CurrencySnapshot> getCurrencySnapshot();
 }
