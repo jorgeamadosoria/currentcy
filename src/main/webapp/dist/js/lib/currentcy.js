@@ -225,6 +225,60 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	};
 	
 	/**
+	 * Internal function for currency snapshot table
+	 * 
+	 * @function showTables
+	 */
+	currentcy.showTables = function() {
+		$
+		.get(
+				'web/currencySnapshot',
+				function(data) {
+					var bestBuyUSD = bestSellUSD = bestBuyEUR = bestSellEUR = data[0];
+					for (var cSnapshot of data){
+						var snapshot = store.get(cSnapshot.code);
+						if (snapshot != null)
+							{
+								cSnapshot.name = snapshot.name;
+								cSnapshot.date = snapshot.date;
+								if (bestBuyUSD.buyValueUSD < cSnapshot.buyValueUSD){
+									bestBuyUSD = cSnapshot;
+								}
+								if (bestSellUSD.sellValueUSD > cSnapshot.sellValueUSD){
+									bestSellUSD = cSnapshot;
+								}
+								if (bestBuyEUR.buyValueEUR < cSnapshot.buyValueEUR){
+									bestBuyEUR = cSnapshot;
+								}
+								if (bestSellEUR.sellValueEUR > cSnapshot.sellValueEUR){
+									bestSellEUR = cSnapshot;
+								}
+							}
+					}
+					
+					$("#currency-snapshot-container")
+					.loadTemplate(
+							"dist/templates/currency-snapshot.template",
+							data,
+							{
+							afterInsert: function (){
+								$("#" + bestBuyUSD.code + " #buyValueUSD").attr("class","success");
+								$("#" + bestSellUSD.code + " #sellValueUSD").attr("class","success");
+								$("#" + bestBuyEUR.code + " #buyValueEUR").attr("class","success");
+								$("#" + bestSellEUR.code + " #sellValueEUR").attr("class","success");
+								
+								
+							        $('#currency-snapshots-table').DataTable({
+							                responsive: true
+							        });
+							   
+							}
+							});
+					
+				});
+	}
+	
+	/**
 	 * Internal function for calculations.
 	 * 
 	 * @function calculate
@@ -535,7 +589,8 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 * exchanges on local storage, as well as selecting bestBuy and bestSell
 	 * 
 	 * @function setUpSnapshotData
-	 * @param all returned data for the latest snapshot from the server
+	 * @param all
+	 *            returned data for the latest snapshot from the server
 	 */
 	currentcy.setUpSnapshotData=function(data){
 		var bestBuy = null;
@@ -575,7 +630,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 							function(data) {
 								
 								var best = currentcy.setUpSnapshotData(data);
-								//template assigning
+								// template assigning
 								currentcy.snapshotdetails(currentcy.getSelected().code);
 								currentcy.bestBuy(best.bestBuy.code);
 								currentcy.bestSell(best.bestSell.code);
@@ -624,7 +679,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	
 			
 		});
-		
+			currentcy.showTables();
 
 	};
 
