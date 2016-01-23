@@ -15,7 +15,8 @@ public class Indumex extends SamplerBase {
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
             buyValue = Double.parseDouble(
-                    doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Dolar)").get(0)
+                    doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Dolar)")
+                    .get(0)
                             .parent().select("td:eq(2)").text().replace(",", ".").trim());
             sellValue = Double.parseDouble(
                     doc.select("table#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr td:contains(Dolar)").get(0)
@@ -35,13 +36,7 @@ public class Indumex extends SamplerBase {
     }
 
 
-    @Override
-    public String getUrl() {
-        return "http://www.indumex.com/indumex/";
-    }
-
-    @Override
-    public String getName() {
-        return "Indumex";
+    public Indumex() {
+        super("http://www.indumex.com/indumex/","Indumex");
     }
 }

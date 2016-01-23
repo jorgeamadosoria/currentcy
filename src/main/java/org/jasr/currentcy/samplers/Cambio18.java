@@ -14,12 +14,12 @@ public class Cambio18 extends SamplerBase{
 	    double buyValue = 0;
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
-            buyValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td").get(2).select("font").text());
-            sellValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td").get(3).select("font").text());
+            buyValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td:eq(2) font").text());
+            sellValue = Double.parseDouble(doc.select("[src=images/dolares.jpg]").get(0).parent().parent().select("td:eq(3) font").text());
         }
         if (currency.equals(Currencies.EUR)) {
-            buyValue = Double.parseDouble(doc.select("[src=images/euros.jpg]").get(0).parent().parent().select("td").get(2).select("font").text());
-            sellValue = Double.parseDouble(doc.select("[src=images/euros.jpg]").get(0).parent().parent().select("td").get(3).select("font").text());
+            buyValue = Double.parseDouble(doc.select("[src=images/euros.jpg]").get(0).parent().parent().select("td:eq(2) font").text());
+            sellValue = Double.parseDouble(doc.select("[src=images/euros.jpg]").get(0).parent().parent().select("td:eq(3) font").text());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
@@ -27,12 +27,7 @@ public class Cambio18 extends SamplerBase{
 	    
 	}
 
-	@Override
-	public String getUrl() {
-		return "http://www.cambio18.com/";	
-	}
-	@Override
-	public String getName() {
-		return "Cambio 18";
+	public Cambio18() {
+		super("http://www.cambio18.com/","Cambio 18");
 	}
 }

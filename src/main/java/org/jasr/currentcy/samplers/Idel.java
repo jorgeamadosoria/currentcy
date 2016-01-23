@@ -15,28 +15,22 @@ public class Idel extends SamplerBase {
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
             buyValue = Double
-                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr").get(2).select("td").get(2).text().replace(",", "."));
+                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr:eq(2) td:eq(2)").text().replace(",", "."));
             sellValue = Double
-                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr").get(2).select("td").get(3).text().replace(",", "."));
+                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr:eq(2) td:eq(3)").text().replace(",", "."));
         }
         if (currency.equals(Currencies.EUR)) {
             buyValue = Double
-                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr").get(5).select("td").get(2).text().replace(",", "."));
+                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr:eq(5) td:eq(2)").text().replace(",", "."));
             sellValue = Double
-                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr").get(5).select("td").get(3).text().replace(",", "."));
+                    .parseDouble(doc.select("a.linkHistorical").parents().get(2).select("tr:eq(5) td:eq(3)").text().replace(",", "."));
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
         return sample;
     }
 
-    @Override
-    public String getUrl() {
-        return "http://www.intercambio.com.uy";
-    }
-
-    @Override
-    public String getName() {
-        return "Intercambio Idel SA";
+    public Idel() {
+        super("http://www.intercambio.com.uy","Intercambio Idel SA");
     }
 }

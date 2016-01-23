@@ -26,9 +26,8 @@ public class GoogleFinance extends SamplerBase {
         return sample;
     }
 
-    @Override
-    public String getUrl() {
-        return "https://www.google.com/finance";
+    public GoogleFinance() {
+        super("https://www.google.com/finance","Google Finance");
     }
     
     @Override
@@ -36,8 +35,4 @@ public class GoogleFinance extends SamplerBase {
         return "https://www.google.com/finance?q=" + currency.code.toUpperCase() + "UYU";
     }
 
-    @Override
-    public String getName() {
-        return "Google Finance";
-    }
 }

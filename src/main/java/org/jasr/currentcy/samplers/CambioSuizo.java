@@ -15,28 +15,22 @@ public class CambioSuizo extends SamplerBase {
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
             buyValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/usa.jpg]").parents().get(1).select("table td").get(0).text());
+                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/usa.jpg]").parents().get(1).select("table td:eq(0)").text());
             sellValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/usa.jpg]").parents().get(1).select("table td").get(1).text());
+                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/usa.jpg]").parents().get(1).select("table td:eq(1)").text());
         }
         if (currency.equals(Currencies.EUR)) {
             buyValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/euro.jpg]").parents().get(1).select("table td").get(0).text());
+                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/euro.jpg]").parents().get(1).select("table td:eq(0)").text());
             sellValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/euro.jpg]").parents().get(1).select("table td").get(1).text());
+                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/euro.jpg]").parents().get(1).select("table td:eq(1)").text());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
         return sample;
     }
 
-    @Override
-    public String getUrl() {
-        return "http://www.cambiosuizo.com.uy/";
-    }
-
-    @Override
-    public String getName() {
-        return "Cambio Suizo";
+    public CambioSuizo() {
+        super("http://www.cambiosuizo.com.uy/","Cambio Suizo");
     }
 }

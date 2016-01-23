@@ -178,12 +178,7 @@ public class Delta extends SamplerBase {
     }
 
     public Delta() {
-        super("http://deltasf.com.uy","Delta S.F.");
-    }
-    
-    @Override
-    public String getUrlByCurrency(Currencies currency) {
-        return "http://deltasf.com.uy/pizarra/files/Cotizaciones.xml";
+        super("http://deltasf.com.uy","Delta S.F.","http://deltasf.com.uy/pizarra/files/Cotizaciones.xml");
     }
 
 }

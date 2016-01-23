@@ -35,13 +35,7 @@ public class Scotiabank extends SamplerBase {
         return sample;
     }
 
-    @Override
-    public String getUrl() {
-        return "http://www.scotiabank.com.uy/";
-    }
-
-    @Override
-    public String getName() {
-        return "Scotiabank";
+    public Scotiabank() {
+        super("http://www.scotiabank.com.uy/", "Scotiabank");
     }
 }

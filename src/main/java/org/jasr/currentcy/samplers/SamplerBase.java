@@ -6,6 +6,7 @@ import org.jasr.currentcy.domain.Currencies;
 import org.jasr.currentcy.domain.Sample;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,14 +15,28 @@ import org.springframework.stereotype.Component;
  * parsing of code with css-like selectors, but on occasion other methods of parsing can be used, depending on the source.
  * 
  */
-public abstract class SamplerBase {
+public abstract class SamplerBase implements BeanNameAware{
+
+    @Override
+    public void setBeanName(String name) {
+        this.code = name;
+    }
 
     public SamplerBase(String url, String name) {
         this.url = url;
         this.name = name;
-        //ONly works with Samplers annotated with Components, which are all of them, ideally
-        this.code = this.getClass().getAnnotation(Component.class).value();
+        this.urlByCurrency = null;
     }
+    
+    public SamplerBase(String url, String name,String urlByCurrency) {
+        this(url,name);
+        this.urlByCurrency = urlByCurrency;
+    }
+
+    /**
+     * The url used for sampling. The getter has special logic to default this value to the url of the exchange if not present
+     */
+    private String urlByCurrency = null;
 
     /**
      * Name of the exchange as it is known by humans (fantasy name as registered on the BCU). Used for labeling purposes on the
@@ -43,7 +58,7 @@ public abstract class SamplerBase {
     /**
      * User agent string to mock Firefox detection in order to bypass DDoS detection through false positives
      */
-    private String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0";
+    private String userAgent     = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:43.0) Gecko/20100101 Firefox/43.0";
 
     private int    id;
 
@@ -60,8 +75,14 @@ public abstract class SamplerBase {
      * 
      * @return milliseconds for jsoup sampling timeout
      */
-    public int timeout() {
-        return -1;
+    private int timeout=-1;
+    
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
     }
 
     /**
@@ -70,10 +91,13 @@ public abstract class SamplerBase {
      * 
      * @param currency
      *            the currency to sample from the source
-     * @return The html code of the page, usually containing the data sampled for the specified currency
+     * @return The html code of the page, usually containing the data sampled for the specified currency. It defaults to the
+     *         exchange url if the specific url for sampling does not exist
      */
     public String getUrlByCurrency(Currencies currency) {
-        return getUrl();
+        if (urlByCurrency == null)
+            return getUrl();
+        return urlByCurrency;
     }
 
     public int getId() {
@@ -99,10 +123,10 @@ public abstract class SamplerBase {
     public Sample sample(Currencies currency) {
         Sample sample = null;
         try {
-            int timeout = timeout();
+            int timeout = getTimeout();
             Document doc = null;
             if (timeout != -1)
-                doc = Jsoup.connect(getUrlByCurrency(currency)).userAgent(userAgent).timeout(timeout()).get();
+                doc = Jsoup.connect(getUrlByCurrency(currency)).userAgent(userAgent).timeout(timeout).get();
             else
                 doc = Jsoup.connect(getUrlByCurrency(currency)).userAgent(userAgent).get();
             sample = new Sample();
