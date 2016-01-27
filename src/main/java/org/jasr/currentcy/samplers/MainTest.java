@@ -9,7 +9,7 @@ public class MainTest {
     public static void main(String[] args) {
         SamplerConfig var = new SamplerConfig();
         SamplerBase[] samplers = new SamplerBase[] { 
-                 var.BNA()};
+                 var.Matriz()};
 
         for (SamplerBase sampler : samplers) {
             System.out.println(sampler.getName());

@@ -1,5 +1,6 @@
 package org.jasr.currentcy.config;
 
+import org.jasr.currentcy.samplers.BROUSampler;
 import org.jasr.currentcy.samplers.Inpulsedm;
 import org.jasr.currentcy.samplers.SimpleJSoupSampler;
 import org.springframework.context.annotation.Bean;
@@ -12,24 +13,21 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class SamplerConfig {
-    
+
     @Bean
     public SimpleJSoupSampler Trebol() {
         return new SimpleJSoupSampler("http://www.cambioeltrebol.com/", "Cambio El Tr&eacute;bol",
-                "table#cotizaciones tr:eq(1) td.buy",
-                "table#cotizaciones tr:eq(1) td.sale",
-                "table#cotizaciones tr:eq(2) td.buy",
+                "table#cotizaciones tr:eq(1) td.buy", "table#cotizaciones tr:eq(1) td.sale", "table#cotizaciones tr:eq(2) td.buy",
                 "table#cotizaciones tr:eq(2) td.sale");
     }
+
     @Bean
     public SimpleJSoupSampler RedC() {
         return new SimpleJSoupSampler("http://www.redcambio.com.uy/", "Red Cambio",
-                "div#pizarra div.moneda:eq(0) table tr:eq(1) td:eq(1)",
-                "div#pizarra div.moneda:eq(0) table tr:eq(1) td:eq(2)",
-                "div#pizarra div.moneda:eq(3) table tr:eq(1) td:eq(1)",
-                "div#pizarra div.moneda:eq(3) table tr:eq(1) td:eq(2)");
+                "div#pizarra div.moneda:eq(0) table tr:eq(1) td:eq(1)", "div#pizarra div.moneda:eq(0) table tr:eq(1) td:eq(2)",
+                "div#pizarra div.moneda:eq(3) table tr:eq(1) td:eq(1)", "div#pizarra div.moneda:eq(3) table tr:eq(1) td:eq(2)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Young() {
         return new SimpleJSoupSampler("http://www.youngencambio.com/", "Young en Cambio",
@@ -38,25 +36,21 @@ public class SamplerConfig {
                 "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(2) td:eq(2)",
                 "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(2) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Flash() {
         return new SimpleJSoupSampler("http://www.flash.net.uy/money.php", "Flash S.F.",
-                "table:eq(1) td:eq(1) td:eq(0) table:eq(2) td:eq(2)",
-                "table:eq(1) td:eq(1) td:eq(0) table:eq(2) td:eq(3)",
-                "table:eq(1) td:eq(1) td:eq(0) table:eq(5) td:eq(2)",
-                "table:eq(1) td:eq(1) td:eq(0) table:eq(5) td:eq(3)");
+                "table:eq(1) td:eq(1) td:eq(0) table:eq(2) td:eq(2)", "table:eq(1) td:eq(1) td:eq(0) table:eq(2) td:eq(3)",
+                "table:eq(1) td:eq(1) td:eq(0) table:eq(5) td:eq(2)", "table:eq(1) td:eq(1) td:eq(0) table:eq(5) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Porto() {
-        return new SimpleJSoupSampler("http://cambioporto.com.uy/", "Cambio Porto",
-                "table.tabla-izquierda tr:eq(1) td:eq(1)",
-                "table.tabla-izquierda tr:eq(1) td:eq(3)",
-                "table.tabla-izquierda tr:eq(4) td:eq(1)",
+        return new SimpleJSoupSampler("http://cambioporto.com.uy/", "Cambio Porto", "table.tabla-izquierda tr:eq(1) td:eq(1)",
+                "table.tabla-izquierda tr:eq(1) td:eq(3)", "table.tabla-izquierda tr:eq(4) td:eq(1)",
                 "table.tabla-izquierda tr:eq(4) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler MoneyC() {
         return new SimpleJSoupSampler("http://www.moneycenter.com.uy/Money/", "Pocitos Money Center",
@@ -65,210 +59,209 @@ public class SamplerConfig {
                 "div#dnn_ctr375_HtmlModule_HtmlModule_lblContent table tr:eq(4) td:eq(1)",
                 "div#dnn_ctr375_HtmlModule_HtmlModule_lblContent table tr:eq(4) td:eq(2)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler RevaT() {
         return new SimpleJSoupSampler("http://www.cambiorevatur.com/", "Revatur S.A.",
-                "section#top-a div:eq(2) table tr:eq(1) td:eq(1)",
-                "section#top-a div:eq(2) table tr:eq(1) td:eq(2)",
-                "section#top-a div:eq(2) table tr:eq(4) td:eq(1)",
-                "section#top-a div:eq(2) table tr:eq(4) td:eq(2)");
+                "section#top-a div:eq(2) table tr:eq(1) td:eq(1)", "section#top-a div:eq(2) table tr:eq(1) td:eq(2)",
+                "section#top-a div:eq(2) table tr:eq(4) td:eq(1)", "section#top-a div:eq(2) table tr:eq(4) td:eq(2)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Europ() {
         return new SimpleJSoupSampler("http://www.europasf.com.uy/index_1.html", "Europa S.F.",
-                "table.tablacotizaciones tr:eq(0) .celdacompra",
-                "table.tablacotizaciones tr:eq(0) .celdaventa",
-                "table.tablacotizaciones tr:eq(3) .celdacompra",
-                "table.tablacotizaciones tr:eq(3) .celdaventa",
+                "table.tablacotizaciones tr:eq(0) .celdacompra", "table.tablacotizaciones tr:eq(0) .celdaventa",
+                "table.tablacotizaciones tr:eq(3) .celdacompra", "table.tablacotizaciones tr:eq(3) .celdaventa",
                 "http://www.europasf.com.uy/mvdexchange/apizarradeldia.aspx");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Invest() {
         return new SimpleJSoupSampler("http://investa.com.uy/reclamos/investa/Content/Default.aspx", "Investa C.C.",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(2)",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(3)",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(2)",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(3)");
+                "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(2)", "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(3)",
+                "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(2)", "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Fagal() {
         return new SimpleJSoupSampler("http://www.cambiofagalde.com.uy/home.php", "Cambio Fagalde",
-                "table.Estilo4 tr:eq(1) td:eq(2)",
-                "table.Estilo4 tr:eq(1) td:eq(3)",
-                "table.Estilo4 tr:eq(4) td:eq(2)",
+                "table.Estilo4 tr:eq(1) td:eq(2)", "table.Estilo4 tr:eq(1) td:eq(3)", "table.Estilo4 tr:eq(4) td:eq(2)",
                 "table.Estilo4 tr:eq(4) td:eq(3)");
     }
-    
+
     @Bean
     public Inpulsedm Talsi() {
         return new Inpulsedm("http://www.cambiocentro.com/", "Cambio Centro");
     }
-    
+
     @Bean
     public SimpleJSoupSampler LaFav() {
         return new SimpleJSoupSampler("http://www.lafavorita.com.uy/", "La Favorita S.F.",
-                "div.grid_3:eq(0) ul.course-block li:eq(2)",
-                "div.grid_3:eq(0) ul.course-block li:eq(5)",
-                "div.grid_3:eq(1) ul.course-block li:eq(2)",
-                "div.grid_3:eq(1) ul.course-block li:eq(5)");
+                "div.grid_3:eq(0) ul.course-block li:eq(2)", "div.grid_3:eq(0) ul.course-block li:eq(5)",
+                "div.grid_3:eq(1) ul.course-block li:eq(2)", "div.grid_3:eq(1) ul.course-block li:eq(5)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler AeroM() {
         return new SimpleJSoupSampler("http://www.aeromar.com.uy/", "Aeromar S.F.",
-                "div.mod-cotizacion div.row div:eq(1) p:eq(1)",
-                "div.mod-cotizacion div.row div:eq(2) p:eq(1)",
-                "div.mod-cotizacion div.row div:eq(1) p:eq(4)",
-                "div.mod-cotizacion div.row div:eq(2) p:eq(4)");
+                "div.mod-cotizacion div.row div:eq(1) p:eq(1)", "div.mod-cotizacion div.row div:eq(2) p:eq(1)",
+                "div.mod-cotizacion div.row div:eq(1) p:eq(4)", "div.mod-cotizacion div.row div:eq(2) p:eq(4)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler COri() {
-        return new SimpleJSoupSampler("http://www.cambiooriental.com/", "Cambio Oriental",
-                "table#cotizaciones tr:eq(0) td:eq(2)",
-                "table#cotizaciones tr:eq(0) td:eq(3)",
-                "table#cotizaciones tr:eq(1) td:eq(2)",
+        return new SimpleJSoupSampler("http://www.cambiooriental.com/", "Cambio Oriental", "table#cotizaciones tr:eq(0) td:eq(2)",
+                "table#cotizaciones tr:eq(0) td:eq(3)", "table#cotizaciones tr:eq(1) td:eq(2)",
                 "table#cotizaciones tr:eq(1) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Openn() {
-        return new SimpleJSoupSampler("http://www.cambioopenn.com.uy/", "Openn C.C.",
-                "div#tabla tr:eq(1) td:eq(1)",
-                "div#tabla tr:eq(1) td:eq(2)",
-                "div#tabla tr:eq(2) td:eq(1)",
-                "div#tabla tr:eq(2) td:eq(2)");
+        return new SimpleJSoupSampler("http://www.cambioopenn.com.uy/", "Openn C.C.", "div#tabla tr:eq(1) td:eq(1)",
+                "div#tabla tr:eq(1) td:eq(2)", "div#tabla tr:eq(2) td:eq(1)", "div#tabla tr:eq(2) td:eq(2)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler SaltoG() {
         return new SimpleJSoupSampler("http://cambiosaltogrande.com.uy/", "Salto Grande C.C.",
-                "div.right_articles table tr:eq(1) td:eq(1)",
-                "div.right_articles table tr:eq(1) td:eq(2)",
-                "div.right_articles table tr:eq(4) td:eq(1)",
-                "div.right_articles table tr:eq(4) td:eq(2)");
+                "div.right_articles table tr:eq(1) td:eq(1)", "div.right_articles table tr:eq(1) td:eq(2)",
+                "div.right_articles table tr:eq(4) td:eq(1)", "div.right_articles table tr:eq(4) td:eq(2)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler BNA() {
         return new SimpleJSoupSampler("http://www.bna.com.uy/", "Banco de la Naci&oacute;n Argentina",
-                "div#billetes table tr:eq(3) td:eq(1)",
-                "div#billetes table tr:eq(3) td:eq(2)",
-                "div#billetes table tr:eq(0) td:eq(1)",
-                "div#billetes table tr:eq(0) td:eq(2)");
+                "div#billetes table tr:eq(3) td:eq(1)", "div#billetes table tr:eq(3) td:eq(2)",
+                "div#billetes table tr:eq(0) td:eq(1)", "div#billetes table tr:eq(0) td:eq(2)");
     }
-//  No le he hecho los samplers  
- //   @Bean
-//    public SimpleJSoupSampler Nelson() {
-//        return new SimpleJSoupSampler("http://cambionelson.com/", "Cambio Nelson",
-//                "",
-//                "",
-//                "",
-//                "");
-//    }
+
+    @Bean
+    public SimpleJSoupSampler Carmel() {
+        return new SimpleJSoupSampler("http://www.cambiocarmelo.com/", "Cambio Lerga", ".tablacotizaciones tr:eq(0) td:eq(1)",
+                ".tablacotizaciones tr:eq(0) td:eq(2)", ".tablacotizaciones tr:eq(3) td:eq(1)",
+                ".tablacotizaciones tr:eq(3) td:eq(2)", "http://www.europasf.com.uy/mvdexchange/apizarradeldia.aspx");
+    }
     
+    @Bean
+    public SimpleJSoupSampler Matriz() {
+        return new SimpleJSoupSampler("http://www.cambiomatriz.com.uy/", "Cambio Matriz", "td.col_der div.cuadros div.cont.cotizaciones table tbody tr:eq(0) td:eq(2)",
+                "td.col_der div.cuadros div.cont.cotizaciones table tbody tr:eq(0) td:eq(4)", "td.col_der div.cuadros div.cont.cotizaciones table tbody tr:eq(3) td:eq(2)",
+                "td.col_der div.cuadros div.cont.cotizaciones table tbody tr:eq(3) td:eq(4)");
+    }
+
+    @Bean
+    public BROUSampler Rocha() {
+
+        return new BROUSampler("http://www.cambiorocha.com.uy/productos-servicios.php", "Cambio Rocha");
+    }
+    
+    @Bean
+    public BROUSampler Roman() {
+        return new BROUSampler("http://www.cambioromantico.com/", "Cambio Rom&aacute;ntico");
+    }
+    
+    @Bean
+    public BROUSampler Varzy() {
+        return new BROUSampler("http://www.cambiovarzy.com/", "Cambio Varzy S.A.");
+    }
+    // No le he hecho los samplers
+    // @Bean
+    // public SimpleJSoupSampler Nelson() {
+    // return new SimpleJSoupSampler("http://cambionelson.com/", "Cambio Nelson",
+    // "",
+    // "",
+    // "",
+    // "");
+    // }
+
     /*
      * 
-http://www.cambiocarmelo.com/
-http://www.cambiorocha.com.uy/productos-servicios.php
-http://www.cambiovarzy.com/
-http://www.cambioromantico.com/
-http://www.cambiomatriz.com.uy/
-http://www.cambiopando.com.uy/
-http://www.itbcambio.com.uy/
+     * 
+     * 
+     * http://www.cambiopando.com.uy/
+     * http://www.itbcambio.com.uy/
      */
-    
-//    No sale, da timeout, puede ser un problema con el SSL
-    //@Bean
-//    public SimpleJSoupSampler Bandes() {
-//        return new SimpleJSoupSampler("https://www.bandes.com.uy/", "Bandes Uruguay",
-//                "table.cotizaciones tr:eq(1) td:eq(1)",
-//                "table.cotizaciones tr:eq(1) td:eq(2)",
-//                "table.cotizaciones tr:eq(4) td:eq(1)",
-//                "table.cotizaciones tr:eq(4) td:eq(2)");
-//    }
-//    Incompleto
-    //@Bean
-//    public SimpleJSoupSampler Itau() {
-//        return new SimpleJSoupSampler("https://www.itau.com.uy/inst/", "Ita&uacute;",
-//                "div.right_articles table tr:eq(1) td:eq(1)",
-//                "div.right_articles table tr:eq(1) td:eq(2)",
-//                "div.right_articles table tr:eq(4) td:eq(1)",
-//                "div.right_articles table tr:eq(4) td:eq(2)");
-//    }
-    
+
+    // No sale, da timeout, puede ser un problema con el SSL
+    // @Bean
+    // public SimpleJSoupSampler Bandes() {
+    // return new SimpleJSoupSampler("https://www.bandes.com.uy/", "Bandes Uruguay",
+    // "table.cotizaciones tr:eq(1) td:eq(1)",
+    // "table.cotizaciones tr:eq(1) td:eq(2)",
+    // "table.cotizaciones tr:eq(4) td:eq(1)",
+    // "table.cotizaciones tr:eq(4) td:eq(2)");
+    // }
+    // Incompleto
+    // @Bean
+    // public SimpleJSoupSampler Itau() {
+    // return new SimpleJSoupSampler("https://www.itau.com.uy/inst/", "Ita&uacute;",
+    // "div.right_articles table tr:eq(1) td:eq(1)",
+    // "div.right_articles table tr:eq(1) td:eq(2)",
+    // "div.right_articles table tr:eq(4) td:eq(1)",
+    // "div.right_articles table tr:eq(4) td:eq(2)");
+    // }
+
     @Bean
     public Inpulsedm Vertic() {
         return new Inpulsedm("http://www.cambiovertice.com/", "Cambio Vertice");
     }
-    
-//    No extrae correctamente, depurar
-    //@Bean
-//    public SimpleJSoupSampler CMinas() {
-//        return new SimpleJSoupSampler("http://www.cambiominas.com.uy/pagina.php?id=Inicio", "Cambio Minas",
-//                "div.medio1_4 table:eq(1) tr:eq(0) td:eq(1)",
-//                "div.medio1_4 table:eq(1) tr:eq(0) td:eq(2)",
-//                "div.medio1_4 table:eq(1) tr:eq(6) td:eq(1)",
-//                "div.medio1_4 table:eq(1) tr:eq(6) td:eq(2)");
-//    }
-    
+
+    // No extrae correctamente, depurar
+    // @Bean
+    // public SimpleJSoupSampler CMinas() {
+    // return new SimpleJSoupSampler("http://www.cambiominas.com.uy/pagina.php?id=Inicio", "Cambio Minas",
+    // "div.medio1_4 table:eq(1) tr:eq(0) td:eq(1)",
+    // "div.medio1_4 table:eq(1) tr:eq(0) td:eq(2)",
+    // "div.medio1_4 table:eq(1) tr:eq(6) td:eq(1)",
+    // "div.medio1_4 table:eq(1) tr:eq(6) td:eq(2)");
+    // }
+
     @Bean
     public SimpleJSoupSampler Finac() {
-        return new SimpleJSoupSampler("http://www.finacam.com.uy/reclamos/finacam/Content/Default.aspx", "Finacam Inst Financiera",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(2)",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(3)",
-                "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(2)",
+        return new SimpleJSoupSampler("http://www.finacam.com.uy/reclamos/finacam/Content/Default.aspx",
+                "Finacam Inst Financiera", "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(2)",
+                "table#ctl00_ctlQuote_tblCurrency tr:eq(0) td:eq(3)", "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(2)",
                 "table#ctl00_ctlQuote_tblCurrency tr:eq(3) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Valsf() {
         return new SimpleJSoupSampler("http://www.valsf.com.uy/index_1.html", "Val S.F.",
                 "td.backcotizacion table tbody tr:eq(0) table tbody tr td.celdacompra",
                 "td.backcotizacion table tbody tr:eq(0) table tbody tr td.celdaventa",
                 "td.backcotizacion table tbody tr:eq(3) table tbody tr td.celdacompra",
-                "td.backcotizacion table tbody tr:eq(3) table tbody tr td.celdaventa","http://www2.valsf.com.uy/mvdexchange/apizarradeldia.aspx");
+                "td.backcotizacion table tbody tr:eq(3) table tbody tr td.celdaventa",
+                "http://www2.valsf.com.uy/mvdexchange/apizarradeldia.aspx");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Uruc() {
-        return new SimpleJSoupSampler("http://www.urucambio.com.uy/", "UruCambio",
-                "table#TBL11 tr:eq(0) td:eq(2)",
-                "table#TBL11 tr:eq(0) td:eq(3)",
-                "table#TBL11 tr:eq(3) td:eq(2)",
-                "table#TBL11 tr:eq(3) td:eq(3)","http://www.urucambio.com.uy/mvdexchange/HPizarraBasicaUC.cgi");
+        return new SimpleJSoupSampler("http://www.urucambio.com.uy/", "UruCambio", "table#TBL11 tr:eq(0) td:eq(2)",
+                "table#TBL11 tr:eq(0) td:eq(3)", "table#TBL11 tr:eq(3) td:eq(2)", "table#TBL11 tr:eq(3) td:eq(3)",
+                "http://www.urucambio.com.uy/mvdexchange/HPizarraBasicaUC.cgi");
     }
-    
+
     @Bean
     public SimpleJSoupSampler CUru() {
         return new SimpleJSoupSampler("http://www.cambiouruguay.com.uy/cambio/index.php", "Cambio Uruguay",
-                "div.custom tr:eq(1) td:eq(2)",
-                "div.custom tr:eq(1) td:eq(3)",
-                "div.custom tr:eq(4) td:eq(2)",
+                "div.custom tr:eq(1) td:eq(2)", "div.custom tr:eq(1) td:eq(3)", "div.custom tr:eq(4) td:eq(2)",
                 "div.custom tr:eq(4) td:eq(3)");
     }
+
     @Bean
     public SimpleJSoupSampler Dracma() {
         return new SimpleJSoupSampler("http://www.eurodracma.com/", "Eurodracma S.F.",
-                "table#tabla_cotiz tbody tr:eq(0) td:eq(2)",
-                "table#tabla_cotiz tbody tr:eq(0) td:eq(3)",
-                "table#tabla_cotiz tbody tr:eq(3) td:eq(2)",
-                "table#tabla_cotiz tbody tr:eq(3) td:eq(3)");
+                "table#tabla_cotiz tbody tr:eq(0) td:eq(2)", "table#tabla_cotiz tbody tr:eq(0) td:eq(3)",
+                "table#tabla_cotiz tbody tr:eq(3) td:eq(2)", "table#tabla_cotiz tbody tr:eq(3) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Pernas() {
         return new SimpleJSoupSampler("http://www.cambiopernas.com.uy/contacto.php", "Cambio Pernas",
-                "div#divisas table table table tbody tr:eq(2) td:eq(3)",
-                "div#divisas table table table tbody tr:eq(2) td:eq(6)",
-                "div#divisas table table table tbody tr:eq(8) td:eq(3)",
-                "div#divisas table table table tbody tr:eq(8) td:eq(6)");
+                "div#divisas table table table tbody tr:eq(2) td:eq(3)", "div#divisas table table table tbody tr:eq(2) td:eq(6)",
+                "div#divisas table table table tbody tr:eq(8) td:eq(3)", "div#divisas table table table tbody tr:eq(8) td:eq(6)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Cambi() {
         return new SimpleJSoupSampler("http://www.cambialcasadecambios.com.uy/", "Cambial S.A.",
@@ -277,27 +270,23 @@ http://www.itbcambio.com.uy/
                 "div.newsflash table table tbody tr:eq(4) td:eq(1) div span",
                 "div.newsflash table table tbody tr:eq(4) td:eq(2) div span");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Prov() {
         return new SimpleJSoupSampler("http://www.provincia.com.uy/", "Provincia Casa Financiera",
-                "div#cotizaciones table tbody tr:eq(4) td:eq(1)",
-                "div#cotizaciones table tbody tr:eq(4) td:eq(2)",
-                "div#cotizaciones table tbody tr:eq(2) td:eq(1)",
-                "div#cotizaciones table tbody tr:eq(2) td:eq(2)");
+                "div#cotizaciones table tbody tr:eq(4) td:eq(1)", "div#cotizaciones table tbody tr:eq(4) td:eq(2)",
+                "div#cotizaciones table tbody tr:eq(2) td:eq(1)", "div#cotizaciones table tbody tr:eq(2) td:eq(2)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Fucep() {
         SimpleJSoupSampler bean = new SimpleJSoupSampler("http://www.fucerep.com.uy/", "Fucerep",
-                "div.block-cotizaciones table tbody tr:eq(0) td:eq(1)",
-                "div.block-cotizaciones table tbody tr:eq(0) td:eq(2)",
-                "div.block-cotizaciones table tbody tr:eq(1) td:eq(1)",
-                "div.block-cotizaciones table tbody tr:eq(1) td:eq(2)");
+                "div.block-cotizaciones table tbody tr:eq(0) td:eq(1)", "div.block-cotizaciones table tbody tr:eq(0) td:eq(2)",
+                "div.block-cotizaciones table tbody tr:eq(1) td:eq(1)", "div.block-cotizaciones table tbody tr:eq(1) td:eq(2)");
         bean.setTimeout(0);
         return bean;
     }
-    
+
     @Bean
     public SimpleJSoupSampler Varlix() {
         return new SimpleJSoupSampler("http://www.varlix.com.uy/", "Varlix S.F.",
@@ -422,11 +411,8 @@ http://www.itbcambio.com.uy/
     }
 
     @Bean
-    public SimpleJSoupSampler BROU() {
-        return new SimpleJSoupSampler("http://www.brou.com.uy", "Banco Rep&uacute;blica", "#exchangeRatesLarge tr.odd:eq(0) .buy",
-                "#exchangeRatesLarge tr.odd:eq(0) .sale", "#exchangeRatesLarge tr.odd:eq(1) .buy",
-                "#exchangeRatesLarge tr.odd:eq(1) .sale",
-                "http://www.brou.com.uy/c/portal/render_portlet?p_l_id=123137&p_p_id=ExchangeLarge_WAR_ExchangeRate5121_INSTANCE_P2Af&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_pos=0&p_p_col_count=1&currentURL=%2Fweb%2Fguest%2Finstitucional%2Fcotizaciones");
+    public BROUSampler BROU() {
+        return new BROUSampler("http://www.brou.com.uy", "Banco Rep&uacute;blica");
     }
 
     @Bean
