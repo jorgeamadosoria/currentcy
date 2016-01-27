@@ -42,15 +42,15 @@ public class SimpleJSoupSampler extends SamplerBase {
         double sellValue = 0;
         // ASCII code 160 corresponds to &nbsp; that we need to extract if it exists on the text to convert to numbers
         if (currency.equals(Currencies.USD)) {
-            buyValue = Double.parseDouble(doc.select(buyValueUSD).text().replace(",", ".").trim()
+            buyValue = Double.parseDouble(doc.select(buyValueUSD).get(0).text().replace(",", ".").trim()
                     .replaceAll(new String(new char[] { (char) 160 }), ""));
-            sellValue = Double.parseDouble(doc.select(sellValueUSD).text().replace(",", ".").trim()
+            sellValue = Double.parseDouble(doc.select(sellValueUSD).get(0).text().replace(",", ".").trim()
                     .replaceAll(new String(new char[] { (char) 160 }), ""));
         }
         if (currency.equals(Currencies.EUR)) {
-            buyValue = Double.parseDouble(doc.select(buyValueEUR).text().replace(",", ".").trim()
+            buyValue = Double.parseDouble(doc.select(buyValueEUR).get(0).text().replace(",", ".").trim()
                     .replaceAll(new String(new char[] { (char) 160 }), ""));
-            sellValue = Double.parseDouble(doc.select(sellValueEUR).text().replace(",", ".").trim()
+            sellValue = Double.parseDouble(doc.select(sellValueEUR).get(0).text().replace(",", ".").trim()
                     .replaceAll(new String(new char[] { (char) 160 }), ""));
         }
         sample.setBuyValue(buyValue);
