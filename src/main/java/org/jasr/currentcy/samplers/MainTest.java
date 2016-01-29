@@ -9,7 +9,7 @@ public class MainTest {
     public static void main(String[] args) {
         SamplerConfig var = new SamplerConfig();
         SamplerBase[] samplers = new SamplerBase[] { 
-                 var.Bandes()};
+                var.Bandes()};
 
         for (SamplerBase sampler : samplers) {
             System.out.println(sampler.getName());

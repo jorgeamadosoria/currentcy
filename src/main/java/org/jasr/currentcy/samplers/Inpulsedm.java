@@ -14,7 +14,6 @@ public class Inpulsedm extends SimpleJSoupSampler {
     }
     
     public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {
-        
             int timeout = getTimeout();
             if (timeout != -1)
                 doc = Jsoup.connect(doc.select("iframe").attr("src")).timeout(timeout).get();

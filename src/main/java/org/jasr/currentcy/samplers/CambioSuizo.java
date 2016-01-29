@@ -15,15 +15,15 @@ public class CambioSuizo extends SamplerBase {
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
             buyValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/usa.jpg]").parents().get(1).select("table td:eq(0)").text());
+                    .parseDouble(doc.select("td.style41 > table:eq(3) table > tbody > tr:eq(1) table:eq(2) table").get(0).text());
             sellValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/usa.jpg]").parents().get(1).select("table td:eq(1)").text());
+                    .parseDouble(doc.select("td.style41 > table:eq(3) table > tbody > tr:eq(1) table:eq(2) table").get(1).text());
         }
         if (currency.equals(Currencies.EUR)) {
             buyValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/euro.jpg]").parents().get(1).select("table td:eq(0)").text());
+                    .parseDouble(doc.select("td.style41 > table:eq(3) table > tbody > tr:eq(1) table:eq(2) table").get(3).text());
             sellValue = Double
-                    .parseDouble(doc.select("img[src=imagenes/coti_pizzarra/euro.jpg]").parents().get(1).select("table td:eq(1)").text());
+                    .parseDouble(doc.select("td.style41 > table:eq(3) table > tbody > tr:eq(1) table:eq(2) table").get(4).text());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);

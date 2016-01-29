@@ -19,12 +19,12 @@ public class Bacacay extends SamplerBase {
 		double buyValue = 0;
 		double sellValue = 0;
 		if (currency.equals(Currencies.USD)) {
-			buyValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(0)").text().split("  ")[0]);
-			sellValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(0)").text().split("  ")[1]);
+			buyValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(2)").text().split("  ")[0]);
+			sellValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(2)").text().split("  ")[1]);
 		}
 		if (currency.equals(Currencies.EUR)) {
-			buyValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(1)").text().split("  ")[0]);
-			sellValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(1)").text().split("  ")[1]);
+			buyValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(7)").text().split("  ")[0]);
+			sellValue = Double.parseDouble(doc.select("div#divTopOverflow tr:eq(1) td.cintaValor:eq(7)").text().split("  ")[1]);
 		}
 		sample.setBuyValue(buyValue);
 		sample.setSellValue(sellValue);

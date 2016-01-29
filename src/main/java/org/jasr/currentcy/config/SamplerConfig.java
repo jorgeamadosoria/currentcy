@@ -236,6 +236,16 @@ public class SamplerConfig {
                 "table#tabla_cotiz tbody tr:eq(0) td:eq(2)", "table#tabla_cotiz tbody tr:eq(0) td:eq(3)",
                 "table#tabla_cotiz tbody tr:eq(3) td:eq(2)", "table#tabla_cotiz tbody tr:eq(3) td:eq(3)");
     }
+    
+    @Bean
+    public SimpleJSoupSampler Baluma() {
+        return new SimpleJSoupSampler("http://www.balumacambio.conrad.com.uy/", "Baluma Cambio S.A.",
+                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(3) td:eq(2)", 
+                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(3) td:eq(3)",
+                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(5) td:eq(2)", 
+                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(5) td:eq(3)",
+                "http://www.balumacambio.conrad.com.uy/cotizacion.php");
+    }
 
     @Bean
     public SimpleJSoupSampler Pernas() {
@@ -285,7 +295,7 @@ public class SamplerConfig {
 
     @Bean
     public Inpulsedm Regul() {
-        return new Inpulsedm("http://www.cambioregul.com", "Cambio Regul SA");
+        return new Inpulsedm("http://www.cambioregul.com/portal/hgxpp001.aspx", "Cambio Regul SA");
     }
 
     @Bean

@@ -19,12 +19,12 @@ public class Brimar extends SamplerBase {
         double buyValue = 0;
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
-            buyValue = Double.parseDouble(doc.select("div.tm-article-content.uk-clearfix p:eq(0)").text().split(" | ")[0]);
-            sellValue = Double.parseDouble(doc.select("div.tm-article-content.uk-clearfix p:eq(0)").text().split(" | ")[2]);
+            buyValue = Double.parseDouble(doc.select("div.tm-article-content p:eq(1)").text().split(" | ")[0]);
+            sellValue = Double.parseDouble(doc.select("div.tm-article-content p:eq(1)").text().split(" | ")[2]);
         }
         if (currency.equals(Currencies.EUR)) {
-            buyValue = Double.parseDouble(doc.select("div.tm-article-content.uk-clearfix p:eq(3)").text().split(" | ")[0]);
-            sellValue = Double.parseDouble(doc.select("div.tm-article-content.uk-clearfix p:eq(3)").text().split(" | ")[2]);
+            buyValue = Double.parseDouble(doc.select("div.tm-article-content p:eq(7)").text().split(" | ")[0]);
+            sellValue = Double.parseDouble(doc.select("div.tm-article-content p:eq(7)").text().split(" | ")[2]);
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);

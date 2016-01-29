@@ -14,12 +14,12 @@ public class GoogleFinance extends SamplerBase {
         double buyValue = 0;
         double sellValue = 0;
         if (currency.equals(Currencies.USD)) {
-            buyValue = Double.parseDouble(doc.select("div#currency_value span.bld:eq(0)").text().replace(" UYU", "").trim());
-            sellValue = Double.parseDouble(doc.select("div#currency_value span.bld:eq(0)").text().replace(" UYU", "").trim());
+            buyValue = Double.parseDouble(doc.select("div#currency_value span.pr span.bld").text().replace(" UYU", "").trim());
+            sellValue = Double.parseDouble(doc.select("div#currency_value span.pr span.bld").text().replace(" UYU", "").trim());
         }
         if (currency.equals(Currencies.EUR)) {
-            buyValue = Double.parseDouble(doc.select("div#currency_value span.bld:eq(0)").text().replace(" UYU", "").trim());
-            sellValue = Double.parseDouble(doc.select("div#currency_value span.bld:eq(0)").text().replace(" UYU", "").trim());
+            buyValue = Double.parseDouble(doc.select("div#currency_value span.pr span.bld").text().replace(" UYU", "").trim());
+            sellValue = Double.parseDouble(doc.select("div#currency_value span.pr span.bld").text().replace(" UYU", "").trim());
         }
         sample.setBuyValue(buyValue);
         sample.setSellValue(sellValue);
