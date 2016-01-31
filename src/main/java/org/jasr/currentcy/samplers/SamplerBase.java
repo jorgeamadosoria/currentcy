@@ -75,7 +75,7 @@ public abstract class SamplerBase implements BeanNameAware{
      * 
      * @return milliseconds for jsoup sampling timeout
      */
-    private int timeout=-1;
+    private int timeout=300000;
     
     public int getTimeout() {
         return timeout;

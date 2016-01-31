@@ -2,6 +2,7 @@ package org.jasr.currentcy.config;
 
 import org.jasr.currentcy.samplers.BROUSampler;
 import org.jasr.currentcy.samplers.Inpulsedm;
+import org.jasr.currentcy.samplers.SamplerBase;
 import org.jasr.currentcy.samplers.SimpleJSoupSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -181,9 +182,12 @@ public class SamplerConfig {
 
     @Bean
     public SimpleJSoupSampler Bandes() {
-        return new SimpleJSoupSampler("https://www.bandes.com.uy/", "Bandes Uruguay", "table.cotizaciones tr:eq(1) td:eq(1)",
-                "table.cotizaciones tr:eq(1) td:eq(2)", "table.cotizaciones tr:eq(4) td:eq(1)",
-                "table.cotizaciones tr:eq(4) td:eq(2)");
+
+        SimpleJSoupSampler bean = new SimpleJSoupSampler("https://www.bandes.com.uy/", "Bandes Uruguay",
+                "table.cotizaciones tr:eq(1) td:eq(1)", "table.cotizaciones tr:eq(1) td:eq(2)",
+                "table.cotizaciones tr:eq(4) td:eq(1)", "table.cotizaciones tr:eq(4) td:eq(2)");
+        bean.setTimeout(0);
+        return bean;
     }
 
     @Bean
@@ -236,13 +240,13 @@ public class SamplerConfig {
                 "table#tabla_cotiz tbody tr:eq(0) td:eq(2)", "table#tabla_cotiz tbody tr:eq(0) td:eq(3)",
                 "table#tabla_cotiz tbody tr:eq(3) td:eq(2)", "table#tabla_cotiz tbody tr:eq(3) td:eq(3)");
     }
-    
+
     @Bean
     public SimpleJSoupSampler Baluma() {
         return new SimpleJSoupSampler("http://www.balumacambio.conrad.com.uy/", "Baluma Cambio S.A.",
-                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(3) td:eq(2)", 
+                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(3) td:eq(2)",
                 "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(3) td:eq(3)",
-                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(5) td:eq(2)", 
+                "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(5) td:eq(2)",
                 "table:eq(0) > tbody > tr > td:eq(0) > table:eq(0) table:eq(0) tr:eq(5) td:eq(3)",
                 "http://www.balumacambio.conrad.com.uy/cotizacion.php");
     }
@@ -299,18 +303,27 @@ public class SamplerConfig {
     }
 
     @Bean
+    public SimpleJSoupSampler Idel() {
+       return new SimpleJSoupSampler("http://www.intercambio.com.uy", "Intercambio Idel SA", "#ctlQuote_tblCurrency tr:eq(0) td:eq(2)",
+                "#ctlQuote_tblCurrency tr:eq(0) td:eq(3)", "#ctlQuote_tblCurrency tr:eq(3) td:eq(2)",
+                "#ctlQuote_tblCurrency tr:eq(3) td:eq(3)");
+    }
+
+    @Bean
     public SimpleJSoupSampler Nix() {
         return new SimpleJSoupSampler("http://www.nixus.com.uy", "Nixus Servicios Financieros",
-                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(3) td:eq(1)",
-                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(3) td:eq(2)",
-                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(6) td:eq(1)",
-                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(6) td:eq(1)");
+                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(2) td:eq(1)",
+                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(2) td:eq(2)",
+                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(5) td:eq(1)",
+                "table#AutoNumber21 > tbody > tr:eq(1) tr:eq(5) td:eq(1)");
     }
 
     @Bean
     public SimpleJSoupSampler Monex() {
-        return new SimpleJSoupSampler("http://www.monex.com.uy/", "Monex S.F.", "div#main:eq(0) div#column2",
-                "div#main:eq(0) div#column3", "div#main:eq(3) div#column2", "div#main:eq(3) div#column3");
+        SimpleJSoupSampler bean = new SimpleJSoupSampler("http://www.monex.com.uy/", "Monex S.F.", "div#main:eq(1) div#column2",
+                "div#main:eq(1) div#column3", "div#main:eq(4) div#column2", "div#main:eq(4) div#column3");
+        bean.setTimeout(0);
+        return bean;
     }
 
     @Bean
@@ -356,8 +369,8 @@ public class SamplerConfig {
     @Bean
     public SimpleJSoupSampler Obel() {
         return new SimpleJSoupSampler("http://www.cambioobelisco.com.uy/", "Cambio Obelisco",
-                "table.moduletable table tr:eq(3) td:eq(2)", "table.moduletable table tr:eq(3) td:eq(3)",
-                "table.moduletable table tr:eq(7) td:eq(2)", "table.moduletable table tr:eq(7) td:eq(3)");
+                "table.moduletable table tr:eq(2) td:eq(2)", "table.moduletable table tr:eq(2) td:eq(3)",
+                "table.moduletable table tr:eq(6) td:eq(2)", "table.moduletable table tr:eq(6) td:eq(3)");
     }
 
     @Bean

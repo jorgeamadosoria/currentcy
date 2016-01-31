@@ -268,10 +268,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 								$("#" + bestSellEUR.code + " #sellValueEUR").attr("class","success");
 								
 								
-							        $('#currency-snapshots-table').DataTable({
-							                responsive: true
-							        });
-							   
+							      
 							}
 							});
 					
@@ -389,6 +386,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 			$('.currency_link').on("click", currentcy.changeCurrency);
 			$('#paypal-submit').on("click", currentcy.paypalSubmit);
 
+			$('a.screen_link').on("click", currentcy.showScreen);
 			// setting events for the calculator
 			$("#amount").val("");
 			$("#amount").on("input", currentcy.calculateEvent);
@@ -401,7 +399,21 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 
 			currentcy.snapshot();
 			currentcy.initLanguage(currentcy.bundlePath);
-
+			
+	};
+	
+	/**
+	 * Function to show/hide screens of different data on the application. It
+	 * show the screen for the currently identified element and hides all others
+	 * 
+	 * @callback showScreen
+	 */	
+	currentcy.showScreen =function(){
+		var screen=$(this).data('screen');
+		$(".screen_link").each(function(){
+			$("div#" + $(this).data('screen')).fadeOut();
+		});
+		$("div#"+screen).fadeIn();
 	};
 	
 	/**
@@ -466,6 +478,9 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 				$("#msg-current-rate").html($.i18n.prop('msg.current.rate'));
 				$("#msg-best-buy").html($.i18n.prop('msg.best.buy'));
 				$("#msg-best-sell").html($.i18n.prop('msg.best.sell'));
+				$("#msg-views").html($.i18n.prop('msg.views'));
+				$("#msg-screen1").html($.i18n.prop('msg.screen1'));
+				$("#msg-screen2").html($.i18n.prop('msg.screen2'));
 			}
 		});
 	};
