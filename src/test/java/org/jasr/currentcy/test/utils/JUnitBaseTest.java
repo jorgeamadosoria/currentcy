@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.jasr.currentcy.config.ApplicationConfig;
 import org.jasr.currentcy.config.PersistenceConfig;
+import org.jasr.currentcy.config.SamplerConfig;
 import org.jasr.currentcy.config.WebMvcConfig;
-import org.jasr.currentcy.controller.HomeController;
 import org.jasr.currentcy.dao.SampleDAO;
 import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
@@ -33,7 +33,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { WebMvcConfig.class, ApplicationConfig.class, DatasourceConfig.class, PersistenceConfig.class,
+@ContextConfiguration(classes = { WebMvcConfig.class, ApplicationConfig.class, DatasourceConfig.class, SamplerConfig.class,PersistenceConfig.class,
         EmailConfig.class })
 @WebAppConfiguration
 public abstract class JUnitBaseTest {

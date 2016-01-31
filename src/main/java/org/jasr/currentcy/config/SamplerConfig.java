@@ -6,6 +6,7 @@ import org.jasr.currentcy.samplers.SamplerBase;
 import org.jasr.currentcy.samplers.SimpleJSoupSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * Configuration class to create Samplers that can be represented with any generic class that already existed. Samplers that need
@@ -435,6 +436,12 @@ public class SamplerConfig {
         return new Inpulsedm("http://www.cambiovelso.com/portal/hgxpp001.aspx", "Cambio Velso");
     }
 
+    @Bean
+    public Inpulsedm Vexel() {
+        return new  Inpulsedm("http://www.cambiovexel.com/portal/hgxpp001.aspx","Cambio Vexel");
+    }
+
+    
     @Bean
     public Inpulsedm Aguer() {
         return new Inpulsedm("http://www.cambioaguerrebere.com/portal/hgxpp001.aspx", "Cambio Aguerrebere SA");
