@@ -1,19 +1,12 @@
 <tr data-id="code">
-	<td><span
-		data-content="name"></span>
-		</td>
-	<td class="no-padding">$ <span id="buyValueUSD"
-		data-content="buyValueUSD"></span></td>
+	<td><span data-content="name"></span></td>
+	<td class="no-padding" id="buyValueUSD" data-content="buyValueUSD"></td>
 
-	<td class="no-padding">$ <span id="sellValueUSD"
-		data-content="sellValueUSD"></span></td>
+	<td class="no-padding" id="sellValueUSD" data-content="sellValueUSD"></td>
 
-	<td class="no-padding">$ <span id="buyValueEUR"
-		data-content="buyValueEUR"></span></td>
+	<td class="no-padding" id="buyValueEUR" data-content="buyValueEUR"></td>
 
-	<td class="no-padding">$ <span id="sellValueEUR"
-		data-content="sellValueEUR"></span></td>
-		
-		<td class="no-padding"><span id="date"
-		data-content="date"></span></td>
+	<td class="no-padding" id="sellValueEUR" data-content="sellValueEUR"></td>
+
+	<td class="no-padding" id="date" data-content="date"></td>
 </tr>

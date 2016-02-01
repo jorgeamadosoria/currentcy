@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import org.jasr.currentcy.samplers.SamplerBase;
 import org.junit.Before;
 
-public class CuruTest extends BaseSampler {
+public class CUruTest extends BaseSampler {
 
     @Resource(name="CUru")
     private SamplerBase sampler;

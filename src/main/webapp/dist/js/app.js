@@ -19,6 +19,8 @@ requirejs.config({
 		"jquery.flot.time" : [ "jquery", "jquery.flot" ],
 		"jquery.flot.tooltip.min" : [ "jquery", "jquery.flot" ],
 		"jquery.flot.tickrotor" : [ "jquery", "jquery.flot" ],
+		"jquery.tablesorter" : [ "jquery" ],
+		"jquery.metadata" : [ "jquery" ]
 	}
 });
 

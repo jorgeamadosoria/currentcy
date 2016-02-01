@@ -1,4 +1,4 @@
-define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
+define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.metadata","jquery.tablesorter","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
 	
 	/**
 	 * Imported module to handle localStorage (AMD-complaint version of
@@ -266,13 +266,12 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 								$("#" + bestSellUSD.code + " #sellValueUSD").attr("class","success");
 								$("#" + bestBuyEUR.code + " #buyValueEUR").attr("class","success");
 								$("#" + bestSellEUR.code + " #sellValueEUR").attr("class","success");
-								
-								
-							      
 							}
 							});
 					
 				});
+		
+		$("#currency-snapshots-table").tablesorter(); 
 	}
 	
 	/**
@@ -410,6 +409,10 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	 */	
 	currentcy.showScreen =function(){
 		var screen=$(this).data('screen');
+		
+		if (screen === 'screen2')
+		currentcy.showTables();
+
 		$(".screen_link").each(function(){
 			$("div#" + $(this).data('screen')).fadeOut();
 		});
@@ -497,6 +500,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	currentcy.snapshotdetails= function(snapshotId){
 		currentcy.setSelected(store.get(snapshotId));
 		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId,currentcy.snapshotDetailsAfterInsert);
+		currentcy.flot();
 	};
 	
 	/**
@@ -547,7 +551,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 					afterInsert : callback
 				});
 		currentcy.clearCalculate();
-		currentcy.flot();
+		
 	};
 	
 	
@@ -694,7 +698,7 @@ define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.
 	
 			
 		});
-			currentcy.showTables();
+			
 
 	};
 
