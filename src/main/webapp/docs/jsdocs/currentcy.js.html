@@ -26,7 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
+            <pre class="prettyprint source linenums"><code>define(["numeral","bootstrap","store","jquery","jquery-ui.min","jquery.bxslider.min","jquery.metadata","jquery.tablesorter","jquery.loadTemplate-1.4.4.min","jquery.i18n.properties","jquery.flot","jquery.flot.resize","jquery.flot.time","jquery.flot.tooltip.min","jquery.flot.tickrotor"], function() {
+	
 	/**
 	 * Imported module to handle localStorage (AMD-complaint version of
 	 * store.js)
@@ -155,7 +156,12 @@
 	 *            event data
 	 */
 	currentcy.changeLanguage= function(e) {
-		currentcy.setLocale($(this).data('lang'));
+		
+		var lang = $(this).data('lang');
+		if (typeof lang !== 'string'){
+			lang = navigator.language || navigator.userLanguage;
+		}
+		currentcy.setLocale(lang);
 		currentcy.initLanguage(currentcy.bundlePath);
 	};
 	
@@ -245,6 +251,56 @@
 		$("#avg-amount").text(calculations.avgAmount);
 		$("#sell-amount").text(calculations.sellAmount);
 	};
+	
+	/**
+	 * Internal function for currency snapshot table
+	 * 
+	 * @function showTables
+	 */
+	currentcy.showTables = function() {
+		$
+		.get(
+				'web/currencySnapshot',
+				function(data) {
+					var bestBuyUSD = bestSellUSD = bestBuyEUR = bestSellEUR = data[0];
+					for (var cSnapshot of data){
+						var snapshot = store.get(cSnapshot.code);
+						if (snapshot != null)
+							{
+								cSnapshot.name = snapshot.name;
+								cSnapshot.date = snapshot.date;
+								if (bestBuyUSD.buyValueUSD &lt; cSnapshot.buyValueUSD){
+									bestBuyUSD = cSnapshot;
+								}
+								if (bestSellUSD.sellValueUSD > cSnapshot.sellValueUSD){
+									bestSellUSD = cSnapshot;
+								}
+								if (bestBuyEUR.buyValueEUR &lt; cSnapshot.buyValueEUR){
+									bestBuyEUR = cSnapshot;
+								}
+								if (bestSellEUR.sellValueEUR > cSnapshot.sellValueEUR){
+									bestSellEUR = cSnapshot;
+								}
+							}
+					}
+					
+					$("#currency-snapshot-container")
+					.loadTemplate(
+							"dist/templates/currency-snapshot.template",
+							data,
+							{
+							afterInsert: function (){
+								$("#" + bestBuyUSD.code + " #buyValueUSD").attr("class","success");
+								$("#" + bestSellUSD.code + " #sellValueUSD").attr("class","success");
+								$("#" + bestBuyEUR.code + " #buyValueEUR").attr("class","success");
+								$("#" + bestSellEUR.code + " #sellValueEUR").attr("class","success");
+							}
+							});
+					
+				});
+		
+		$("#currency-snapshots-table").tablesorter(); 
+	}
 	
 	/**
 	 * Internal function for calculations.
@@ -357,6 +413,7 @@
 			$('.currency_link').on("click", currentcy.changeCurrency);
 			$('#paypal-submit').on("click", currentcy.paypalSubmit);
 
+			$('a.screen_link').on("click", currentcy.showScreen);
 			// setting events for the calculator
 			$("#amount").val("");
 			$("#amount").on("input", currentcy.calculateEvent);
@@ -369,7 +426,25 @@
 
 			currentcy.snapshot();
 			currentcy.initLanguage(currentcy.bundlePath);
+			
+	};
+	
+	/**
+	 * Function to show/hide screens of different data on the application. It
+	 * show the screen for the currently identified element and hides all others
+	 * 
+	 * @callback showScreen
+	 */	
+	currentcy.showScreen =function(){
+		var screen=$(this).data('screen');
+		
+		if (screen === 'screen2')
+		currentcy.showTables();
 
+		$(".screen_link").each(function(){
+			$("div#" + $(this).data('screen')).fadeOut();
+		});
+		$("div#"+screen).fadeIn();
 	};
 	
 	/**
@@ -434,6 +509,9 @@
 				$("#msg-current-rate").html($.i18n.prop('msg.current.rate'));
 				$("#msg-best-buy").html($.i18n.prop('msg.best.buy'));
 				$("#msg-best-sell").html($.i18n.prop('msg.best.sell'));
+				$("#msg-views").html($.i18n.prop('msg.views'));
+				$("#msg-screen1").html($.i18n.prop('msg.screen1'));
+				$("#msg-screen2").html($.i18n.prop('msg.screen2'));
 			}
 		});
 	};
@@ -450,6 +528,7 @@
 	currentcy.snapshotdetails= function(snapshotId){
 		currentcy.setSelected(store.get(snapshotId));
 		currentcy.selectSnapshotTemplate("#snapshot-container",snapshotId,currentcy.snapshotDetailsAfterInsert);
+		currentcy.flot();
 	};
 	
 	/**
@@ -500,7 +579,7 @@
 					afterInsert : callback
 				});
 		currentcy.clearCalculate();
-		currentcy.flot();
+		
 	};
 	
 	
@@ -557,7 +636,8 @@
 	 * exchanges on local storage, as well as selecting bestBuy and bestSell
 	 * 
 	 * @function setUpSnapshotData
-	 * @param all returned data for the latest snapshot from the server
+	 * @param all
+	 *            returned data for the latest snapshot from the server
 	 */
 	currentcy.setUpSnapshotData=function(data){
 		var bestBuy = null;
@@ -597,7 +677,7 @@
 							function(data) {
 								
 								var best = currentcy.setUpSnapshotData(data);
-								//template assigning
+								// template assigning
 								currentcy.snapshotdetails(currentcy.getSelected().code);
 								currentcy.bestBuy(best.bestBuy.code);
 								currentcy.bestSell(best.bestSell.code);
@@ -646,7 +726,7 @@
 	
 			
 		});
-		
+			
 
 	};
 
@@ -739,7 +819,7 @@ return currentcy;
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jan 19 2016 18:14:59 GMT-0300 (Montevideo Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Feb 05 2016 11:00:42 GMT-0300 (Montevideo Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -9,7 +9,7 @@ public class MainTest {
     public static void main(String[] args) {
         SamplerConfig var = new SamplerConfig();
         SamplerBase[] samplers = new SamplerBase[] { 
-                var.Talsi()};
+                var.AVE()};
 
         for (SamplerBase sampler : samplers) {
             sampler.setTimeout(0);
