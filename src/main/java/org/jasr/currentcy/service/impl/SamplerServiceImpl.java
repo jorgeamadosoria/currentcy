@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.flywaydb.core.internal.util.ObjectUtils;
 import org.jasr.currentcy.dao.SampleDAO;
 import org.jasr.currentcy.domain.BaseSample;
 import org.jasr.currentcy.domain.Currencies;
@@ -98,7 +99,7 @@ public class SamplerServiceImpl implements SamplerService {
             for (Sample sample2 : samples) {
                 // if at least one sampler is equal to a sampler on the other
                 // list, result = true
-                result = result || sample1.equals(sample2);
+                result = result || ObjectUtils.nullSafeEquals(sample1,sample2);
             }
             // if all samplers are different, then there is change.
             if (!result)
