@@ -93,16 +93,17 @@ public class SamplerServiceImpl implements SamplerService {
     private void changes(List<Sample> changes, List<Sample> samples, Currencies currency) {
         List<Sample> snapshots = samplerDAO.getSnapshot(currency);
 
-        for (Sample sample1 : snapshots) {
+        for (Sample sample1 : samples) {
             boolean result = false;
-            for (Sample sample2 : samples) {
+            for (Sample sample2 : snapshots) {
                 // if at least one sampler is equal to a sampler on the other
                 // list, result = true
                 result = result || sample1.equals(sample2);
             }
             // if all samplers are different, then there is change.
-            if (!result)
+            if (!result){
                 changes.add(sample1);
+            }
         }
     }
 

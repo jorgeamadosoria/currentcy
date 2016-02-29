@@ -43,7 +43,7 @@ public class EmailServiceImpl implements EmailService {
 
                 // subscribed users to this exchange
                 List<Email> emails = emailDAO.getEmailsForNotification(sample.getCode());
-                while (!CollectionUtils.isEmpty(emails)) {
+                if (!CollectionUtils.isEmpty(emails)) {
                     String body = emailBodyUtils.getUpdateEmailBody(currency, sample);
                     for (Email email : emails) {
                         // this [[TOKEN]] is not a freemarker variable because it
