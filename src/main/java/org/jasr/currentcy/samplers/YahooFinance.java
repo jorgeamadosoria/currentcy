@@ -7,7 +7,7 @@ import org.jasr.currentcy.domain.Sample;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
-@Component("YHOO")
+//@Component("YHOO")
 public class YahooFinance extends SamplerBase {
 
     public Sample doSample(Document doc, Sample sample, Currencies currency) throws IOException {

@@ -30,14 +30,14 @@ public class SamplerConfig {
                 "div#pizarra div.moneda:eq(3) table tr:eq(1) td:eq(1)", "div#pizarra div.moneda:eq(3) table tr:eq(1) td:eq(2)");
     }
 
-    @Bean
-    public SimpleJSoupSampler Young() {
-        return new SimpleJSoupSampler("http://www.youngencambio.com/", "Young en Cambio",
-                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(1) td:eq(2)",
-                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(1) td:eq(3)",
-                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(2) td:eq(2)",
-                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(2) td:eq(3)");
-    }
+//    @Bean
+//    public SimpleJSoupSampler Young() {
+//        return new SimpleJSoupSampler("http://www.youngencambio.com/", "Young en Cambio",
+//                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(1) td:eq(2)",
+//                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(1) td:eq(3)",
+//                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(2) td:eq(2)",
+//                "tr:eq(0) td:eq(0) tr:eq(3) tr:eq(3) tr:eq(0) tr:eq(2) td:eq(3)");
+//    }
 
     @Bean
     public SimpleJSoupSampler Flash() {
@@ -362,10 +362,10 @@ public class SamplerConfig {
                 ".cont_cotizaciones tbody tr:eq(3) td:eq(2)");
     }
 
-    @Bean
-    public Inpulsedm Pampex() {
-        return new Inpulsedm("http://www.cambiopampex.com/portal/hgxpp001.aspx", "Cambio Pampex");
-    }
+//    @Bean
+//    public Inpulsedm Pampex() {
+//        return new Inpulsedm("http://www.cambiopampex.com/portal/hgxpp001.aspx", "Cambio Pampex");
+//    }
 
     @Bean
     public SimpleJSoupSampler Obel() {
@@ -374,17 +374,17 @@ public class SamplerConfig {
                 "table.moduletable table tr:eq(6) td:eq(2)", "table.moduletable table tr:eq(6) td:eq(3)");
     }
 
-    @Bean
-    public Inpulsedm CColon() {
-        return new Inpulsedm("http://www.cambiocolonia.com.uy/portal/hgxpp001.aspx", "Cambio Colonia");
-    }
+//    @Bean
+//    public Inpulsedm CColon() {
+//        return new Inpulsedm("http://www.cambiocolonia.com.uy/portal/hgxpp001.aspx", "Cambio Colonia");
+//    }
 
-    @Bean
-    public SimpleJSoupSampler ASPN() {
-        return new SimpleJSoupSampler("http://www.aspen.com.uy/sitio/", "Cambio Aspen", "table tbody tr.bd:eq(0) td.valor:eq(0)",
-                "table tbody tr.bd:eq(0) td.valor:eq(1)", "table tbody tr.bd:eq(1) td.valor:eq(0)",
-                "table tbody tr.bd:eq(1) td.valor:eq(1)");
-    }
+//    @Bean
+//    public SimpleJSoupSampler ASPN() {
+//        return new SimpleJSoupSampler("http://www.aspen.com.uy/sitio/", "Cambio Aspen", "table tbody tr.bd:eq(0) td.valor:eq(0)",
+//                "table tbody tr.bd:eq(0) td.valor:eq(1)", "table tbody tr.bd:eq(1) td.valor:eq(0)",
+//                "table tbody tr.bd:eq(1) td.valor:eq(1)");
+//    }
 
     @Bean
     public SimpleJSoupSampler CotD() {
@@ -436,10 +436,10 @@ public class SamplerConfig {
         return new Inpulsedm("http://www.cambiovelso.com/portal/hgxpp001.aspx", "Cambio Velso");
     }
 
-    @Bean
-    public Inpulsedm Vexel() {
-        return new  Inpulsedm("http://www.cambiovexel.com/portal/hgxpp001.aspx","Cambio Vexel");
-    }
+//    @Bean
+//    public Inpulsedm Vexel() {
+//        return new  Inpulsedm("http://www.cambiovexel.com/portal/hgxpp001.aspx","Cambio Vexel");
+//    }
 
     
     @Bean
@@ -454,11 +454,11 @@ public class SamplerConfig {
                 "table.cuadrosLeft tr:eq(3) td:eq(3)", "http://www.altercambio.com.uy/reclamos/altercambio/Content/Quote.aspx");
     }
 
-    @Bean
-    public SimpleJSoupSampler AVE() {
-        return new SimpleJSoupSampler("http://www.avenida.com.uy", "Avenida S.F.", "div#bannerder table tr:eq(1) td:eq(1) div",
-                "div#bannerder table tr:eq(1) td:eq(2) div", "div#bannerder table tr:eq(4) td:eq(1) div",
-                "div#bannerder table tr:eq(4) td:eq(2) div", "http://www.avenida.com.uy/avenida-cotizaciones-diarias.php");
-    }
+//    @Bean
+//    public SimpleJSoupSampler AVE() {
+//        return new SimpleJSoupSampler("http://www.avenida.com.uy", "Avenida S.F.", "div#bannerder table tr:eq(1) td:eq(1) div",
+//                "div#bannerder table tr:eq(1) td:eq(2) div", "div#bannerder table tr:eq(4) td:eq(1) div",
+//                "div#bannerder table tr:eq(4) td:eq(2) div", "http://www.avenida.com.uy/avenida-cotizaciones-diarias.php");
+//    }
 
 }
