@@ -133,8 +133,8 @@ public class SamplerConfig {
     @Bean
     public SimpleJSoupSampler BNA() {
         return new SimpleJSoupSampler("http://www.bna.com.uy/", "Banco de la Naci&oacute;n Argentina",
-                "div#billetes table tr:eq(2) td:eq(1)", "div#billetes table tr:eq(2) td:eq(2)",
-                "div#billetes table tr:eq(0) td:eq(1)", "div#billetes table tr:eq(0) td:eq(2)");
+                "td.tit:contains(Dólar) + td", "td.tit:contains(Dólar) + td + td",
+                "td.tit:contains(Euro) + td", "td.tit:contains(Euro) + td + td");
     }
 
     @Bean
