@@ -34,9 +34,14 @@ public class SamplerServiceImpl implements SamplerService {
 
     @Override
     public List<Sample> getSnapshot(Currencies currency) {
-        return samplerDAO.getSnapshot(currency);
+        List<Sample> samplers =  samplerDAO.getSnapshot(currency);
+        List<Sample> samplersNotNull = new ArrayList<Sample>();  
+        for(Sample sample: samplers)
+            if (sample != null)
+            samplersNotNull.add(sample);
+        return samplersNotNull;
     }
-    
+
     @Override
     public List<CurrencySnapshot> getCurrencySnapshot() {
         return samplerDAO.getCurrencySnapshot();
@@ -99,10 +104,10 @@ public class SamplerServiceImpl implements SamplerService {
             for (Sample sample2 : snapshots) {
                 // if at least one sampler is equal to a sampler on the other
                 // list, result = true
-                result = result || ObjectUtils.nullSafeEquals(sample1,sample2);
+                result = result || ObjectUtils.nullSafeEquals(sample1, sample2);
             }
             // if all samplers are different, then there is change.
-            if (!result){
+            if (!result) {
                 changes.add(sample1);
             }
         }

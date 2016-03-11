@@ -69,11 +69,10 @@
 				<ul class="dropdown-menu">
 					<li><ul id="view-list" class="nav nav-pills">
 							<li id="home" class="nav-pills"><a data-screen="screen1"
-								class="screen_link" href="#"><span
-					id="msg-screen1"></span></a></li>
-							<li id="full-list" class="nav-pills"><a data-screen="screen2"
-								class="screen_link" href="#"><span
-					id="msg-screen2"></span></a></li>
+								class="screen_link" href="#"><span id="msg-screen1"></span></a></li>
+							<li id="full-list" class="nav-pills"><a
+								data-screen="screen2" class="screen_link" href="#"><span
+									id="msg-screen2"></span></a></li>
 						</ul></li>
 				</ul></li>
 			<li class="dropdown"><a class="dropdown-toggle"
@@ -287,6 +286,31 @@
 					</div>
 				</div>
 
+			</div>
+		</div>
+	</div>
+	<div id="screen2">
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<table id="currency-snapshots-table"
+						class="tablesorter table table-striped table-bordered table-hover table-responsive">
+						<thead>
+							<tr>
+								<th class="sorting_asc" tabindex="0"
+									aria-controls="dataTables-example" rowspan="1" colspan="1"
+									aria-sort="ascending"
+									aria-label="Rendering engine: activate to sort column descending">Name</th>
+								<th class="sorting">USD Buy</th>
+								<th class="sorting">USD Sell</th>
+								<th class="sorting">EUR Buy</th>
+								<th class="sorting">EUR Sell</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody id="currency-snapshot-container">
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
